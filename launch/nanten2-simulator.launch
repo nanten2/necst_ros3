@@ -1,0 +1,11 @@
+<launch>
+
+  <node pkg = "necst_ros3"
+  	name = "dome_control"
+	type = "dome_control.py" />
+
+  <node pkg = "necst_ros3"
+  	name = "dome_emergency"
+	type = "dome_emergency.py" />
+
+</launch>
