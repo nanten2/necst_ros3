@@ -32,7 +32,7 @@ if __name__=='__main__':
     topic_from = rospy.Subscriber(
         name = 'dome_control_sim',
         data_class = std_msgs.msg.String,
-        callback = dome_emergency_mapper,
+        callback = dome_control_mapper,
         queue_size = 1,
     )
 
