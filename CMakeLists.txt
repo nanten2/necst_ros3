@@ -10,6 +10,7 @@ project(necst_ros3)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
+  topic_utils
 )
 
 ## System dependencies are found with CMake's conventions
