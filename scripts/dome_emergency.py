@@ -22,7 +22,7 @@ if __name__=='__main__':
     )
     
     topic_from = rospy.Subscriber(
-        name = 'cpz2724_rcw2_dio1', # dio ch need to be checked
+        name = 'cpz2724_rsw2_dio1', # dio ch need to be checked
         data_class = std_msgs.msg.Bool,
         callback = dome_emergency_mapper,
         queue_size = 1,
