@@ -3,6 +3,7 @@
 name = 'dome_door'
 
 # ----
+import time
 import rospy
 import std_msgs.msg
 
@@ -11,7 +12,8 @@ def dome_door_mapper(status):
     return
 
 class dome_door_mapper(object):
-    bit_status = [0,0,0,0,0,0]
+    position_left = ''
+    position_right = ''
     
     def __init__(self):
         self.topic_to = rospy.Publisher(
@@ -20,36 +22,75 @@ class dome_door_mapper(object):
             latch = True,
             queue_size = 1,
         )
-
-        self.topic_from = []
-        for i, dioch in enumerate([2,3,4,5,6,7]):
-            topic_from_ = rospy.Subscriber(
-                name = 'cpz2724_rsw2_dio%d'%(dioch),
-                data_class = std_msgs.msg.Bool,
-                callback = dome_emergency_mapper,
-                queue_size = 1,
-            )
-                
-            
         
+        self.topic_from = []
+        
+        topic_from1 = rospy.Subscriber(
+            name = 'dome_door_left_position',
+            data_class = std_msgs.msg.String,
+            callback = self.update_position_left,
+            queue_size = 1,
+        )
+        self.topic_from.append(topic_from1)
+        
+        topic_from2 = rospy.Subscriber(
+            name = 'dome_door_right_position',
+            data_class = std_msgs.msg.String,
+            callback = self.update_position_right,
+            queue_size = 1,
+        )
+        self.topic_from.append(topic_from2)
+
+        pass
+    
+    def update_position_left(self, msg):
+        self.position_left = msg.data
+        return
+
+    def update_position_right(self, msg):
+        self.position_right = msg.data
+        return
+
+    def publish_status(self):
+        position_left_last = self.position_left
+        position_right_last = self.position_right
+        
+        while not rospy.is_shutdown():
+            
+            if (self.position_left != position_left_last) \
+               or (self.position_right != position_right_last):
+                
+                if self.position_left == self.position_right == 'OPEN':
+                    status = 'OPEN'
+                    
+                elif self.position_left == self.position_right == 'CLOSE':
+                    status = 'CLOSE'
+
+                elif 'MOVING' in [self.position_left, self.position_right]:
+                    status = 'MOVING'
+
+                else:
+                    status = 'ERROR'
+                    pass
+
+                self.topic_to.publish(status)
+                position_left_last = self.position_left
+                position_right_last = self.position_right
+                pass
+            
+            time.sleep(0.05)
+            continue
+
+        return
     
 
 
 if __name__=='__main__':
     rospy.init_node(name)
-
-    topic_to = rospy.Publisher(
-        name = name,
-        data_class = std_msgs.msg.Bool,
-        latch = True,
-        queue_size = 1,
+    mapper = dome_door_mapper()
+    pub_thread = threading.Thread(
+        target = mapper.publish_status,
+        daemon = True,
     )
-    
-    topic_from = rospy.Subscriber(
-        name = 'cpz2724_rsw2_dio1', # dio ch need to be checked
-        data_class = std_msgs.msg.Bool,
-        callback = dome_emergency_mapper,
-        queue_size = 1,
-    )
-
+    pub_thread.start()
     rospy.spin()
