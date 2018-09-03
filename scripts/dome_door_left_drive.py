@@ -26,7 +26,7 @@ if __name__=='__main__':
     )
     
     topic_from = rospy.Subscriber(
-        name = 'cpz2724_rsw2_dio5',
+        name = 'cpz2724_rsw2_di5',
         data_class = std_msgs.msg.Bool,
         callback = dome_door_left_drive_mapper,
         queue_size = 1,

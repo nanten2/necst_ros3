@@ -23,7 +23,7 @@ class dome_door_right_position_mapper(object):
         self.topic_from = []
         for i, dioch in enumerate([3,4]):
             topic_from_ = rospy.Subscriber(
-                name = 'cpz2724_rsw2_dio%d'%(dioch),
+                name = 'cpz2724_rsw2_di%d'%(dioch),
                 data_class = std_msgs.msg.Bool,
                 callback = self.update_bit_status,
                 callback_args = {'bit': i},

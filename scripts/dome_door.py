@@ -7,9 +7,6 @@ import time
 import rospy
 import std_msgs.msg
 
-def dome_door_mapper(status):
-    topic_to.publish(status)
-    return
 
 class dome_door_mapper(object):
     position_left = ''
