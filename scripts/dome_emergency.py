@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-name = 'dome.emergency'
+name = 'dome_emergency'
 
 # ----
 import rospy
@@ -22,7 +22,7 @@ if __name__=='__main__':
     )
     
     topic_from = rospy.Subscriber(
-        name = 'cpz2724-1.dio1',
+        name = 'cpz2724_rcw1_dio1',
         data_class = std_msgs.msg.Bool,
         callback = dome_emergency_mapper,
         queue_size = 1,
