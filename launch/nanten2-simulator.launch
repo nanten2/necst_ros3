@@ -2,10 +2,10 @@
 
   <node pkg = "necst_ros3"
   	name = "dome_control"
-	type = "dome_control.py" />
+	type = "dome_control_sim.py" />
 
   <node pkg = "necst_ros3"
   	name = "dome_emergency"
-	type = "dome_emergency.py" />
+	type = "dome_emergency_sim.py" />
 
 </launch>
