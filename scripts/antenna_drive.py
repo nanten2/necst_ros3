@@ -37,7 +37,7 @@ if __name__ == "__main__":
         )
 
     topic_to_mapper = rospy.Publisher(
-            name = "cpz2724_rsw1_dio?",
+            name = "cpz2724_rsw1_dio",
             data_class = String,
             queue_size = 1,
             latch = True

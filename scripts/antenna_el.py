@@ -1,4 +1,4 @@
-#!/usr/bin/env python3i
+#!/usr/bin/env python3
 
 name = "antenna_el"
 
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     topic_from = rospy.Subscriber(
             name = name + "_cmd",
             data_class = Float64,
-            callback = anntena_el_cmd,
+            callback = antenna_el_cmd,
             queue_size = 1,
         )
 
