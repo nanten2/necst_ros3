@@ -7,7 +7,7 @@ import rospy
 from std_msgs.msg import Bool
 
 def antenna_emergency_mapper(status):
-    topic_to.publish(status)
+    topic_to.publish(status.data)
     return
 
 

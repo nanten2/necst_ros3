@@ -4,14 +4,25 @@ name = "antenna_drive"
 
 import rospy
 from std_msgs.msg import String
+from std_msgs.msg import Bool
 
+
+lock = False
 
 def antenna_drive_mapper(status):
-    print(status)
+    print(status.data)
     return
 
-def drive_cmd(command):
-    topic_to_mapper.publish(command)
+def antenna_drive_cmd(command):
+    if lock == True:
+        return
+    else:
+        topic_to_mapper.publish(command.data)
+    return
+
+def antenna_drive_lock(status):
+    global lock
+    lock = status.data
     return
 
 
@@ -21,7 +32,7 @@ if __name__ == "__main__":
     topic_from = rospy.Subscriber(
             name = name + "_cmd",
             data_class = String,
-            callback = drive_cmd,
+            callback = antenna_drive_cmd,
             queue_size = 1,
         )
 
@@ -37,6 +48,13 @@ if __name__ == "__main__":
             data_class = String,
             callback = antenna_drive_mapper,
             queue_size = 1
+        )
+
+    topic_lock = rospy.Subscriber(
+            name = name + "_lock",
+            data_class = Bool,
+            callback = antenna_drive_lock,
+            queue_size = 1,
         )
 
     rospy.spin()
