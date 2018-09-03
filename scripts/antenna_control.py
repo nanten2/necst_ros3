@@ -27,7 +27,7 @@ if __name__=="__main__":
     )
     
     topic_from = rospy.Subscriber(
-        name = 'cpz2724_rcw0_dio?',
+        name = 'cpz2724_rcw0_dio',
         data_class = Bool,
         callback = antenna_control_mapper,
         queue_size = 1,
