@@ -1,13 +1,21 @@
 #! /usr/bin/env python3
 
-name = 'dome_emergency'
+name = 'dome_control'
 
 # ----
 import rospy
 import std_msgs.msg
 
-def dome_emergency_mapper(status):
-    topic_to.publish(status)
+def dome_control_mapper(status):
+    if status[0].lower() == 'l':
+        topic_to.publish('LOCAL')
+        
+    elif status[0].lower() == 'r':
+        topic_to.publish('REMOTE')
+        
+    else:
+        pass
+    
     return
 
 
@@ -16,14 +24,14 @@ if __name__=='__main__':
 
     topic_to = rospy.Publisher(
         name = name,
-        data_class = std_msgs.msg.Bool,
+        data_class = std_msgs.msg.String,
         latch = True,
         queue_size = 1,
     )
     
     topic_from = rospy.Subscriber(
-        name = 'cpz2724_rcw2_dio1', # dio ch need to be checked
-        data_class = std_msgs.msg.Bool,
+        name = 'dome_control_sim',
+        data_class = std_msgs.msg.String,
         callback = dome_emergency_mapper,
         queue_size = 1,
     )
