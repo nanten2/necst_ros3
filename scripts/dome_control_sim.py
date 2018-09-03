@@ -7,10 +7,10 @@ import rospy
 import std_msgs.msg
 
 def dome_control_mapper(status):
-    if status[0].lower() == 'l':
+    if status.data[0].lower() == 'l':
         topic_to.publish('LOCAL')
         
-    elif status[0].lower() == 'r':
+    elif status.data[0].lower() == 'r':
         topic_to.publish('REMOTE')
         
     else:
