@@ -8,4 +8,40 @@
   	name = "dome_emergency"
 	type = "dome_emergency_sim.py" />
 
+  <node pkg = "necst_ros3"
+  	name = "dome_door"
+	type = "dome_door.py" />
+
+  <node pkg = "necst_ros3"
+  	name = "dome_door_cmd"
+	type = "dome_door_cmd.py" />
+
+  <node pkg = "necst_ros3"
+  	name = "dome_door_watcher_finalize_move"
+	type = "dome_door_watcher_finalize_move.py" />
+
+  <node pkg = "necst_ros3"
+  	name = "dome_door_left_drive"
+	type = "dome_door_left_drive.py" />
+
+  <node pkg = "necst_ros3"
+  	name = "dome_door_left_position"
+	type = "dome_door_left_position.py" />
+
+  <node pkg = "necst_ros3"
+  	name = "dome_door_left_drive"
+	type = "dome_door_left_drive.py" />
+
+  <node pkg = "necst_ros3"
+  	name = "dome_door_left_position"
+	type = "dome_door_left_position.py" />
+
+  <node pkg = "necst_ros3"
+  	name = "dome_door_right_drive"
+	type = "dome_door_right_drive.py" />
+
+  <node pkg = "necst_ros3"
+  	name = "dome_door_right_position"
+	type = "dome_door_right_position.py" />
+
 </launch>
