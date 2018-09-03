@@ -29,3 +29,6 @@ def recv(topic_name, data_class):
     return recv_msg
 
 
+__all__ = [
+    'recv',
+]
