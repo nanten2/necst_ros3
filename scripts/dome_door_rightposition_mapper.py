@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-name = 'dome_door_right_position'
+name = 'dome_door_rightposition'
 
 # ----
 import time
