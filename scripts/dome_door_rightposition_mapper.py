@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-name = 'dome_door_rightposition'
+name = 'dome_door_rightposition_mapper'
 
 # ----
 import time
@@ -14,7 +14,7 @@ class dome_door_rightposition_mapper(object):
     
     def __init__(self):
         self.topic_to = rospy.Publisher(
-            name = name,
+            name = 'dome_door_rightposition',
             data_class = std_msgs.msg.String,
             latch = True,
             queue_size = 1,
