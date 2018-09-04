@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-name = 'dome_door_right_drive'
+name = 'dome_door_rightdrive'
 
 # ----
 import rospy

@@ -22,14 +22,14 @@ class domne_door_cmd_sim(object):
         )
 
         self.pub_left = rospy.Publisher(
-            name = 'dome_door_left_position',
+            name = 'dome_door_leftposition',
             data_class = std_msgs.msg.String,
             latch = True,
             queue_size = 1,
         )
         
         self.pub_right = rospy.Publisher(
-            name = 'dome_door_right_position',
+            name = 'dome_door_rightposition',
             data_class = std_msgs.msg.String,
             latch = True,
             queue_size = 1,

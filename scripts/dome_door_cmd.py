@@ -9,9 +9,9 @@ import std_msgs.msg
 import topic_utils
 
 def dome_door_cmd_handler(msg):
-    left_door = topic_utils.recv('dome_door_left_position',
+    left_door = topic_utils.recv('dome_door_leftposition',
                                  std_msgs.msg.String).data
-    right_door = topic_utils.recv('dome_door_right_position',
+    right_door = topic_utils.recv('dome_door_rightposition',
                                   std_msgs.msg.String).data
     lock = topic_utils.recv('dome_door_lock', std_msgs.msg.Bool).data
 
