@@ -39,6 +39,11 @@ class TestDomeControl(unittest.TestCase):
         self.received = True
         return
 
+    def send(self, value):
+        self.received = False
+        self.pub.publish(value)
+        return
+        
     def recv(self):
         start = time.time()
         while (self.received == False and
@@ -48,13 +53,13 @@ class TestDomeControl(unittest.TestCase):
         return self.recv_msg
     
     def test_control_local(self):
-        self.pub.publish(True)
+        self.send(True)
         ret = self.recv()
         self.assertEqual(ret.data, 'LOCAL')
         return
 
     def test_control_remote(self):
-        self.pub.publish(False)
+        self.send(False)
         ret = self.recv()
         self.assertEqual(ret.data, 'REMOTE')
         return
