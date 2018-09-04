@@ -51,6 +51,12 @@ class TestDomeEmergency(unittest.TestCase):
         self.assertEqual(ret.data, True)
         return
 
+    def test_emergency_off(self):
+        self.pub.publish(False)
+        ret = self.recv()
+        self.assertEqual(ret.data, False)
+        return
+
 
 
 if __name__=='__main__':
