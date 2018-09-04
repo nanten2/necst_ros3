@@ -2,7 +2,6 @@
 
 name = "antenna_control"
 
-# ----
 import rospy
 import std_msgs.msg
 
