@@ -46,8 +46,11 @@ class TestDomeEmergency(unittest.TestCase):
         
     def recv(self):
         start = time.time()
-        while (self.received == False and
-               time.time() - start < self.timeout):
+        while True;:
+            if self.received == True:
+                break
+            if time.time() - start > self.timeout:
+                raise Exception('timeout')
             time.sleep(0.001)
             continue
         return self.recv_msg
