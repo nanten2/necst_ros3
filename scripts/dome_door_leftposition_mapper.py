@@ -9,7 +9,7 @@ import rospy
 import std_msgs.msg
 
 
-class dome_door_left_position_mapper(object):
+class dome_door_leftposition_mapper(object):
     bit_status = [0,0]
     
     def __init__(self):
@@ -66,7 +66,7 @@ class dome_door_left_position_mapper(object):
 
 if __name__=='__main__':
     rospy.init_node(name)
-    mapper = dome_door_left_position_mapper()
+    mapper = dome_door_leftposition_mapper()
     pub_thread = threading.Thread(
         target = mapper.publish_status,
         daemon = True,
