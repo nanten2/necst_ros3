@@ -21,31 +21,22 @@
 	type = "dome_door_cmd.py" />
 
   <node pkg = "necst_ros3"
+  	name = "dome_door_cmd_sim"
+	type = "dome_door_cmd_sim.py">
+    <param name="travel_time_left" value="30.0" />
+    <param name="travel_time_right" value="31.0" />
+  </node>
+
+  <node pkg = "necst_ros3"
   	name = "dome_door_watcher_finalize_move"
 	type = "dome_door_watcher_finalize_move.py" />
 
   <node pkg = "necst_ros3"
-  	name = "dome_door_left_drive"
-	type = "dome_door_left_drive.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_left_position"
-	type = "dome_door_left_position.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_left_drive"
-	type = "dome_door_left_drive.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_left_position"
-	type = "dome_door_left_position.py" />
+  	name = "dome_door_leftdrive"
+	type = "dome_door_leftdrive.py" />
 
   <node pkg = "necst_ros3"
   	name = "dome_door_right_drive"
 	type = "dome_door_right_drive.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_right_position"
-	type = "dome_door_right_position.py" />
 
 </launch>

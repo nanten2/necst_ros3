@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-name = 'dome_door_leftdrive'
+name = 'dome_door_leftdrive_mapper'
 
 # ----
 import rospy
@@ -19,7 +19,7 @@ if __name__=='__main__':
     rospy.init_node(name)
 
     topic_to = rospy.Publisher(
-        name = name,
+        name = 'dome_door_leftdrive',
         data_class = std_msgs.msg.String,
         latch = True,
         queue_size = 1,

@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-name = 'dome_door_cmd_mapper'
+name = 'dome_door_cmd_sim'
 
 # ----
 import threading
