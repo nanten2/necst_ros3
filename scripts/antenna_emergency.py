@@ -22,7 +22,7 @@ if __name__=='__main__':
     )
     
     topic_from = rospy.Subscriber(
-        name = 'cpz2724_rcw0_dio',
+        name = 'cpz2724_rcw0_di24',
         data_class = std_msgs.msg.Bool,
         callback = antenna_emergency_mapper,
         queue_size = 1,
