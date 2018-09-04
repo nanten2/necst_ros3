@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python2
 
 name = 'test_dome_control'
 
@@ -51,7 +51,7 @@ class TestDomeControl(unittest.TestCase):
         self.assertEqual(ret.data, 'LOCAL')
         return
 
-    def test_emergency_remote(self):
+    def test_control_remote(self):
         self.pub.publish(False)
         ret = self.recv()
         self.assertEqual(ret.data, 'REMOTE')
