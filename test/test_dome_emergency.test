@@ -2,7 +2,7 @@
 
   <node pkg = "necst_ros3"
   	name = "dome_emergency"
-	type = "dome_emergency_sim.py">
+	type = "dome_emergency.py">
     <param name="name_topic_from" value="dome_emergency_input_sim" />
   </node>
 
