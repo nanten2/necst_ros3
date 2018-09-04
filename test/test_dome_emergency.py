@@ -30,6 +30,8 @@ class TestDomeEmergency(unittest.TestCase):
             callback = self.callback,
             queue_size = 1,
         )
+
+        time.sleep(0.5)
         pass
 
     def callback(self, msg):
