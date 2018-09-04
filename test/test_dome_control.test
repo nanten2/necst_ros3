@@ -3,7 +3,7 @@
   <node pkg = "necst_ros3"
   	name = "dome_control"
 	type = "dome_control.py">
-    <param name="name_topic_from" value="dome_emergency_input_sim" />
+    <param name="name_topic_from" value="dome_control_input_sim" />
   </node>
 
   <test pkg = "necst_ros3"
