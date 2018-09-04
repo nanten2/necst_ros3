@@ -7,7 +7,7 @@
   <node pkg = "necst_ros3"
   	name = "dome_emergency"
 	type = "dome_emergency_sim.py">
-    <param name="name_topic_from" value="dome_emergency_input_sim" />
+    <param name="name_topic_from" value="cpz2724_rsw2_di1" />  # dio ch need to be checked
   </node>
 
   <node pkg = "necst_ros3"

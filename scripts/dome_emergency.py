@@ -13,7 +13,8 @@ def dome_emergency_mapper(status):
 
 if __name__=='__main__':
     rospy.init_node(name)
-
+    name_topic_from = rospy.get_param('~name_topic_from')
+    
     topic_to = rospy.Publisher(
         name = name,
         data_class = std_msgs.msg.Bool,
@@ -22,7 +23,7 @@ if __name__=='__main__':
     )
     
     topic_from = rospy.Subscriber(
-        name = 'cpz2724_rsw2_di1', # dio ch need to be checked
+        name = name_topic_from,
         data_class = std_msgs.msg.Bool,
         callback = dome_emergency_mapper,
         queue_size = 1,
