@@ -1,5 +1,8 @@
 <launch>
 
+
+<!-- Device : Dome -->
+
   <node pkg = "necst_ros3"
   	name = "dome_control"
 	type = "dome_control.py">
