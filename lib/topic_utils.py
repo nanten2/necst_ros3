@@ -27,7 +27,7 @@ class receiver(object):
     
     def recv(self):
         while True:
-            if self.reveived == True:
+            if self.received == True:
                 break
             time.sleep(0.001)
             continue
