@@ -2,12 +2,14 @@
 
   <node pkg = "necst_ros3"
   	name = "dome_control"
-	type = "dome_control_sim.py" />
+	type = "dome_control.py">
+    <param name="name_topic_from" value="cpz2724_rsw2_di11" />
+  </node>
 
   <node pkg = "necst_ros3"
   	name = "dome_emergency"
-	type = "dome_emergency_sim.py">
-    <param name="name_topic_from" value="cpz2724_rsw2_di1" />  # dio ch need to be checked
+	type = "dome_emergency.py">
+    <param name="name_topic_from" value="cpz2724_rsw2_di1" />  #!!! dio ch need to be checked
   </node>
 
   <node pkg = "necst_ros3"
