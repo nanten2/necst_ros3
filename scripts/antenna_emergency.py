@@ -4,7 +4,7 @@ name = 'antenna_emergency'
 
 # ----
 import rospy
-from std_msgs.msg import Bool
+import std_msgs.msg
 
 def antenna_emergency_mapper(status):
     topic_to.publish(status.data)
@@ -16,14 +16,14 @@ if __name__=='__main__':
 
     topic_to = rospy.Publisher(
         name = name,
-        data_class = Bool,
+        data_class = std_msgs.msg.Bool,
         latch = True,
         queue_size = 1,
     )
     
     topic_from = rospy.Subscriber(
         name = 'cpz2724_rcw0_dio',
-        data_class = Bool,
+        data_class = std_msgs.msg.Bool,
         callback = antenna_emergency_mapper,
         queue_size = 1,
     )

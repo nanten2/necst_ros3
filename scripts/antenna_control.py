@@ -4,8 +4,7 @@ name = "antenna_control"
 
 # ----
 import rospy
-from std_msgs.msg import Bool
-from std_msgs.msg import String
+import std_msgs.msg
 
 def antenna_control_mapper(status):
     if status.data == True:
@@ -21,14 +20,14 @@ if __name__=="__main__":
 
     topic_to = rospy.Publisher(
         name = name,
-        data_class = String,
+        data_class = std_msgs.msg.String,
         latch = True,
         queue_size = 1,
     )
     
     topic_from = rospy.Subscriber(
-        name = 'cpz2724_rcw0_dio',
-        data_class = Bool,
+        name = 'cpz2724_rcw0_di26',
+        data_class = std_msgs.msg.Bool,
         callback = antenna_control_mapper,
         queue_size = 1,
     )

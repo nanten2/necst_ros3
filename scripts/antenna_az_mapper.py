@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 
-name = "antenna_az"
+name = "antenna_az_mapper"
 
+import struct
 import rospy
 import std_msgs.msg
 
-
 lock = False
 
-def antenna_az_cmd(degree):
+def antenna_az_mapper(command):
     if lock == True:
+        topic_to.publish([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
         return
     else:
-        topic_to.publish(degree.data)
+        rate = int(command.data / ((12/7) * (3600/10000)))
+        cmd = list(map(int,  ''.join([format(b, '08b')[::-1] for b in struct.pack('<h', rate)])))
+        topic_to.publish(cmd)
     return
 
-def antenna_az_lock(status):
+def antenna_az_mapper_lock(status):
     global lock
     lock = status.data
     return
@@ -23,25 +26,24 @@ def antenna_az_lock(status):
 
 if __name__ == "__main__":
     rospy.init_node(name)
-
+    
     topic_to = rospy.Publisher(
-            name = name,
-            data_class = std_msgs.msg.Float64,
+            name = "cpz2724_rsw0_do1_16",
+            data_class = std_msgs.msg.ByteMultiArray,
             queue_size = 1,
-            latch = True
         )
 
     topic_from = rospy.Subscriber(
-            name = name + "_cmd",
+            name = "antenna_az_feedback",
             data_class = std_msgs.msg.Float64,
-            callback = antenna_az_cmd,
+            callback = antenna_az_mapper,
             queue_size = 1,
         )
 
     topic_lock = rospy.Subscriber(
             name = name + "_lock",
             data_class = std_msgs.msg.Bool,
-            callback = antenna_az_lock,
+            callback = antenna_az_mapper_lock,
             queue_size = 1,
         )
 
