@@ -46,7 +46,7 @@ class TestDomeControl(unittest.TestCase):
         
     def recv(self):
         start = time.time()
-        while True;:
+        while True:
             if self.received == True:
                 break
             if time.time() - start > self.timeout:
