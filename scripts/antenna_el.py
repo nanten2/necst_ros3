@@ -3,8 +3,7 @@
 name = "antenna_el"
 
 import rospy
-from std_msgs.msg import Float64
-from std_msgs.msg import Bool
+import std_msgs.msg
 
 
 lock = False
@@ -13,7 +12,7 @@ def antenna_el_cmd(degree):
     if lock == True:
         return
     else:
-        topic_to_feedback.publish(degree.data)
+        topic_to.publish(degree.data)
     return
 
 def antenna_el_lock(status):
@@ -25,23 +24,23 @@ def antenna_el_lock(status):
 if __name__ == "__main__":
     rospy.init_node(name)
 
-    topic_from = rospy.Subscriber(
-            name = name + "_cmd",
-            data_class = Float64,
-            callback = antenna_el_cmd,
-            queue_size = 1,
-        )
-
-    topic_to_feedback = rospy.Publisher(
-            name = "el_feedback",
-            data_class = Float64,
+    topic_to = rospy.Publisher(
+            name = name,
+            data_class = std_msgs.msg.Float64,
             queue_size = 1,
             latch = True
         )
 
+    topic_from = rospy.Subscriber(
+            name = name + "_cmd",
+            data_class = std_msgs.msg.Float64,
+            callback = antenna_el_cmd,
+            queue_size = 1,
+        )
+
     topic_lock = rospy.Subscriber(
             name = name + "_lock",
-            data_class = Bool,
+            data_class = std_msgs.msg.Bool,
             callback = antenna_el_lock,
             queue_size = 1,
         )
