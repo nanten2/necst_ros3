@@ -24,7 +24,7 @@ class dome_door_mapper(object):
         self.topic_from = []
         
         topic_from1 = rospy.Subscriber(
-            name = 'dome_door_left_position',
+            name = 'dome_door_leftposition',
             data_class = std_msgs.msg.String,
             callback = self.update_position_left,
             queue_size = 1,
@@ -32,7 +32,7 @@ class dome_door_mapper(object):
         self.topic_from.append(topic_from1)
         
         topic_from2 = rospy.Subscriber(
-            name = 'dome_door_right_position',
+            name = 'dome_door_rightposition',
             data_class = std_msgs.msg.String,
             callback = self.update_position_right,
             queue_size = 1,
