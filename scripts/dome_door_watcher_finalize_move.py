@@ -14,15 +14,9 @@ class dome_door_watcher_finalize_move(object):
     right_door = ''
     
     def __init__(self):
-        self.topic_to1 = rospy.Publisher(
-            name = 'cpz2724_rsw2_do5',
-            data_class = std_msgs.msg.Bool,
-            queue_size = 1,
-        )
-        
-        self.topic_to2 = rospy.Publisher(
-            name = 'cpz2724_rsw2_do6',
-            data_class = std_msgs.msg.Bool,
+        self.topic_to = rospy.Publisher(
+            name = 'dome_door_cmd2',
+            data_class = std_msgs.msg.String,
             queue_size = 1,
         )
         
@@ -52,9 +46,8 @@ class dome_door_watcher_finalize_move(object):
         return
 
     def check_status(self):
-        if self.left_door == self.right_door:
-            topic_to1.publish(False)
-            topic_to2.publish(False)
+        if self.left_door == self.right_door != 'MOVING':
+            self.topic_to('STAY')
             pass
         return
         

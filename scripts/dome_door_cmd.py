@@ -8,7 +8,7 @@ import std_msgs.msg
 
 import topic_utils
 
-def dome_door_cmd_mapper(status):
+def dome_door_cmd_handler(msg):
     left_door = topic_utils.recv('dome_door_left_position',
                                  std_msgs.msg.String).data
     right_door = topic_utils.recv('dome_door_right_position',
@@ -16,26 +16,28 @@ def dome_door_cmd_mapper(status):
     lock = topic_utils.recv('dome_door_lock', std_msgs.msg.Bool).data
 
     if lock == False:
-        if status[0].lower() == 'o':
+        if msg[0].lower() == 'o':
             # OPEN
             if (left_door == 'OPEN') and (right_door == 'OPEN'):
-                pass
+                cmd2 = 'STAY'
             else:
-                topic_to1.publish(True)
-                topic_to2.publish(True)
+                cmd2 = 'OPEN'
                 pass
-            pass
         
-        elif status.data[0].lower() == 'c':
+        elif msg.data[0].lower() == 'c':
             # CLOSE
             if (left_door == 'CLOSE') and (right_door == 'CLOSE'):
-                pass
+                cmd2 = 'STAY'
             else:
-                topic_to1.publish(False)
-                topic_to2.publish(True)
+                cmd2 = 'CLOSE'
                 pass
+            
+        elif msg.data[0].lower() == 's':
+            # STOP
+            cmd2 = 'STAY'
             pass
 
+        topic_to.publish(cmd2)
         pass
     return
 
@@ -43,22 +45,16 @@ def dome_door_cmd_mapper(status):
 if __name__=='__main__':
     rospy.init_node(name)
 
-    topic_to1 = rospy.Publisher(
-        name = 'cpz2724_rsw2_do5',
-        data_class = std_msgs.msg.Bool,
+    topic_to = rospy.Publisher(
+        name = 'dome_door_cmd2',
+        data_class = std_msgs.msg.String,
         queue_size = 1,
     )
 
-    topic_to2 = rospy.Publisher(
-        name = 'cpz2724_rsw2_do6',
-        data_class = std_msgs.msg.Bool,
-        queue_size = 1,
-    )
-    
     topic_from = rospy.Subscriber(
         name = name,
         data_class = std_msgs.msg.String,
-        callback = dome_door_cmd_mapper,
+        callback = dome_door_cmd_handler,
         queue_size = 1,
     )
 
