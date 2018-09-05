@@ -20,7 +20,7 @@ class receiver(object):
         self.subscriber.unregister()
         pass
     
-    def callback(msg):
+    def callback(self, msg):
         self.recv_msg = msg
         self.received = True
         return

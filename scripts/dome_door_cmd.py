@@ -16,7 +16,7 @@ def dome_door_cmd_handler(msg):
     lock = topic_utils.recv('dome_door_lock', std_msgs.msg.Bool).data
 
     if lock == False:
-        if msg[0].lower() == 'o':
+        if msg.data[0].lower() == 'o':
             # OPEN
             if (left_door == 'OPEN') and (right_door == 'OPEN'):
                 cmd2 = 'STAY'
