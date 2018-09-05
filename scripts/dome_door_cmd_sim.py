@@ -3,6 +3,7 @@
 name = 'dome_door_cmd_sim'
 
 # ----
+import time
 import threading
 import rospy
 import std_msgs.msg
@@ -10,7 +11,7 @@ import std_msgs.msg
 import topic_utils
 
 
-class domne_door_cmd_sim(object):
+class dome_door_cmd_sim(object):
     def __init__(self, travel_time_left, travel_time_right):
         self.sim = dome_door_simulator(travel_time_left, travel_time_right)
         
