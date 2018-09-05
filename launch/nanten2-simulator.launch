@@ -34,12 +34,4 @@
   	name = "dome_door_watcher_finalize_move"
 	type = "dome_door_watcher_finalize_move.py" />
 
-  <node pkg = "necst_ros3"
-  	name = "dome_door_leftdrive"
-	type = "dome_door_leftdrive.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_right_drive"
-	type = "dome_door_right_drive.py" />
-
 </launch>
