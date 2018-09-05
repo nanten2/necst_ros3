@@ -21,8 +21,8 @@ class receiver(object):
         pass
     
     def callback(msg):
-        recv_msg = msg
-        received = True
+        self.recv_msg = msg
+        self.received = True
         return
     
     def recv(self):
