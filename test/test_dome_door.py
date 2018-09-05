@@ -68,7 +68,7 @@ class TestDomeDoor(unittest.TestCase):
         self.assertEqual(ret.data, 'OPEN')
         return
 
-    def test_close_close(self):
+    def test_close(self):
         self.send('CLOSE', 'CLOSE')
         ret = self.recv()
         self.assertEqual(ret.data, 'CLOSE')
@@ -103,19 +103,6 @@ class TestDomeDoor(unittest.TestCase):
         ret = self.recv()
         self.assertEqual(ret.data, 'ERROR')
         return
-
-    def test_close_close(self):
-        self.send('CLOSE', 'CLOSE')
-        ret = self.recv()
-        self.assertEqual(ret.data, 'CLOSE')
-        return
-
-    def test_control_remote(self):
-        self.send(False)
-        ret = self.recv()
-        self.assertEqual(ret.data, 'REMOTE')
-        return
-
 
 
 if __name__=='__main__':
