@@ -21,7 +21,7 @@ class dome_door_cmd_sim(object):
             callback = self.update_cmd,
             queue_size = 1,
         )
-
+        
         self.pub_left = rospy.Publisher(
             name = 'dome_door_leftposition',
             data_class = std_msgs.msg.String,
@@ -34,7 +34,21 @@ class dome_door_cmd_sim(object):
             data_class = std_msgs.msg.String,
             latch = True,
             queue_size = 1,
-        )        
+        )
+
+        self.pub_left_act = rospy.Publisher(
+            name = 'dome_door_leftaction',
+            data_class = std_msgs.msg.String,
+            latch = True,
+            queue_size = 1,
+        )
+        
+        self.pub_right_act = rospy.Publisher(
+            name = 'dome_door_rightaction',
+            data_class = std_msgs.msg.String,
+            latch = True,
+            queue_size = 1,
+        )
         pass
     
     def update_cmd(self, msg):
@@ -42,20 +56,36 @@ class dome_door_cmd_sim(object):
         return
     
     def publish_status(self):
-        pos_left_last = self.sim.pos_left
-        pos_right_last = self.sim.pos_right
+        pos_left_last = ''
+        pos_right_last = ''
+        act_left_last = ''
+        act_right_last = ''
         
         while not rospy.is_shutdown():
-            if self.sim.pos_left != pos_left_last:
-                self.pub_left.publish(self.sim.pos_left)
-                pos_left_last = self.sim.pos_left
+            pos_left = self.sim.current_left
+            if pos_left != pos_left_last:
+                self.pub_left.publish(pos_left)
+                pos_left_last = pos_left
                 pass
-                
-            if self.sim.pos_right != pos_right_last:
-                self.pub_right.publish(self.sim.pos_right)
-                pos_right_last = self.sim.pos_right
+            
+            pos_right = self.sim.current_right
+            if pos_right != pos_right_last:
+                self.pub_right.publish(pos_right)
+                pos_right_last = pos_right
                 pass
 
+            act_left = self.sim.current_left_action
+            if act_left != act_left_last:
+                self.pub_left.publish(act_left)
+                act_left_last = act_left
+                pass
+            
+            act_right = self.sim.current_right_action
+            if act_right != act_right_last:
+                self.pub_right.publish(act_right)
+                act_right_last = act_right
+                pass
+            
             time.sleep(0.05)
             continue
         
@@ -74,6 +104,8 @@ class dome_door_simulator(object):
     cmd = 'CLOSE'
     current_left = 'CLOSE'
     current_right = 'CLOSE'
+    current_left_action = 'STOP'
+    current_right_action = 'STOP'
     
     rate = 0.05
     
@@ -105,21 +137,27 @@ class dome_door_simulator(object):
             if self.pos_left >= 1:
                 self.pos_left = 1
                 self.current_left = 'OPEN'
+                self.current_left_action = 'STOP'
             elif self.pos_left <= 0:
                 self.pos_left = 0
                 self.current_left = 'CLOSE'
+                self.current_left_action = 'STOP'
             else:
-                self.current_left = 'MOVING'
+                self.current_left = 'TRANSIT'
+                self.current_left_action = 'MOVE'
                 pass
                 
             if self.pos_right >= 1:
                 self.pos_right = 1
                 self.current_right = 'OPEN'
+                self.current_right_action = 'STOP'
             elif self.pos_right <= 0:
                 self.pos_right = 0
                 self.current_right = 'CLOSE'
+                self.current_right_action = 'STOP'
             else:
-                self.current_right = 'MOVING'
+                self.current_right = 'TRANSIT'
+                self.current_right_action = 'MOVE'
                 pass
 
             time.sleep(self.rate)
