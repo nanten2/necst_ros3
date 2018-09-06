@@ -74,23 +74,23 @@ class TestDomeDoor(unittest.TestCase):
         self.assertEqual(ret.data, 'CLOSE')
         return
 
-    def test_moving(self):
+    def test_transit(self):
         # Combination 1
-        self.send('MOVING', 'OPEN')
+        self.send('TRANSIT', 'OPEN')
         ret = self.recv()
-        self.assertEqual(ret.data, 'MOVING')
+        self.assertEqual(ret.data, 'TRANSIT')
         # Combination 2
-        self.send('MOVING', 'CLOSE')
+        self.send('TRANSIT', 'CLOSE')
         ret = self.recv()
-        self.assertEqual(ret.data, 'MOVING')
+        self.assertEqual(ret.data, 'TRANSIT')
         # Combination 3
-        self.send('OPEN', 'MOVING')
+        self.send('OPEN', 'TRANSIT')
         ret = self.recv()
-        self.assertEqual(ret.data, 'MOVING')
+        self.assertEqual(ret.data, 'TRANSIT')
         # Combination 4
-        self.send('CLOSE', 'MOVING')
+        self.send('CLOSE', 'TRANSIT')
         ret = self.recv()
-        self.assertEqual(ret.data, 'MOVING')
+        self.assertEqual(ret.data, 'TRANSIT')
         return
 
     def test_error(self):
