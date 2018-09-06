@@ -5,6 +5,7 @@ name = "antenna_el_feedback"
 import rospy
 import std_msgs.msg
 import calc_pid
+import topic_utils
 
 
 class antenna_el_feedback(object):
@@ -21,8 +22,6 @@ class antenna_el_feedback(object):
     i_coeff = 3.0
     d_coeff = 0.0
     
-    lock = False
-    
     def __init__(self):
         self.topic_to = rospy.Publisher(
                 name = name,
@@ -31,7 +30,7 @@ class antenna_el_feedback(object):
             )
 
         topic_from1 = rospy.Subscriber(
-                name = "antenna_el",
+                name = "antenna_el_cmd2",
                 data_class = std_msgs.msg.Float64,
                 callback = self.antenna_el_feedback,
                 queue_size = 1,
@@ -51,12 +50,6 @@ class antenna_el_feedback(object):
                 queue_size = 1,
             )
 
-        topic_lock = rospy.Subscriber(
-                name = name + "_lock",
-                data_class = std_msgs.msg.Bool,
-                callback = self.antenna_el_feedback_lock,
-                queue_size = 1,
-            )
         pass
 
     def antenna_el_feedback(self, command):
@@ -102,6 +95,8 @@ class antenna_el_feedback(object):
             self.speed_d = -MOTOR_EL_MAXRATE*rate_to_arcsec
         
         command_speed = self.speed_d
+
+        lock = topic_utils.recv(name +"_lock", std_msgs.msg.Bool).data
         if self.lock == True:
             self.speed_d = 0.0
             self.topic_to_publish(0.0)

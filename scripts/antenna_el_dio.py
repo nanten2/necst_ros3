@@ -7,27 +7,46 @@ import rospy
 import std_msgs.msg
 
 
-board_name = 2724
-rsw_id = 0
+class antenna_el_dio(object):
 
+    bit_status = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    count = 0
 
-def antenna_el_do(command):
-    if len(command.data) == 16:
-        do.output_word("OUT17_32", command.data)
-    else:
-        print("Command Error")
-    return
+    board_name = 2724
+    rsw_id = 0
+
+    def __init__(self):
+        self.do = pyinterface.open(self.board_name, self.rsw_id)
+        
+        self.topic_from = []
+        for i in range(17,33):
+            topic_from_ = rospy.Subscriber(
+                    name = 'cpz2724_rsw0_do%d'%(i),
+                    data_class = std_msgs.msg.Byte,
+                    callback = self.update_bit_status,
+                    callback_args = {'index': i-17 },
+                    queue_size = 1,
+                )
+            self.topic_from.append(topic_from_)
+            continue
+        pass
+    
+    def update_bit_status(self, command, args):
+        index = args["index"]
+        self.bit_status[index] = command.data
+
+        self.count += 1
+        if self.count == 16:
+            self.antenna_el_do()
+
+        return
+
+    def antenna_el_do(self):
+        self.do.output_point(self.bit_status, 17)
+        return
 
 
 if __name__ == "__main__":
     rospy.init_node(name)
-    do = pyinterface.open(board_name, rsw_id)
-
-    topic_from = rospy.Subscriber(
-            name = "cpz2724_rsw0_do17_32",
-            data_class = std_msgs.msg.ByteMultiArray,
-            callback = antenna_el_do,
-            queue_size = 1,
-        )
-
+    el_dio = antenna_el_dio()
     rospy.spin()
