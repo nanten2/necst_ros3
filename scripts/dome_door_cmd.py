@@ -19,7 +19,7 @@ def dome_door_cmd_handler(msg):
         if msg.data[0].lower() == 'o':
             # OPEN
             if (left_door == 'OPEN') and (right_door == 'OPEN'):
-                cmd2 = 'STAY'
+                cmd2 = 'STOP'
             else:
                 cmd2 = 'OPEN'
                 pass
@@ -27,14 +27,14 @@ def dome_door_cmd_handler(msg):
         elif msg.data[0].lower() == 'c':
             # CLOSE
             if (left_door == 'CLOSE') and (right_door == 'CLOSE'):
-                cmd2 = 'STAY'
+                cmd2 = 'STOP'
             else:
                 cmd2 = 'CLOSE'
                 pass
             
         elif msg.data[0].lower() == 's':
             # STOP
-            cmd2 = 'STAY'
+            cmd2 = 'STOP'
             pass
 
         topic_to.publish(cmd2)

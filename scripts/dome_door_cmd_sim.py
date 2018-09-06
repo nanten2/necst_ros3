@@ -144,7 +144,11 @@ class dome_door_simulator(object):
                 self.current_left_action = 'STOP'
             else:
                 self.current_left = 'TRANSIT'
-                self.current_left_action = 'MOVE'
+                if self.cmd == 'STOP':
+                    self.current_left_action = 'STOP'
+                else:
+                    self.current_left_action = 'MOVE'
+                    pass
                 pass
                 
             if self.pos_right >= 1:
@@ -157,7 +161,11 @@ class dome_door_simulator(object):
                 self.current_right_action = 'STOP'
             else:
                 self.current_right = 'TRANSIT'
-                self.current_right_action = 'MOVE'
+                if self.cmd == 'STOP':
+                    self.current_right_action = 'STOP'
+                else:
+                    self.current_right_action = 'MOVE'
+                    pass
                 pass
 
             time.sleep(self.rate)
