@@ -3,15 +3,15 @@
   <node pkg = "necst_ros3"
   	name = "dome_door_cmd_sim"
 	type = "dome_door_cmd_sim.py">
-    <param name="travel_time_left" value="0.3" />
-    <param name="travel_time_right" value="0.3" />
+    <param name="travel_time_left" value="0.5" />
+    <param name="travel_time_right" value="0.5" />
   </node>
 
   <test pkg = "necst_ros3"
   	test-name = "test_dome_door_cmd_sim"
 	type = "test_dome_door_cmd_sim.py">
-    <param name="timeout" value="0.5" />
-    <param name="travel_time" value="0.3" />
+    <param name="timeout" textfile="$(find necst_ros3)/test/timeout.param" />
+    <param name="travel_time" value="0.5" />
   </test>
 
 

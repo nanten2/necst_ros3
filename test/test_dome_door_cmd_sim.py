@@ -58,7 +58,7 @@ class TestDomeDoorCmd(unittest.TestCase):
             queue_size = 1,
         )
         
-        time.sleep(0.5)
+        time.sleep(self.timeout * 0.5)
         pass
 
     def callback(self, msg, args):
@@ -87,8 +87,13 @@ class TestDomeDoorCmd(unittest.TestCase):
             time.sleep(0.001)
             continue
         return self.recv_msg[index]
+
+    def test_all(self):
+        self._test_open()
+        self._test_close()
+        return
     
-    def test_open(self):
+    def _test_open(self):
         # 1
         self.send('CLOSE')
         time.sleep(self.travel_time*1.5)
@@ -108,7 +113,7 @@ class TestDomeDoorCmd(unittest.TestCase):
         self.assertRaises(Exception, self.recv, 1)
         return
 
-    def test_close(self):
+    def _test_close(self):
         # 1
         self.send('OPEN')
         time.sleep(self.travel_time*1.5)

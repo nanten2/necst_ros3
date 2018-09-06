@@ -31,7 +31,7 @@ class TestDomeEmergency(unittest.TestCase):
             queue_size = 1,
         )
 
-        time.sleep(0.5)
+        time.sleep(self.timeout * 0.5)
         pass
 
     def callback(self, msg):
@@ -55,13 +55,18 @@ class TestDomeEmergency(unittest.TestCase):
             continue
         return self.recv_msg
     
-    def test_emergency_on(self):
+    def test_all(self):
+        self._test_emergency_on()
+        self._test_emergency_off()
+        return
+    
+    def _test_emergency_on(self):
         self.send(True)
         ret = self.recv()
         self.assertEqual(ret.data, True)
         return
 
-    def test_emergency_off(self):
+    def _test_emergency_off(self):
         self.send(False)
         ret = self.recv()
         self.assertEqual(ret.data, False)

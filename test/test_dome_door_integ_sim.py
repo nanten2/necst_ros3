@@ -44,7 +44,7 @@ class TestDomeDoorIntegSim(unittest.TestCase):
             queue_size = 1,
         )
 
-        time.sleep(0.5)
+        time.sleep(self.timeout * 0.5)
         pass
 
     def callback(self, msg):
@@ -68,7 +68,14 @@ class TestDomeDoorIntegSim(unittest.TestCase):
             continue
         return self.recv_msg
     
-    def test_close(self):
+    def test_all(self):
+        self._test_close()
+        self._test_open()
+        self._test_emergency()
+        self._test_control()
+        return
+    
+    def _test_close(self):
         self.send('OPEN')
         time.sleep(self.travel_time * 1.5)
         self.send('CLOSE')
@@ -77,7 +84,7 @@ class TestDomeDoorIntegSim(unittest.TestCase):
         self.assertEqual(self.recv().data, 'CLOSE')
         return
     
-    def test_open(self):
+    def _test_open(self):
         self.send('CLOSE')
         time.sleep(self.travel_time * 1.5)
         self.send('OPEN')
@@ -86,7 +93,7 @@ class TestDomeDoorIntegSim(unittest.TestCase):
         self.assertEqual(self.recv().data, 'OPEN')
         return
     
-    def test_emergency(self):
+    def _test_emergency(self):
         self.send('OPEN')
         time.sleep(self.travel_time * 1.5)
         
@@ -105,7 +112,7 @@ class TestDomeDoorIntegSim(unittest.TestCase):
         self.assertEqual(self.recv().data, 'CLOSE')
         return
 
-    def test_control(self):
+    def _test_control(self):
         self.send('CLOSE')
         time.sleep(self.travel_time * 1.5)
         

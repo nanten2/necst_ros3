@@ -66,7 +66,7 @@ class TestDomeDoorLock(unittest.TestCase):
             queue_size = 1,
         )
 
-        time.sleep(0.5)
+        time.sleep(self.timeout * 0.5)
         pass
 
     def callback(self, msg, args):
@@ -96,45 +96,50 @@ class TestDomeDoorLock(unittest.TestCase):
             time.sleep(0.001)
             continue
         return self.recv_msg[index]
+
+    def test_all(self):
+        self._test_emergency()
+        self._test_control()
+        return
     
-    def test_emergency(self):
+    def _test_emergency(self):
         self.send(False, 'REMOTE')
-        time.sleep(0.1)
+        time.sleep(self.timeout * 0.3)
         self.send(True, 'REMOTE')
         self.assertEqual(self.recv(0).data, True)
         self.assertEqual(self.recv(1).data, 'STOP')
         self.assertEqual(self.recv(2).data, 'STOP')
-        time.sleep(0.1)
+        time.sleep(self.timeout * 0.3)
         self.send(True, 'LOCAL')
         self.assertEqual(self.recv(0).data, True)
         self.assertEqual(self.recv(1).data, 'STOP')
         self.assertEqual(self.recv(2).data, 'STOP')
-        time.sleep(0.1)
+        time.sleep(self.timeout * 0.3)
         self.pub_cmd.publish('OPEN')
         self.pub_cmd2.publish('OPEN')
-        time.sleep(0.1)
+        time.sleep(self.timeout * 0.3)
         self.send(False, 'REMOTE')
         self.assertEqual(self.recv(0).data, False)
         self.assertEqual(self.recv(1).data, 'STOP')
         self.assertEqual(self.recv(2).data, 'STOP')
         return
 
-    def test_control(self):
+    def _test_control(self):
         self.send(False, 'REMOTE')
-        time.sleep(0.1)
+        time.sleep(self.timeout * 0.3)
         self.send(False, 'LOCAL')
         self.assertEqual(self.recv(0).data, True)
         self.assertEqual(self.recv(1).data, 'STOP')
         self.assertEqual(self.recv(2).data, 'STOP')        
-        time.sleep(0.1)
+        time.sleep(self.timeout * 0.3)
         self.send(True, 'LOCAL')
         self.assertEqual(self.recv(0).data, True)
         self.assertEqual(self.recv(1).data, 'STOP')
         self.assertEqual(self.recv(2).data, 'STOP')        
-        time.sleep(0.1)
+        time.sleep(self.timeout * 0.3)
         self.pub_cmd.publish('OPEN')
         self.pub_cmd2.publish('OPEN')
-        time.sleep(0.1)
+        time.sleep(self.timeout * 0.3)
         self.send(False, 'REMOTE')
         self.assertEqual(self.recv(0).data, False)
         self.assertEqual(self.recv(1).data, 'STOP')
