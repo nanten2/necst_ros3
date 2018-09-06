@@ -64,8 +64,8 @@ class dome_door_mapper(object):
                 elif self.position_left == self.position_right == 'CLOSE':
                     status = 'CLOSE'
 
-                elif 'MOVING' in [self.position_left, self.position_right]:
-                    status = 'MOVING'
+                elif 'TRANSIT' in [self.position_left, self.position_right]:
+                    status = 'TRANSIT'
 
                 else:
                     status = 'ERROR'
