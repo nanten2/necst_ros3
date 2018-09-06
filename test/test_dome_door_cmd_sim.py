@@ -91,7 +91,7 @@ class TestDomeDoorCmd(unittest.TestCase):
     def test_open(self):
         # 1
         self.send('CLOSE')
-        time.sleep(self.travel_time)
+        time.sleep(self.travel_time*1.5)
         self.send('OPEN')
         self.assertEqual(self.recv(0).data, 'TRANSIT')
         self.assertEqual(self.recv(1).data, 'MOVE')
@@ -111,7 +111,7 @@ class TestDomeDoorCmd(unittest.TestCase):
     def test_close(self):
         # 1
         self.send('OPEN')
-        time.sleep(self.travel_time)
+        time.sleep(self.travel_time*1.5)
         self.send('CLOSE')
         self.assertEqual(self.recv(0).data, 'TRANSIT')
         self.assertEqual(self.recv(1).data, 'MOVE')
