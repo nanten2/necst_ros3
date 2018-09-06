@@ -19,13 +19,25 @@ class TestDomeDoorLock(unittest.TestCase):
         self.timeout = rospy.get_param('~timeout')
         
         self.pub1 = rospy.Publisher(
-            name = 'dome_door_emergency',
+            name = 'dome_emergency',
             data_class = std_msgs.msg.Bool,
             queue_size = 1,
         )
         
         self.pub2 = rospy.Publisher(
-            name = 'dome_door_control',
+            name = 'dome_control',
+            data_class = std_msgs.msg.String,
+            queue_size = 1,
+        )
+        
+        self.pub_cmd = rospy.Publisher(
+            name = 'dome_door_cmd',
+            data_class = std_msgs.msg.String,
+            queue_size = 1,
+        )
+        
+        self.pub_cmd2 = rospy.Publisher(
+            name = 'dome_door_cmd2',
             data_class = std_msgs.msg.String,
             queue_size = 1,
         )
@@ -87,25 +99,28 @@ class TestDomeDoorLock(unittest.TestCase):
     
     def test_emergency(self):
         self.send(False, 'REMOTE')
-        self.assertEqual(self.recv(0).data, False)
         time.sleep(0.1)
         self.send(True, 'REMOTE')
         self.assertEqual(self.recv(0).data, True)
         self.assertEqual(self.recv(1).data, 'STOP')
-        self.assertEqual(self.recv(2).data, 'STOP')        
+        self.assertEqual(self.recv(2).data, 'STOP')
         time.sleep(0.1)
         self.send(True, 'LOCAL')
         self.assertEqual(self.recv(0).data, True)
         self.assertEqual(self.recv(1).data, 'STOP')
-        self.assertEqual(self.recv(2).data, 'STOP')        
+        self.assertEqual(self.recv(2).data, 'STOP')
+        time.sleep(0.1)
+        self.pub_cmd.publish('OPEN')
+        self.pub_cmd2.publish('OPEN')
         time.sleep(0.1)
         self.send(False, 'REMOTE')
         self.assertEqual(self.recv(0).data, False)
+        self.assertEqual(self.recv(1).data, 'STOP')
+        self.assertEqual(self.recv(2).data, 'STOP')
         return
 
     def test_control(self):
         self.send(False, 'REMOTE')
-        self.assertEqual(self.recv(0).data, False)
         time.sleep(0.1)
         self.send(False, 'LOCAL')
         self.assertEqual(self.recv(0).data, True)
@@ -117,8 +132,13 @@ class TestDomeDoorLock(unittest.TestCase):
         self.assertEqual(self.recv(1).data, 'STOP')
         self.assertEqual(self.recv(2).data, 'STOP')        
         time.sleep(0.1)
+        self.pub_cmd.publish('OPEN')
+        self.pub_cmd2.publish('OPEN')
+        time.sleep(0.1)
         self.send(False, 'REMOTE')
         self.assertEqual(self.recv(0).data, False)
+        self.assertEqual(self.recv(1).data, 'STOP')
+        self.assertEqual(self.recv(2).data, 'STOP')        
         return
 
 

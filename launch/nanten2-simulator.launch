@@ -31,7 +31,12 @@
   </node>
 
   <node pkg = "necst_ros3"
+  	name = "dome_door_lock"
+	type = "dome_door_lock.py" />
+
+<!--
+  <node pkg = "necst_ros3"
   	name = "dome_door_watcher_finalize_move"
 	type = "dome_door_watcher_finalize_move.py" />
-
+-->
 </launch>
