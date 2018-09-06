@@ -84,13 +84,13 @@ class TestDomeDoorCmd(unittest.TestCase):
     def test_all(self):
         self._test_open()
         self._test_close()
-        self._test_stay()
+        self._test_stop()
         return
     
     def _test_open(self):
         # 1
         self.send('OPEN', 'OPEN', 'OPEN', False)
-        self.assertEqual(self.recv().data, 'STAY')
+        self.assertEqual(self.recv().data, 'STOP')
         # 2
         self.send('OPEN', 'CLOSE', 'OPEN', False)
         self.assertEqual(self.recv().data, 'OPEN')
@@ -171,7 +171,7 @@ class TestDomeDoorCmd(unittest.TestCase):
         self.assertEqual(self.recv().data, 'CLOSE')
         # 4
         self.send('CLOSE', 'CLOSE', 'CLOSE', False)
-        self.assertEqual(self.recv().data, 'STAY')
+        self.assertEqual(self.recv().data, 'STOP')
         # 5
         self.send('CLOSE', 'MOVING', 'MOVING', False)
         self.assertEqual(self.recv().data, 'CLOSE')
@@ -231,34 +231,34 @@ class TestDomeDoorCmd(unittest.TestCase):
             pass
         return
 
-    def _test_stay(self):
+    def _test_stop(self):
         # 1
-        self.send('STAY', 'OPEN', 'OPEN', False)
-        self.assertEqual(self.recv().data, 'STAY')
+        self.send('STOP', 'OPEN', 'OPEN', False)
+        self.assertEqual(self.recv().data, 'STOP')
         # 2
-        self.send('STAY', 'CLOSE', 'OPEN', False)
-        self.assertEqual(self.recv().data, 'STAY')
+        self.send('STOP', 'CLOSE', 'OPEN', False)
+        self.assertEqual(self.recv().data, 'STOP')
         # 3
-        #self.send('STAY', 'OPEN', 'CLOSE', False)
-        #self.assertEqual(self.recv().data, 'STAY')
+        #self.send('STOP', 'OPEN', 'CLOSE', False)
+        #self.assertEqual(self.recv().data, 'STOP')
         # 4
-        self.send('STAY', 'CLOSE', 'CLOSE', False)
-        self.assertEqual(self.recv().data, 'STAY')
+        self.send('STOP', 'CLOSE', 'CLOSE', False)
+        self.assertEqual(self.recv().data, 'STOP')
         # 5
-        self.send('STAY', 'MOVING', 'MOVING', False)
-        self.assertEqual(self.recv().data, 'STAY')
+        self.send('STOP', 'MOVING', 'MOVING', False)
+        self.assertEqual(self.recv().data, 'STOP')
         # 6
-        self.send('STAY', 'OPEN', 'MOVING', False)
-        self.assertEqual(self.recv().data, 'STAY')
+        self.send('STOP', 'OPEN', 'MOVING', False)
+        self.assertEqual(self.recv().data, 'STOP')
         # 7
-        #self.send('STAY', 'CLOSE', 'MOVING', False)
-        #self.assertEqual(self.recv().data, 'STAY')
+        #self.send('STOP', 'CLOSE', 'MOVING', False)
+        #self.assertEqual(self.recv().data, 'STOP')
         # 8
-        #self.send('STAY', 'MOVING', 'OPEN', False)
-        #self.assertEqual(self.recv().data, 'STAY')
+        #self.send('STOP', 'MOVING', 'OPEN', False)
+        #self.assertEqual(self.recv().data, 'STOP')
         # 9
-        self.send('STAY', 'MOVING', 'CLOSE', False)
-        self.assertEqual(self.recv().data, 'STAY')
+        self.send('STOP', 'MOVING', 'CLOSE', False)
+        self.assertEqual(self.recv().data, 'STOP')
         
         # time out test
         # a test target is selected at random
@@ -266,39 +266,39 @@ class TestDomeDoorCmd(unittest.TestCase):
         
         if target == 0:
             # 10
-            self.send('STAY', 'OPEN', 'OPEN', True)
+            self.send('STOP', 'OPEN', 'OPEN', True)
             self.assertRaises(Exception, self.recv)
         elif target == 1:
             # 11
-            self.send('STAY', 'CLOSE', 'OPEN', True)
+            self.send('STOP', 'CLOSE', 'OPEN', True)
             self.assertRaises(Exception, self.recv)
         elif target == 2:
             # 12
-            self.send('STAY', 'OPEN', 'CLOSE', True)
+            self.send('STOP', 'OPEN', 'CLOSE', True)
             self.assertRaises(Exception, self.recv)
         elif target == 3:
             # 13
-            self.send('STAY', 'CLOSE', 'CLOSE', True)
+            self.send('STOP', 'CLOSE', 'CLOSE', True)
             self.assertRaises(Exception, self.recv)
         elif target == 4:
             # 14
-            self.send('STAY', 'MOVING', 'MOVING', True)
+            self.send('STOP', 'MOVING', 'MOVING', True)
             self.assertRaises(Exception, self.recv)  
         elif target == 5:
             # 15
-            self.send('STAY', 'OPEN', 'MOVING', True)
+            self.send('STOP', 'OPEN', 'MOVING', True)
             self.assertRaises(Exception, self.recv)
         elif target == 6:
             # 16
-            self.send('STAY', 'CLOSE', 'MOVING', True)
+            self.send('STOP', 'CLOSE', 'MOVING', True)
             self.assertRaises(Exception, self.recv)
         elif target == 7:
             # 17
-            self.send('STAY', 'MOVING', 'OPEN', True)
+            self.send('STOP', 'MOVING', 'OPEN', True)
             self.assertRaises(Exception, self.recv)
         elif target == 8:
             # 18
-            self.send('STAY', 'MOVING', 'CLOSE', True)
+            self.send('STOP', 'MOVING', 'CLOSE', True)
             self.assertRaises(Exception, self.recv)
             pass
         return
