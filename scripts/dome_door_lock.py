@@ -20,11 +20,12 @@ class dome_door_locker(object):
         'cmd': None,
         'cmd2': None,
     }
+    publish_output = False
     
     def __init__(self):
         self.pub_lock = rospy.Publisher(
             name = 'dome_door_lock',
-            data_class = std_msgs.msg.String,
+            data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
@@ -44,7 +45,7 @@ class dome_door_locker(object):
         self.topic_from = []
         
         topic_from1 = rospy.Subscriber(
-            name = 'dome_door_emergency',
+            name = 'dome_emergency',
             data_class = std_msgs.msg.Bool,
             callback = self.update_emergency,
             queue_size = 1,
@@ -52,7 +53,7 @@ class dome_door_locker(object):
         self.topic_from.append(topic_from1)
         
         topic_from2 = rospy.Subscriber(
-            name = 'dome_door_control',
+            name = 'dome_control',
             data_class = std_msgs.msg.String,
             callback = self.update_control,
             queue_size = 1,
@@ -78,6 +79,7 @@ class dome_door_locker(object):
             self.output['cmd'] = 'STOP'
             self.output['cmd2'] = 'STOP'
             self.output['lock'] = True
+            self.publish_output = True
             pass
         
         if self.status['control'] == 'LOCAL':
@@ -85,37 +87,26 @@ class dome_door_locker(object):
             self.output['cmd'] = 'STOP'
             self.output['cmd2'] = 'STOP'
             self.output['lock'] = True
+            self.publish_output = True
             pass
         
         if is_normal_state == True:
+            self.output['cmd'] = 'STOP'
+            self.output['cmd2'] = 'STOP'
             self.output['lock'] = False
+            self.publish_output = True
             pass
             
         pass
     
     def publish_status(self):
-        lock_last = None
-        cmd_last = None
-        cmd2_last = None
-        
         while not rospy.is_shutdown():
 
-            cmd = self.output['cmd']
-            if cmd != cmd_last:
-                self.pub_cmd.publish(cmd)
-                cmd_last = cmd
-                pass
-                
-            cmd2 = self.output['cmd2']
-            if cmd2 != cmd2_last:
-                self.pub_cmd2.publish(cmd2)
-                cmd2_last = cmd2
-                pass
-                
-            lock = self.output['lock']
-            if lock != lock_last:
-                self.pub_lock.publish(lock)
-                lock_last = lock
+            if self.publish_output == True:
+                self.pub_cmd.publish(self.output['cmd'])
+                self.pub_cmd2.publish(self.output['cmd2'])
+                self.pub_lock.publish(self.output['lock'])
+                self.publish_output = False
                 pass
             
             time.sleep(0.05)
