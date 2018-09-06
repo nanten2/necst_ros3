@@ -25,8 +25,8 @@ if __name__ == "__main__":
     
     emergency_last = None
     while True:
-        ret = di.input_dword().to_list()
-        emergency = ret[24]
+        ret = di.input_point(24, 1)
+        emergency = ret
         
         if emergency != emergency_last:
             topic_to.publish(emergency)

@@ -5,45 +5,41 @@ name = "antenna_az_mapper"
 import struct
 import rospy
 import std_msgs.msg
-
-lock = False
+import topic_utils
 
 def antenna_az_mapper(command):
+    lock = topic_utils.recv(name +"_lock", std_msgs.msg.Bool).data
+    
     if lock == True:
-        topic_to.publish([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
-        return
+        cmd = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     else:
         rate = int(command.data / ((12/7) * (3600/10000)))
         cmd = list(map(int,  ''.join([format(b, '08b')[::-1] for b in struct.pack('<h', rate)])))
-        topic_to.publish(cmd)
-    return
+    
+    for i in range(0,16):
+        topic_to[i].publish(cmd[i])
+        continue
 
-def antenna_az_mapper_lock(status):
-    global lock
-    lock = status.data
     return
 
 
 if __name__ == "__main__":
     rospy.init_node(name)
     
-    topic_to = rospy.Publisher(
-            name = "cpz2724_rsw0_do1_16",
-            data_class = std_msgs.msg.ByteMultiArray,
+    topic_to = []
+    for i in range(1,17):
+        topic_to_ = rospy.Publisher(
+            name = "cpz2724_rsw0_do%d"%(i),
+            data_class = std_msgs.msg.Byte,
             queue_size = 1,
         )
+        topic_to.append(topic_to_)
+        continue
 
     topic_from = rospy.Subscriber(
             name = "antenna_az_feedback",
             data_class = std_msgs.msg.Float64,
             callback = antenna_az_mapper,
-            queue_size = 1,
-        )
-
-    topic_lock = rospy.Subscriber(
-            name = name + "_lock",
-            data_class = std_msgs.msg.Bool,
-            callback = antenna_az_mapper_lock,
             queue_size = 1,
         )
 

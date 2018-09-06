@@ -25,8 +25,8 @@ if __name__ == "__main__":
     
     control_last = None
     while True:
-        ret = di.input_dword().to_list()
-        control = ret[26]
+        ret = di.input_point(26, 1)
+        control = ret
         
         if control != control_last:
             topic_to.publish(control)
