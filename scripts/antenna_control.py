@@ -25,7 +25,7 @@ if __name__=="__main__":
     )
     
     topic_from = rospy.Subscriber(
-        name = 'cpz2724_rsw0_di26',
+        name = name_topic_from, #'cpz2724_rsw0_di26'
         data_class = std_msgs.msg.Bool,
         callback = antenna_control_mapper,
         queue_size = 1,
