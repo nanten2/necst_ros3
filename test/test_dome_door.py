@@ -37,7 +37,7 @@ class TestDomeDoor(unittest.TestCase):
             queue_size = 1,
         )
 
-        time.sleep(0.5)
+        time.sleep(self.timeout*0.5)
         pass
 
     def callback(self, msg):
@@ -62,19 +62,26 @@ class TestDomeDoor(unittest.TestCase):
             continue
         return self.recv_msg
     
-    def test_open(self):
+    def test_all(self):
+        self._test_open()
+        self._test_close()
+        self._test_transit()
+        self._test_error()
+        return
+
+    def _test_open(self):
         self.send('OPEN', 'OPEN')
         ret = self.recv()
         self.assertEqual(ret.data, 'OPEN')
         return
 
-    def test_close(self):
+    def _test_close(self):
         self.send('CLOSE', 'CLOSE')
         ret = self.recv()
         self.assertEqual(ret.data, 'CLOSE')
         return
 
-    def test_transit(self):
+    def _test_transit(self):
         # Combination 1
         self.send('TRANSIT', 'OPEN')
         ret = self.recv()
@@ -93,7 +100,7 @@ class TestDomeDoor(unittest.TestCase):
         self.assertEqual(ret.data, 'TRANSIT')
         return
 
-    def test_error(self):
+    def _test_error(self):
         # Combination 1
         self.send('CLOSE', 'OPEN')
         ret = self.recv()

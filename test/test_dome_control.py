@@ -31,7 +31,7 @@ class TestDomeControl(unittest.TestCase):
             queue_size = 1,
         )
 
-        time.sleep(0.5)
+        time.sleep(self.timeout * 0.5)
         pass
 
     def callback(self, msg):
@@ -54,14 +54,19 @@ class TestDomeControl(unittest.TestCase):
             time.sleep(0.001)
             continue
         return self.recv_msg
+
+    def test_all(self):
+        self._test_control_local()
+        self._test_control_remote()
+        return
     
-    def test_control_local(self):
+    def _test_control_local(self):
         self.send(True)
         ret = self.recv()
         self.assertEqual(ret.data, 'LOCAL')
         return
 
-    def test_control_remote(self):
+    def _test_control_remote(self):
         self.send(False)
         ret = self.recv()
         self.assertEqual(ret.data, 'REMOTE')
