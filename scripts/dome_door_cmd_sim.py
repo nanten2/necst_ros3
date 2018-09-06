@@ -52,7 +52,7 @@ class dome_door_cmd_sim(object):
         pass
     
     def update_cmd(self, msg):
-        self.sim.set_command(msg.daga)
+        self.sim.set_command(msg.data)
         return
     
     def publish_status(self):
@@ -76,13 +76,13 @@ class dome_door_cmd_sim(object):
 
             act_left = self.sim.current_left_action
             if act_left != act_left_last:
-                self.pub_left.publish(act_left)
+                self.pub_left_act.publish(act_left)
                 act_left_last = act_left
                 pass
             
             act_right = self.sim.current_right_action
             if act_right != act_right_last:
-                self.pub_right.publish(act_right)
+                self.pub_right_act.publish(act_right)
                 act_right_last = act_right
                 pass
             
