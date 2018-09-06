@@ -100,6 +100,8 @@ class dome_door_locker(object):
         pass
     
     def publish_status(self):
+        self.pub_lock.publish(self.output['lock'])
+        
         while not rospy.is_shutdown():
 
             if self.publish_output == True:

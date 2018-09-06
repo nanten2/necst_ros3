@@ -47,7 +47,7 @@ class TestDomeDoorIntegSim(unittest.TestCase):
         time.sleep(0.5)
         pass
 
-    def callback(self, msg, args):
+    def callback(self, msg):
         self.recv_msg = msg
         self.received = True
         return
@@ -57,7 +57,7 @@ class TestDomeDoorIntegSim(unittest.TestCase):
         self.pub_cmd.publish(cmd)
         return
         
-    def recv(self, index):
+    def recv(self):
         start = time.time()
         while True:
             if self.received == True:
@@ -72,18 +72,18 @@ class TestDomeDoorIntegSim(unittest.TestCase):
         self.send('OPEN')
         time.sleep(self.travel_time * 1.5)
         self.send('CLOSE')
-        self.assertEqual(self.recv.data, 'TRANSIT')
+        self.assertEqual(self.recv().data, 'TRANSIT')
         self.received = False
-        self.assertEqual(self.recv.data, 'CLOSE')
+        self.assertEqual(self.recv().data, 'CLOSE')
         return
     
     def test_open(self):
         self.send('CLOSE')
         time.sleep(self.travel_time * 1.5)
         self.send('OPEN')
-        self.assertEqual(self.recv.data, 'TRANSIT')
+        self.assertEqual(self.recv().data, 'TRANSIT')
         self.received = False
-        self.assertEqual(self.recv.data, 'OPEN')
+        self.assertEqual(self.recv().data, 'OPEN')
         return
     
     def test_emergency(self):
@@ -91,7 +91,7 @@ class TestDomeDoorIntegSim(unittest.TestCase):
         time.sleep(self.travel_time * 1.5)
         
         self.send('CLOSE')
-        self.assertEqual(self.recv.data, 'TRANSIT')
+        self.assertEqual(self.recv().data, 'TRANSIT')
         
         self.pub_emergency.publish(True)
         self.send('CLOSE')
@@ -102,7 +102,7 @@ class TestDomeDoorIntegSim(unittest.TestCase):
         self.assertRaises(Exception, self.recv)
         
         self.send('CLOSE')
-        self.assertEqual(self.recv.data, 'CLOSE')
+        self.assertEqual(self.recv().data, 'CLOSE')
         return
 
     def test_control(self):
@@ -110,7 +110,7 @@ class TestDomeDoorIntegSim(unittest.TestCase):
         time.sleep(self.travel_time * 1.5)
         
         self.send('OPEN')
-        self.assertEqual(self.recv.data, 'TRANSIT')
+        self.assertEqual(self.recv().data, 'TRANSIT')
         
         self.pub_emergency.publish(True)
         self.send('OPEN')
@@ -121,7 +121,7 @@ class TestDomeDoorIntegSim(unittest.TestCase):
         self.assertRaises(Exception, self.recv)
         
         self.send('OPEN')
-        self.assertEqual(self.recv.data, 'OPEN')
+        self.assertEqual(self.recv().data, 'OPEN')
         return
 
 
