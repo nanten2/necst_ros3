@@ -1,6 +1,6 @@
 #! /usr/bin/env python2
 
-name = 'test_dome_leftaction_mapper'
+name = 'test_dome_action_mapper'
 
 # ----
 import time
@@ -10,22 +10,25 @@ import rostest
 import std_msgs.msg
 
 
-class TestDomeLeftactionMapper(unittest.TestCase):
+class TestDomeActionMapper(unittest.TestCase):
     def setUp(self):
         self.recv_msg = None
         self.received = False
         
         rospy.init_node(name)
+        name_topic_to = rospy.get_param('~name_topic_to')
+        name_topic_from = rospy.get_param('~name_topic_from')
+        
         self.timeout = rospy.get_param('~timeout')
         
         self.pub = rospy.Publisher(
-            name = 'cpz2724_rsw2_di05',
+            name = name_topic_from,
             data_class = std_msgs.msg.Bool,
             queue_size = 1,
         )
         
         self.sub = rospy.Subscriber(
-            name = 'dome_door_leftaction',
+            name = name_topic_to,
             data_class = std_msgs.msg.String,
             callback = self.callback,
             queue_size = 1,
@@ -76,4 +79,4 @@ class TestDomeLeftactionMapper(unittest.TestCase):
 
 
 if __name__=='__main__':
-    rostest.rosrun('necst_ros3', 'test_dome_leftaction_mapper', TestDomeLeftactionMapper)
+    rostest.rosrun('necst_ros3', 'test_dome_action_mapper', TestDomeActionMapper)
