@@ -46,8 +46,8 @@ class dome_door_watcher_finalize_move(object):
         return
 
     def check_status(self):
-        if self.left_door == self.right_door != 'MOVING':
-            self.topic_to('STAY')
+        if self.left_door == self.right_door != 'TRANSIT':
+            self.topic_to.publish('STOP')
             pass
         return
         
