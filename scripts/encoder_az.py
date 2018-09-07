@@ -25,7 +25,7 @@ if __name__=="__main__":
     )
     
     topic_from = rospy.Subscriber(
-        name = 'cpz6204_rsw0_di1',
+        name = name_topic_from,#'cpz6204_rsw0_di1'
         data_class = std_msgs.msg.Int64,
         callback = encoder_az_mapper,
         queue_size = 1,
