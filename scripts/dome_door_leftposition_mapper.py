@@ -23,10 +23,10 @@ class dome_door_leftposition_mapper(object):
         self.topic_from = []
         for i, dioch in enumerate([6,7]):
             topic_from_ = rospy.Subscriber(
-                name = 'cpz2724_rsw2_di%d'%(dioch),
+                name = 'cpz2724_rsw2_di%02d'%(dioch),
                 data_class = std_msgs.msg.Bool,
                 callback = self.update_bit_status,
-                callback_args = {'bit': i},
+                callback_args = {'index': i},
                 queue_size = 1,
             )
             self.topic_from.append(topic_from_)
@@ -34,8 +34,7 @@ class dome_door_leftposition_mapper(object):
         pass
 
     def update_bit_status(self, msg, args):
-        bitindex = args['bit']
-        self.bit_status[bitindex] = int(msg.data)
+        self.bit_status[args['index']] = int(msg.data)
         return
 
     def publish_status(self):
@@ -49,7 +48,7 @@ class dome_door_leftposition_mapper(object):
                     if self.bit_status[1] == 1:
                         status = 'CLOSE'
                     else:
-                        status = 'MOVING'
+                        status = 'TRANSIT'
                         pass
                     pass
                 
