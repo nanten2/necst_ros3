@@ -25,6 +25,13 @@ class TestDomeDoorCmdMapper(unittest.TestCase):
             queue_size = 1,
         )
         
+        self.pub_lock = rospy.Publisher(
+            name = 'dome_door_lock',
+            data_class = std_msgs.msg.Bool,
+            queue_size = 1,
+            latch = True,
+        )
+        
         self.sub1 = rospy.Subscriber(
             name = 'cpz2724_rsw2_do05',
             data_class = std_msgs.msg.Bool,
@@ -34,7 +41,7 @@ class TestDomeDoorCmdMapper(unittest.TestCase):
         )
         
         self.sub2 = rospy.Subscriber(
-            name = 'cpz2724_rsw2_do05',
+            name = 'cpz2724_rsw2_do06',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = {'index': 1},
@@ -55,8 +62,10 @@ class TestDomeDoorCmdMapper(unittest.TestCase):
             continue
         return
     
-    def send(self, cmd):
+    def send(self, cmd, lock):
         self.set_received_false()
+        self.pub_lock.publish(lock)
+        time.sleep(self.timeout * 0.2)
         self.pub.publish(cmd)
         return
         
@@ -78,21 +87,33 @@ class TestDomeDoorCmdMapper(unittest.TestCase):
         return
     
     def _test_open(self):
-        self.send('OPEN')
+        # 1
+        self.send('OPEN', False)
         self.assertEqual(self.recv(0).data, True)
         self.assertEqual(self.recv(1).data, True)
+        # 2
+        self.send('OPEN', True)
+        self.assertRaises(Exception, self.recv, 0)
         return
 
     def _test_close(self):
-        self.send('CLOSE')
+        # 1
+        self.send('CLOSE', False)
         self.assertEqual(self.recv(0).data, False)
         self.assertEqual(self.recv(1).data, True)
+        # 2
+        self.send('CLOSE', True)
+        self.assertRaises(Exception, self.recv, 1)
         return
 
     def _test_stop(self):
-        self.send('STOP')
+        # 1
+        self.send('STOP', False)
         self.assertEqual(self.recv(0).data, False)
         self.assertEqual(self.recv(1).data, False)
+        # 2
+        self.send('STOP', True)
+        self.assertRaises(Exception, self.recv, 0)
         return
 
 

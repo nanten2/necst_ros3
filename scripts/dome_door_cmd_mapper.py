@@ -12,18 +12,18 @@ def dome_door_cmd_mapper(msg):
     lock = topic_utils.recv('dome_door_lock', std_msgs.msg.Bool).data
 
     if lock == False:
-        if status[0].lower() == 'o':
+        if msg.data[0].lower() == 'o':
             # OPEN
             topic_to1.publish(True)
             topic_to2.publish(True)
             
-        elif status.data[0].lower() == 'c':
+        elif msg.data[0].lower() == 'c':
             # CLOSE
             topic_to1.publish(False)
             topic_to2.publish(True)
             pass
 
-        elif status.data[0].lower() == 's':
+        elif msg.data[0].lower() == 's':
             # STOP
             topic_to1.publish(False)
             topic_to2.publish(False)
