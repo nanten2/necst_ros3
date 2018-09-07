@@ -87,4 +87,4 @@ class TestDomeDoorWatcherFinalizeMove(unittest.TestCase):
 
 
 if __name__=='__main__':
-    rostest.rosrun('necst_ros3', 'test_dome_door_watcher_finalize_moce', TestDomeDoorWathcerFinalizeMove)
+    rostest.rosrun('necst_ros3', 'test_dome_door_watcher_finalize_moce', TestDomeDoorWatcherFinalizeMove)
