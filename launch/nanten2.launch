@@ -21,11 +21,15 @@
 	type = "dome_door_cmd.py" />
 
   <node pkg = "necst_ros3"
+  	name = "dome_door_lock"
+	type = "dome_door_lock.py" />
+
+  <node pkg = "necst_ros3"
   	name = "dome_door_watcher_finalize_move"
 	type = "dome_door_watcher_finalize_move.py" />
 
   <node pkg = "necst_ros3"
-  	name = "dome_door_action_mapper"
+  	name = "dome_door_leftaction_mapper"
 	type = "dome_door_action_mapper.py">
     <remap from="dome_door_action_mapper" to="dome_door_leftaction_mapper" />
     <param name="name_topic_to" value="dome_door_leftaction" />
@@ -33,7 +37,7 @@
   </node>
 
   <node pkg = "necst_ros3"
-  	name = "dome_door_action_mapper"
+  	name = "dome_door_rightaction_mapper"
 	type = "dome_door_action_mapper.py">
     <remap from="dome_door_action_mapper" to="dome_door_rightaction_mapper" />
     <param name="name_topic_to" value="dome_door_rightaction" />
@@ -41,7 +45,7 @@
   </node>
 
   <node pkg = "necst_ros3"
-  	name = "dome_door_position_mapper"
+  	name = "dome_door_leftposition_mapper"
 	type = "dome_door_position_mapper.py">
     <remap from="dome_door_position_mapper" to="dome_door_leftposition_mapper" />
     <param name="name_topic_to" value="dome_door_leftposition" />
@@ -50,7 +54,7 @@
   </node>
 
   <node pkg = "necst_ros3"
-  	name = "dome_door_position_mapper"
+  	name = "dome_door_rightposition_mapper"
 	type = "dome_door_position_mapper.py">
     <remap from="dome_door_position_mapper" to="dome_door_rightposition_mapper" />
     <param name="name_topic_to" value="dome_door_rightposition" />

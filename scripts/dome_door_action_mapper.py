@@ -28,9 +28,9 @@ if __name__=='__main__':
     )
     
     topic_from = rospy.Subscriber(
-        name = name_topic_from
+        name = name_topic_from,
         data_class = std_msgs.msg.Bool,
-        callback = dome_door_leftaction_mapper,
+        callback = dome_door_action_mapper,
         queue_size = 1,
     )
 
