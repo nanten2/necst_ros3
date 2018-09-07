@@ -19,7 +19,7 @@ if __name__=='__main__':
     rospy.init_node(name)
 
     topic_to = rospy.Publisher(
-        name = 'dome_door_leftdrive',
+        name = 'dome_door_leftaction',
         data_class = std_msgs.msg.String,
         latch = True,
         queue_size = 1,
@@ -28,7 +28,7 @@ if __name__=='__main__':
     topic_from = rospy.Subscriber(
         name = 'cpz2724_rsw2_di05',
         data_class = std_msgs.msg.Bool,
-        callback = dome_door_left_drive_mapper,
+        callback = dome_door_leftaction_mapper,
         queue_size = 1,
     )
 
