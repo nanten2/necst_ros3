@@ -1,0 +1,24 @@
+<launch>
+
+  <node pkg = "necst_ros3"
+      name = "antenna_drive"
+      type = "antenna_drive.py">
+  </node>
+
+  <node pkg = "necst_ros3"
+      name = "antenna_drive_sim"
+      type = "antenna_drive_sim.py">
+  </node>
+
+  <node pkg = "necst_ros3"
+      name = "antenna_drive_lock"
+      type = "antenna_drive_lock.py">
+  </node>
+
+  <test pkg = "necst_ros3"
+  test-name = "test_antenna_drive_lock"
+  type = "test_antenna_drive_lock.py">
+    <param name="timeout" textfile="$(find necst_ros3)/test/timeout.param" />
+  </test>
+
+</launch>
