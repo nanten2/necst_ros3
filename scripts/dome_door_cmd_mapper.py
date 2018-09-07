@@ -24,7 +24,7 @@ def dome_door_cmd_mapper(msg):
             pass
 
         elif status.data[0].lower() == 's':
-            # STAY
+            # STOP
             topic_to1.publish(False)
             topic_to2.publish(False)
             pass
@@ -36,13 +36,13 @@ if __name__=='__main__':
     rospy.init_node(name)
 
     topic_to1 = rospy.Publisher(
-        name = 'cpz2724_rsw2_do5',
+        name = 'cpz2724_rsw2_do05',
         data_class = std_msgs.msg.Bool,
         queue_size = 1,
     )
 
     topic_to2 = rospy.Publisher(
-        name = 'cpz2724_rsw2_do6',
+        name = 'cpz2724_rsw2_do06',
         data_class = std_msgs.msg.Bool,
         queue_size = 1,
     )
