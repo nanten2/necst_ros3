@@ -1,6 +1,6 @@
 #! /usr/bin/env python2
 
-name = 'test_dome_leftposition_mapper'
+name = 'test_dome_position_mapper'
 
 # ----
 import time
@@ -10,28 +10,31 @@ import rostest
 import std_msgs.msg
 
 
-class TestDomeLeftpositionMapper(unittest.TestCase):
+class TestDomePositionMapper(unittest.TestCase):
     def setUp(self):
         self.recv_msg = None
         self.received = False
         
         rospy.init_node(name)
         self.timeout = rospy.get_param('~timeout')
+        name_topic_to = rospy.get_param('~name_topic_to')
+        name_topic_from1 = rospy.get_param('~name_topic_from1')
+        name_topic_from2 = rospy.get_param('~name_topic_from2')
         
         self.pub1 = rospy.Publisher(
-            name = 'cpz2724_rsw2_di06',
+            name = name_topic_from1,
             data_class = std_msgs.msg.Bool,
             queue_size = 1,
         )
         
         self.pub2 = rospy.Publisher(
-            name = 'cpz2724_rsw2_di07',
+            name = name_topic_from2,
             data_class = std_msgs.msg.Bool,
             queue_size = 1,
         )
         
         self.sub = rospy.Subscriber(
-            name = 'dome_door_leftposition',
+            name = name_topic_to,
             data_class = std_msgs.msg.String,
             callback = self.callback,
             queue_size = 1,
@@ -90,4 +93,4 @@ class TestDomeLeftpositionMapper(unittest.TestCase):
 
 
 if __name__=='__main__':
-    rostest.rosrun('necst_ros3', 'test_dome_leftposition_mapper', TestDomeLeftpositionMapper)
+    rostest.rosrun('necst_ros3', 'test_dome_position_mapper', TestDomePositionMapper)
