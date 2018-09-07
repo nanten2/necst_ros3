@@ -1,6 +1,6 @@
 #! /usr/bin/env python2
 
-name = 'test_dome_door'
+name = 'test_dome_door_cmd_sim'
 
 # ----
 import time
@@ -11,7 +11,7 @@ import rostest
 import std_msgs.msg
 
 
-class TestDomeDoorCmd(unittest.TestCase):
+class TestDomeDoorCmdSim(unittest.TestCase):
     def setUp(self):
         self.recv_msg = [None for i in range(4)]
         self.received = [False for i in range(4)]
@@ -135,4 +135,4 @@ class TestDomeDoorCmd(unittest.TestCase):
 
 
 if __name__=='__main__':
-    rostest.rosrun('necst_ros3', 'test_dome_door_cmd', TestDomeDoorCmd)
+    rostest.rosrun('necst_ros3', 'test_dome_door_cmd_sim', TestDomeDoorCmdSim)
