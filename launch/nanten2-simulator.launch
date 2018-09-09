@@ -4,45 +4,80 @@
 <!-- Device : Dome -->
   <group ns="dome">
 
-    <node name="control" type="relay.py" pkg="necst_ros3" output="screen">
-      <param name="config_file" value="$(find necst_ros3)/relay_configs/dome_control.cfg" />
+    <node name = "control_reader"
+    	  type = "relay.py"
+	  pkg = "necst_ros3">
+      <param name = "config_file"
+      	     value = "$(find necst_ros3)/relay_conf/dome_control_reader.conf" />
+    </node>
+    
+    <node name = "emergency_reader"
+    	  type = "relay.py"
+	  pkg = "necst_ros3">
+      <param name = "config_file"
+      	     value = "$(find necst_ros3)/relay_conf/dome_emergency_reader.conf" />
     </node>
 
+    <node name = "door_locker"
+    	  type = "relay.py"
+	  pkg = "necst_ros3">
+      <param name = "config_file"
+      	     value = "$(find necst_ros3)/relay_conf/dome_door_locker.conf" />
+    </node>
+
+    <node name = "door_reader"
+    	  type = "relay.py"
+	  pkg = "necst_ros3">
+      <param name = "config_file"
+      	     value = "$(find necst_ros3)/relay_conf/dome_door_reader.conf" />
+    </node>
+
+    <node name = "door_leftposition_reader"
+    	  type = "relay.py"
+	  pkg = "necst_ros3">
+      <param name = "config_file"
+      	     value = "$(find necst_ros3)/relay_conf/dome_door_leftposition_reader.conf" />
+    </node>
+
+    <node name = "door_rightposition_reader"
+    	  type = "relay.py"
+	  pkg = "necst_ros3">
+      <param name = "config_file"
+      	     value = "$(find necst_ros3)/relay_conf/dome_door_rightposition_reader.conf" />
+    </node>
+
+    <node name = "door_commander"
+    	  type = "relay.py"
+	  pkg = "necst_ros3">
+      <param name = "config_file"
+      	     value = "$(find necst_ros3)/relay_conf/dome_door_commander.conf" />
+    </node>
+
+    <node name = "door_cmd_writer"
+    	  type = "relay.py"
+	  pkg = "necst_ros3">
+      <param name = "config_file"
+      	     value = "$(find necst_ros3)/relay_conf/dome_door_cmd_writer.conf" />
+    </node>
+
+    <!-- simulators -->
+    <node name = "door_simulrator"
+	  type = "dome_door_simulator.py"
+	  pkg = "necst_ros3">
+      <param name="travel_time_left" value="5.0" />
+      <param name="travel_time_right" value="6.0" />
+    </node>
+    
+    <node name = "emergency_simulrator"
+	  type = "dome_emergency_simulator.py"
+	  pkg = "necst_ros3">
+    </node>
+    
+    <node name = "control_simulrator"
+	  type = "dome_control_simulator.py"
+	  pkg = "necst_ros3">
+    </node>
+        
   </group>
-
-  <node pkg = "necst_ros3"
-  	name = "dome_control"
-	type = "dome_control.py">
-    <param name="name_topic_from" value="dome_control_input_sim" />
-  </node>
-
-  <node pkg = "necst_ros3"
-  	name = "dome_emergency"
-	type = "dome_emergency.py">
-    <param name="name_topic_from" value="dome_emergency_input_sim" />
-  </node>
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door"
-	type = "dome_door.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_cmd"
-	type = "dome_door_cmd.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_cmd_sim"
-	type = "dome_door_cmd_sim.py">
-    <param name="travel_time_left" value="30.0" />
-    <param name="travel_time_right" value="31.0" />
-  </node>
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_lock"
-	type = "dome_door_lock.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_watcher_finalize_move"
-	type = "dome_door_watcher_finalize_move.py" />
 
 </launch>
