@@ -1,0 +1,20 @@
+<launch>
+
+  <node name = "door_simulator"
+        type = "dome_door_simulator.py"
+        pkg = "necst_ros3">
+    <param name="travel_time_left" value="5.0" />
+    <param name="travel_time_right" value="6.0" />
+  </node>
+    
+  <node name = "emergency_simulator"
+        type = "dome_emergency_simulator.py"
+        pkg = "necst_ros3">
+  </node>
+
+  <node name = "control_simulator"
+        type = "dome_control_simulator.py"
+        pkg = "necst_ros3">
+  </node>        
+
+</launch>
