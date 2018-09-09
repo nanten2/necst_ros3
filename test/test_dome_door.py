@@ -13,12 +13,16 @@ import std_msgs.msg
 class TestDomeDoor(unittest.TestCase):
     received = {
         'door': False,
+        'cmd': False,
         'cmd2': False,
+        'lock': False,
     }
     
     p = {
         'door': None,
+        'cmd': None,
         'cmd2': None,
+        'lock': None,
     }
     
     def setUp(self):
@@ -35,7 +39,7 @@ class TestDomeDoor(unittest.TestCase):
         
         self.pub_control = rospy.Publisher(
             name = '/cpz2724_rsw2/di11',
-            data_class = std_msgs.msg.String,
+            data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
@@ -140,10 +144,12 @@ class TestDomeDoor(unittest.TestCase):
         # start closing
         self.send('CLOSE')
         # moving
+        time.sleep(self.travel_time * 0.2)
         self.assertEqual(self.recv('cmd2'), 'CLOSE')
         self.assertEqual(self.recv('door'), 'TRANSIT')
         # close / stop
-        self.received = False
+        self.set_received_false()
+        time.sleep(self.travel_time * 1.5)
         self.assertEqual(self.recv('cmd2'), 'STOP')
         self.assertEqual(self.recv('door'), 'CLOSE')
         return
@@ -158,10 +164,12 @@ class TestDomeDoor(unittest.TestCase):
         # start opening
         self.send('OPEN')
         # moving
+        time.sleep(self.travel_time * 0.2)
         self.assertEqual(self.recv('cmd2'), 'OPEN')
         self.assertEqual(self.recv('door'), 'TRANSIT')
         # open / stop
-        self.received = False
+        self.set_received_false()
+        time.sleep(self.travel_time * 1.5)
         self.assertEqual(self.recv('cmd2'), 'STOP')
         self.assertEqual(self.recv('door'), 'OPEN')
         return
@@ -175,9 +183,11 @@ class TestDomeDoor(unittest.TestCase):
 
         # switch on emergency when closing
         self.send('CLOSE')
+        time.sleep(self.travel_time * 0.2)
         self.assertEqual(self.recv('door'), 'TRANSIT')
         
         self.send_emergency(True)
+        time.sleep(self.travel_time * 0.5)
         self.assertEqual(self.recv('cmd'), 'STOP')
         self.assertEqual(self.recv('cmd2'), 'STOP')
         self.assertEqual(self.recv('lock'), True)
@@ -188,9 +198,12 @@ class TestDomeDoor(unittest.TestCase):
         
         # switch off emergency
         self.send_emergency(False)
+        self.assertEqual(self.recv('lock'), False)
         self.assertEqual(self.recv('cmd'), 'STOP')
         
         self.send('CLOSE')
+        self.assertEqual(self.recv('cmd'), 'CLOSE')
+        time.sleep(self.travel_time * 1.1)
         self.assertEqual(self.recv('door'), 'CLOSE')
         return
 
@@ -203,9 +216,11 @@ class TestDomeDoor(unittest.TestCase):
 
         # change to LOCAL mode when closing
         self.send('CLOSE')
+        time.sleep(self.travel_time * 0.2)
         self.assertEqual(self.recv('door'), 'TRANSIT')
         
         self.send_control('LOCAL')
+        time.sleep(self.travel_time * 0.5)
         self.assertEqual(self.recv('cmd'), 'STOP')
         self.assertEqual(self.recv('cmd2'), 'STOP')
         self.assertEqual(self.recv('lock'), True)
@@ -215,10 +230,13 @@ class TestDomeDoor(unittest.TestCase):
         self.assertEqual(self.recv('cmd'), 'CLOSE')
         
         # change to REMOTE mode
-        self.send_control('LOCAL')
+        self.send_control('REMOTE')
+        self.assertEqual(self.recv('lock'), False)
         self.assertEqual(self.recv('cmd'), 'STOP')
         
         self.send('CLOSE')
+        self.assertEqual(self.recv('cmd'), 'CLOSE')
+        time.sleep(self.travel_time * 1.1)
         self.assertEqual(self.recv('door'), 'CLOSE')
         return
 
