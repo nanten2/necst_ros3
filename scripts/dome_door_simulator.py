@@ -11,15 +11,18 @@ import std_msgs.msg
 import topic_utils
 
 
-class dome_door_im(object):
-    p = {}
+class dome_door_sim(object):
+    p = {
+        'do1': None,
+        'do2': None,
+    }
     
     def __init__(self, travel_time_left, travel_time_right):
         self.sim = dome_door_simulator(travel_time_left, travel_time_right)
         
         self.do1 = rospy.Subscriber(
             name = '/cpz2724_rsw2/do05',
-            data_class = std_msgs.msg.String,
+            data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do1',
             queue_size = 1,
@@ -27,7 +30,7 @@ class dome_door_im(object):
         
         self.do2 = rospy.Subscriber(
             name = '/cpz2724_rsw2/do06',
-            data_class = std_msgs.msg.String,
+            data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do2',
             queue_size = 1,
