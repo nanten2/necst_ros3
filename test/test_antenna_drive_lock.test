@@ -1,16 +1,6 @@
 <launch>
 
   <node pkg = "necst_ros3"
-      name = "antenna_drive"
-      type = "antenna_drive.py">
-  </node>
-
-  <node pkg = "necst_ros3"
-      name = "antenna_drive_sim"
-      type = "antenna_drive_sim.py">
-  </node>
-
-  <node pkg = "necst_ros3"
       name = "antenna_drive_lock"
       type = "antenna_drive_lock.py">
   </node>

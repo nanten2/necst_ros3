@@ -76,7 +76,7 @@ class antenna_drive(object):
                 elif self.bit_status == [0,0,0,0]:
                     self.topic_to.publish("off")
                 else:
-                    print("Error")
+                    pass
 
                 bit_status_last = self.bit_status.copy()
                 pass
