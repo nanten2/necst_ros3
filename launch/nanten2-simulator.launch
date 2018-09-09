@@ -2,6 +2,13 @@
 
 
 <!-- Device : Dome -->
+  <group ns="dome">
+
+    <node name="control" type="relay" pkg="necst_ros3">
+      <param name="config_file" value="$(find necst_ros3)/relay_configs/dome_control.cfg" />
+    </node>
+
+  </group>
 
   <node pkg = "necst_ros3"
   	name = "dome_control"
