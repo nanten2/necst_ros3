@@ -21,6 +21,7 @@ def callback(msg, argname):
 def callback2():
     global params
     global publishers
+    global subscribers
     global logic
 
     namespace = globals()
@@ -35,7 +36,12 @@ def callback2():
              namespace)
         continue
 
-    exec(logic, namespace)
+    try:
+        exec(logic, namespace)
+    except NameError as e:
+        if e.args[0].split("'")[1] not in list(subscribers.keys()):
+            raise(NameError('['+config_file+'] '+e.args[0]))
+        pass
     return
 
 

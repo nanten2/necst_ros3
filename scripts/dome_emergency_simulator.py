@@ -11,10 +11,10 @@ import std_msgs.msg
 import topic_utils
 
 
-class dome_control_sim(object):
+class dome_emergency_sim(object):
     p = {}
     
-    def __init__(self, travel_time_left, travel_time_right):        
+    def __init__(self):
         self.pub = rospy.Publisher(
             name = '/cpz2724_rsw2/di01',
             data_class = std_msgs.msg.Bool,
