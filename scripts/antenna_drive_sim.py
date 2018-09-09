@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-name = "antenna_drive_dio"
+name = "antenna_drive_sim"
 
 import time
 import threading

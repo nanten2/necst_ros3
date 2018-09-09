@@ -99,9 +99,9 @@ class TestAntennaDrive(unittest.TestCase):
         self.assertEqual(self.recv(0).data, True)
         self.assertEqual(self.recv(1).data, 'off')
         time.sleep(self.timeout * 0.3)
-        self.pub_cmd.publish('on')
         time.sleep(self.timeout * 0.3)
         self.send(False, 'REMOTE')
+        self.pub_cmd.publish('on')
         self.assertEqual(self.recv(0).data, False)
         self.assertEqual(self.recv(1).data, 'on')
         return
@@ -117,9 +117,9 @@ class TestAntennaDrive(unittest.TestCase):
         self.assertEqual(self.recv(0).data, True)
         self.assertEqual(self.recv(1).data, 'off')
         time.sleep(self.timeout * 0.3)
-        self.pub_cmd.publish('on')
         time.sleep(self.timeout * 0.3)
         self.send(False, 'REMOTE')
+        self.pub_cmd.publish('on')
         self.assertEqual(self.recv(0).data, False)
         self.assertEqual(self.recv(1).data, 'on')
         return
