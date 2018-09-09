@@ -1,7 +1,7 @@
 <launch>
 
-  <include ns="dome" file="$(find nanten2_ros3)/launch/nanten2-dome.launch" />
-  <include ns="dome" file="$(find nanten2_ros3)/launch/nanten2-dome-simulator.launch" />
+  <include ns="dome" file="$(find necst_ros3)/launch/nanten2-dome.launch" />
+  <include ns="dome" file="$(find necst_ros3)/launch/nanten2-dome-simulator.launch" />
 
 
 </launch>

@@ -1,25 +1,23 @@
 <launch>
 
-  <include ns="dome" file="$(find nanten2_ros3)/launch/nanten2-dome.launch" />
+  <include file="$(find necst_ros3)/launch/nanten2-dome.launch" />
 
-  <group ns="dome">
-    <node name = "door_simulator"
-          type = "dome_door_simulator.py"
-          pkg = "necst_ros3">
-      <param name="travel_time_left" value="0.5" />
-      <param name="travel_time_right" value="0.5" />
-    </node>
-    
-    <node name = "emergency_simulator"
-          type = "dome_emergency_simulator.py"
-          pkg = "necst_ros3">
-    </node>
+  <node name = "door_simulator"
+        type = "dome_door_simulator.py"
+        pkg = "necst_ros3">
+    <param name="travel_time_left" value="0.5" />
+    <param name="travel_time_right" value="0.5" />
+  </node>
+  
+  <node name = "emergency_simulator"
+        type = "dome_emergency_simulator.py"
+        pkg = "necst_ros3">
+  </node>
 
-    <node name = "control_simulator"
-          type = "dome_control_simulator.py"
-          pkg = "necst_ros3">
-    </node>
-  </group>
+  <node name = "control_simulator"
+        type = "dome_control_simulator.py"
+        pkg = "necst_ros3">
+  </node>
 
   <test test-name = "test_dome_door"
         type = "test_dome_door.py"

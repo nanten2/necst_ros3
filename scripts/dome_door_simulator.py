@@ -105,14 +105,14 @@ class dome_door_sim(object):
             pos_left = self.sim.current_left
             if pos_left != pos_left_last:
                 if pos_left == 'OPEN':
+                    self.pub_left2.publish(True)
                     self.pub_left1.publish(True)
-                    self.pub_left2.publish(True)
                 elif pos_left == 'CLOSE':
-                    self.pub_left1.publish(False)
                     self.pub_left2.publish(True)
-                elif pos_left == 'TRANSIT':
                     self.pub_left1.publish(False)
+                elif pos_left == 'TRANSIT':
                     self.pub_left2.publish(False)
+                    self.pub_left1.publish(False)
                     pass
                 pos_left_last = pos_left
                 pass
@@ -120,14 +120,14 @@ class dome_door_sim(object):
             pos_right = self.sim.current_right
             if pos_right != pos_right_last:
                 if pos_right == 'OPEN':
+                    self.pub_right2.publish(True)
                     self.pub_right1.publish(True)
-                    self.pub_right2.publish(True)
                 elif pos_right == 'CLOSE':
-                    self.pub_right1.publish(False)
                     self.pub_right2.publish(True)
-                elif pos_right == 'TRANSIT':
                     self.pub_right1.publish(False)
+                elif pos_right == 'TRANSIT':
                     self.pub_right2.publish(False)
+                    self.pub_right1.publish(False)
                     pass
                 pos_right_last = pos_right
                 pass
