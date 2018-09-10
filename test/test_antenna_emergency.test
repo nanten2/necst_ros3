@@ -1,0 +1,15 @@
+<launch>
+
+  <node pkg = "necst_ros3"
+      name = "antenna_emergency"
+      type = "antenna_emergency.py">
+    <param name="name_topic_from" value="antenna_emergency_input_sim" />
+  </node>
+
+  <test pkg = "necst_ros3"
+  test-name = "test_antenna_emergency"
+  type = "test_antenna_emergency.py">
+    <param name="timeout" textfile="$(find necst_ros3)/test/timeout.param" />
+  </test>
+
+</launch>
