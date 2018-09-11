@@ -2,6 +2,7 @@
 
 name = "weather_wind"
 
+import time
 import threading
 import rospy
 import std_msgs.msg

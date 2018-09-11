@@ -2,6 +2,7 @@
 
 name = "weather_outside_ondotori"
 
+import time
 import threading
 import rospy
 import std_msgs.msg
