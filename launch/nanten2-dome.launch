@@ -76,5 +76,33 @@
     <param name = "config_file"
            value = "$(find necst_ros3)/relay_conf/dome_door_cmd_writer.conf" />
   </node>
-        
+ 
+  <node name = "memb_position_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_memb_position_reader.conf" />
+  </node>
+
+  <node name = "memb_action_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_memb_action_reader.conf" />
+  </node>
+
+  <node name = "memb_commander"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_memb_commander.conf" />
+  </node>
+
+  <node name = "memb_cmd_writer"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_memb_cmd_writer.conf" />
+  </node>
+ 
 </launch>
