@@ -1,0 +1,115 @@
+<launch>
+
+  <node name = "Bcontainer_temp"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_Bcontainer_temp.conf" />
+  </node>
+
+  <node name = "Bcontainer_humi"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_Bcontainer_humi.conf" />
+  </node>
+
+  <node name = "Dcontainer_temp"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_Dcontainer_temp.conf" />
+  </node>
+
+  <node name = "Dcontainer_humi"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_Dcontainer_humi.conf" />
+  </node>
+
+  <node name = "cabin_temp1"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_cabin_temp1.conf" />
+  </node>
+
+  <node name = "cabin_temp2"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_cabin_temp2.conf" />
+  </node>
+
+  <node name = "dome_temp1"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_dome_temp1.conf" />
+  </node>
+
+  <node name = "dome_temp2"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_dome_temp2.conf" />
+  </node>
+
+  <node name = "outside1_temp"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_outside1_temp.conf" />
+  </node>
+
+  <node name = "outside1_humi"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_outside1_humi.conf" />
+  </node>
+
+  <node name = "outside2_temp"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_outside2_temp.conf" />
+  </node>
+
+  <node name = "outside2_humi"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_outside2_humi.conf" />
+  </node>
+
+  <node name = "wind_speed"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_wind_speed.conf" />
+  </node>
+
+  <node name = "wind_direction"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_wind_direction.conf" />
+  </node>
+
+  <node name = "press"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_pressure.conf" />
+  </node>
+
+  <node name = "rain"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/weather_rain.conf" />
+  </node>
+
+</launch>
