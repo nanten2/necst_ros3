@@ -1,7 +1,6 @@
 #! /usr/bin/env python3
 
-name = "antenna_az_lock"
-target_name = "antenna_az"
+name = 'dome_door_lock'
 
 # ----
 import time
@@ -10,7 +9,7 @@ import rospy
 import std_msgs.msg
 
 
-class antenna_az_locker(object):
+class dome_door_locker(object):
     status = {
         'emergency': None,
         'control': None,
@@ -18,28 +17,35 @@ class antenna_az_locker(object):
 
     output = {
         'lock': False,
-        'speed': None,
+        'cmd': None,
+        'cmd2': None,
     }
     publish_output = False
     
     def __init__(self):
         self.pub_lock = rospy.Publisher(
-            name = target_name +"_lock",
+            name = 'dome_door_lock',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
 
-        self.pub_speed = rospy.Publisher(
-            name = target_name +"_feedback",
-            data_class = std_msgs.msg.Float64,
+        self.pub_cmd = rospy.Publisher(
+            name = 'dome_door_cmd',
+            data_class = std_msgs.msg.String,
+            queue_size = 1,
+        )
+
+        self.pub_cmd2 = rospy.Publisher(
+            name = 'dome_door_cmd2',
+            data_class = std_msgs.msg.String,
             queue_size = 1,
         )
 
         self.topic_from = []
         
         topic_from1 = rospy.Subscriber(
-            name = 'antenna_emergency',
+            name = 'dome_emergency',
             data_class = std_msgs.msg.Bool,
             callback = self.update_emergency,
             queue_size = 1,
@@ -47,7 +53,7 @@ class antenna_az_locker(object):
         self.topic_from.append(topic_from1)
         
         topic_from2 = rospy.Subscriber(
-            name = 'antenna_control',
+            name = 'dome_control',
             data_class = std_msgs.msg.String,
             callback = self.update_control,
             queue_size = 1,
@@ -70,19 +76,23 @@ class antenna_az_locker(object):
         
         if self.status['emergency'] == True:
             is_normal_state = False
-            self.output['speed'] = 0.0
+            self.output['cmd'] = 'STOP'
+            self.output['cmd2'] = 'STOP'
             self.output['lock'] = True
             self.publish_output = True
             pass
         
         if self.status['control'] == 'LOCAL':
             is_normal_state = False
-            self.output['speed'] = 0.0
+            self.output['cmd'] = 'STOP'
+            self.output['cmd2'] = 'STOP'
             self.output['lock'] = True
             self.publish_output = True
             pass
         
         if is_normal_state == True:
+            self.output['cmd'] = 'STOP'
+            self.output['cmd2'] = 'STOP'
             self.output['lock'] = False
             self.publish_output = True
             pass
@@ -95,7 +105,8 @@ class antenna_az_locker(object):
         while not rospy.is_shutdown():
 
             if self.publish_output == True:
-                self.pub_speed.publish(self.output['speed'])
+                self.pub_cmd.publish(self.output['cmd'])
+                self.pub_cmd2.publish(self.output['cmd2'])
                 self.pub_lock.publish(self.output['lock'])
                 self.publish_output = False
                 pass
@@ -109,7 +120,7 @@ class antenna_az_locker(object):
 
 if __name__=='__main__':
     rospy.init_node(name)
-    locker = antenna_az_locker()
+    locker = dome_door_locker()
     pub_thread = threading.Thread(
         target = locker.publish_status,
         daemon = True,
