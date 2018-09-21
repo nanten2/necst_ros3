@@ -18,7 +18,7 @@ class encoder_el_sim(object):
         self.topic_to = rospy.Publisher(
                 name = "encoder_el_input_sim",
                 data_class = std_msgs.msg.Int64,
-                latch = True
+                latch = True,
                 queue_size = 1,
             )
 

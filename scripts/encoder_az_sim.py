@@ -18,7 +18,7 @@ class encoder_az_sim(object):
         self.topic_to = rospy.Publisher(
                 name = "encoder_az_input_sim",
                 data_class = std_msgs.msg.Int64,
-                latch = True
+                latch = True,
                 queue_size = 1,
             )
 
