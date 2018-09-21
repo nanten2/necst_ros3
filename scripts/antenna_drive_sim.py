@@ -4,7 +4,6 @@ name = "antenna_drive_sim"
 
 import time
 import threading
-import pyinterface
 import rospy
 import std_msgs.msg
 
@@ -12,6 +11,7 @@ import std_msgs.msg
 class antenna_drive_sim(object):
 
     bit_status = [0,0,0,0,0,0]
+    flag = False
 
     def __init__(self):
 
@@ -55,19 +55,17 @@ class antenna_drive_sim(object):
     def update_bit_status(self, command, args):
         index = args["index"]
         self.bit_status[index] = command.data
+        self.flag = True
         return
 
     def publish_drive(self):
-        byte_last = []
         while not rospy.is_shutdown():
             byte = self.bit_status
-
-            if byte != byte_last:
+            if self.flag:
                 for i in range(0,4):
-                    topic_to[i].publish(byte[i])
-
-                byte_last = byte
-            time.sleep(0.05)
+                    self.topic_to[i].publish(byte[i])
+                self.flag = False
+            time.sleep(0.5)
             continue
 
         return

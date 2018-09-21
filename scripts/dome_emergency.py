@@ -1,19 +1,20 @@
-#!/usr/bin/env python3
+#! /usr/bin/env python3
 
-name = 'antenna_emergency'
+name = 'dome_emergency'
 
 # ----
 import rospy
 import std_msgs.msg
 
-def antenna_emergency_mapper(status):
-    topic_to.publish(status.data)
+def dome_emergency_mapper(status):
+    topic_to.publish(status)
     return
 
 
 if __name__=='__main__':
     rospy.init_node(name)
-
+    name_topic_from = rospy.get_param('~name_topic_from')
+    
     topic_to = rospy.Publisher(
         name = name,
         data_class = std_msgs.msg.Bool,
@@ -22,9 +23,9 @@ if __name__=='__main__':
     )
     
     topic_from = rospy.Subscriber(
-            name = name_topic_from,#'cpz2724_rsw0_di24'
+        name = name_topic_from,
         data_class = std_msgs.msg.Bool,
-        callback = antenna_emergency_mapper,
+        callback = dome_emergency_mapper,
         queue_size = 1,
     )
 

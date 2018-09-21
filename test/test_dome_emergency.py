@@ -1,6 +1,6 @@
 #! /usr/bin/env python2
 
-name = 'test_antenna_emergency'
+name = 'test_dome_emergency'
 
 # ----
 import time
@@ -10,7 +10,7 @@ import rostest
 import std_msgs.msg
 
 
-class TestAntennaEmergency(unittest.TestCase):
+class TestDomeEmergency(unittest.TestCase):
     def setUp(self):
         self.recv_msg = None
         self.received = False
@@ -19,13 +19,13 @@ class TestAntennaEmergency(unittest.TestCase):
         self.timeout = rospy.get_param('~timeout')
         
         self.pub = rospy.Publisher(
-            name = 'name_topic_from',
+            name = 'dome_emergency_input_sim',
             data_class = std_msgs.msg.Bool,
             queue_size = 1,
         )
         
         self.sub = rospy.Subscriber(
-            name = 'antenna_emergency',
+            name = 'dome_emergency',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             queue_size = 1,
@@ -75,4 +75,4 @@ class TestAntennaEmergency(unittest.TestCase):
 
 
 if __name__=='__main__':
-    rostest.rosrun('necst_ros3', 'test_antenna_emergency', TestAntennaEmergency)
+    rostest.rosrun('necst_ros3', 'test_dome_emergency', TestDomeEmergency)

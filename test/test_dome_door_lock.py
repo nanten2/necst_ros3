@@ -1,6 +1,6 @@
 #! /usr/bin/env python2
 
-name = 'test_antenna_drive_lock'
+name = 'test_dome_door_lock'
 
 # ----
 import time
@@ -10,34 +10,40 @@ import rostest
 import std_msgs.msg
 
 
-class TestAntennaDrive(unittest.TestCase):
+class TestDomeDoorLock(unittest.TestCase):
     def setUp(self):
-        self.recv_msg = [None for i in range(2)]
-        self.received = [False for i in range(2)]
-
+        self.recv_msg = [None for i in range(3)]
+        self.received = [False for i in range(3)]
+        
         rospy.init_node(name)
         self.timeout = rospy.get_param('~timeout')
         
         self.pub1 = rospy.Publisher(
-            name = 'antenna_emergency',
+            name = 'dome_emergency',
             data_class = std_msgs.msg.Bool,
             queue_size = 1,
         )
         
         self.pub2 = rospy.Publisher(
-            name = 'antenna_control',
+            name = 'dome_control',
             data_class = std_msgs.msg.String,
             queue_size = 1,
         )
         
         self.pub_cmd = rospy.Publisher(
-            name = 'antenna_drive_cmd',
+            name = 'dome_door_cmd',
+            data_class = std_msgs.msg.String,
+            queue_size = 1,
+        )
+        
+        self.pub_cmd2 = rospy.Publisher(
+            name = 'dome_door_cmd2',
             data_class = std_msgs.msg.String,
             queue_size = 1,
         )
         
         self.sub_lock = rospy.Subscriber(
-            name = 'antenna_drive_lock',
+            name = 'dome_door_lock',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = {'index': 0},
@@ -45,16 +51,24 @@ class TestAntennaDrive(unittest.TestCase):
         )
 
         self.sub_cmd = rospy.Subscriber(
-            name = 'antenna_drive_cmd',
+            name = 'dome_door_cmd',
             data_class = std_msgs.msg.String,
             callback = self.callback,
             callback_args = {'index': 1},
             queue_size = 1,
         )
 
+        self.sub_cmd2 = rospy.Subscriber(
+            name = 'dome_door_cmd2',
+            data_class = std_msgs.msg.String,
+            callback = self.callback,
+            callback_args = {'index': 2},
+            queue_size = 1,
+        )
+
         time.sleep(self.timeout * 0.5)
         pass
-    
+
     def callback(self, msg, args):
         self.recv_msg[args['index']] = msg
         self.received[args['index']] = True
@@ -93,17 +107,21 @@ class TestAntennaDrive(unittest.TestCase):
         time.sleep(self.timeout * 0.3)
         self.send(True, 'REMOTE')
         self.assertEqual(self.recv(0).data, True)
-        self.assertEqual(self.recv(1).data, 'off')
+        self.assertEqual(self.recv(1).data, 'STOP')
+        self.assertEqual(self.recv(2).data, 'STOP')
         time.sleep(self.timeout * 0.3)
         self.send(True, 'LOCAL')
         self.assertEqual(self.recv(0).data, True)
-        self.assertEqual(self.recv(1).data, 'off')
+        self.assertEqual(self.recv(1).data, 'STOP')
+        self.assertEqual(self.recv(2).data, 'STOP')
         time.sleep(self.timeout * 0.3)
-        self.pub_cmd.publish('on')
+        self.pub_cmd.publish('OPEN')
+        self.pub_cmd2.publish('OPEN')
         time.sleep(self.timeout * 0.3)
         self.send(False, 'REMOTE')
         self.assertEqual(self.recv(0).data, False)
-        self.assertEqual(self.recv(1).data, 'on')
+        self.assertEqual(self.recv(1).data, 'STOP')
+        self.assertEqual(self.recv(2).data, 'STOP')
         return
 
     def _test_control(self):
@@ -111,19 +129,24 @@ class TestAntennaDrive(unittest.TestCase):
         time.sleep(self.timeout * 0.3)
         self.send(False, 'LOCAL')
         self.assertEqual(self.recv(0).data, True)
-        self.assertEqual(self.recv(1).data, 'off')
+        self.assertEqual(self.recv(1).data, 'STOP')
+        self.assertEqual(self.recv(2).data, 'STOP')        
         time.sleep(self.timeout * 0.3)
         self.send(True, 'LOCAL')
         self.assertEqual(self.recv(0).data, True)
-        self.assertEqual(self.recv(1).data, 'off')
+        self.assertEqual(self.recv(1).data, 'STOP')
+        self.assertEqual(self.recv(2).data, 'STOP')        
         time.sleep(self.timeout * 0.3)
-        self.pub_cmd.publish('on')
+        self.pub_cmd.publish('OPEN')
+        self.pub_cmd2.publish('OPEN')
         time.sleep(self.timeout * 0.3)
         self.send(False, 'REMOTE')
         self.assertEqual(self.recv(0).data, False)
-        self.assertEqual(self.recv(1).data, 'on')
+        self.assertEqual(self.recv(1).data, 'STOP')
+        self.assertEqual(self.recv(2).data, 'STOP')        
         return
 
 
+
 if __name__=='__main__':
-    rostest.rosrun('necst_ros3', 'test_antenna_drive', TestAntennaDrive)
+    rostest.rosrun('necst_ros3', 'test_dome_door_lock', TestDomeDoorLock)

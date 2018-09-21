@@ -109,7 +109,7 @@ class antenna_el_locker(object):
 
 if __name__=='__main__':
     rospy.init_node(name)
-    locker = dome_door_locker()
+    locker = antenna_el_locker()
     pub_thread = threading.Thread(
         target = locker.publish_status,
         daemon = True,

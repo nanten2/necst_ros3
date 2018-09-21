@@ -1,34 +1,34 @@
-#!/usr/bin/env python3
+#! /usr/bin/env python3
 
-name = "antenna_control"
+name = 'dome_door_leftdrive_mapper'
 
+# ----
 import rospy
 import std_msgs.msg
 
-def antenna_control_mapper(status):
+def dome_door_left_drive_mapper(status):
     if status.data == True:
-        topic_to.publish("LOCAL")
+        topic_to.publish('DRIVE')
     else:
-        topic_to.publish("REMOTE")
+        topic_to.publish('OFF')
         pass
     return
 
 
-if __name__=="__main__":
+if __name__=='__main__':
     rospy.init_node(name)
-    name_topic_from = rospy.get_param('~name_topic_from')
 
     topic_to = rospy.Publisher(
-        name = name,
+        name = 'dome_door_leftdrive',
         data_class = std_msgs.msg.String,
         latch = True,
         queue_size = 1,
     )
     
     topic_from = rospy.Subscriber(
-        name = name_topic_from,#'cpz2724_rsw0_di26'
+        name = 'cpz2724_rsw2_di5',
         data_class = std_msgs.msg.Bool,
-        callback = antenna_control_mapper,
+        callback = dome_door_left_drive_mapper,
         queue_size = 1,
     )
 

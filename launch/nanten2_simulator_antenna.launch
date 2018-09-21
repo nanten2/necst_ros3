@@ -46,13 +46,13 @@
 
   <node pkg = "necst_ros3"
       name = "antenna_control"
-      type = "antenna_control.py"
+      type = "antenna_control.py">
     <param name="name_topic_from" value="antenna_control_input_sim" />
   </node>
 
   <node pkg = "necst_ros3"
       name = "antenna_emergency"
-      type = "antenna_emergency.py" />
+      type = "antenna_emergency.py">
     <param name="name_topic_from" value="antenna_emergency_input_sim" />
   </node>
 

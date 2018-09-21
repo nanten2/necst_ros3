@@ -19,7 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -196,3 +196,14 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+if(CATKIN_ENABLE_TESTING)
+  find_package(rostest REQUIRED)
+  add_rostest(test/test_dome_control.test)
+  add_rostest(test/test_dome_emergency.test)
+  add_rostest(test/test_dome_door.test)
+  add_rostest(test/test_dome_door_cmd.test)
+  add_rostest(test/test_dome_door_cmd_sim.test)
+  add_rostest(test/test_dome_door_lock.test)
+  add_rostest(test/test_dome_door_integ_sim.test)
+endif()
