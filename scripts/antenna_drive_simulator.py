@@ -124,7 +124,7 @@ class antenna_drive_sim(object):
                     self.pub_din2(True)
                     self.pub_din3(True)
                     self.pub_din4(True)
-                elif self.cmd = 'off':
+                elif self.cmd == 'off':
                     self.pub_din1(False)
                     self.pub_din2(False)
                     self.pub_din3(False)
