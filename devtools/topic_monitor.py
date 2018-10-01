@@ -24,6 +24,17 @@ class topic_monitor(object):
             )
             return            
             
+
+        # Antenna
+        # -------
+        new('antenna_control', std_msgs.msg.String)
+        new('antenna_emergency', std_msgs.msg.Bool)
+        new('antenna_error', std_msgs.msg.String)
+        new('drive', std_msgs.msg.String)
+        new('drive_cmd', std_msgs.msg.String)
+        new('drive_cmd2', std_msgs.msg.String)
+        new('drive_lock', std_msgs.msg.Bool)
+
         # Dome
         # ----
         new('dome_control', std_msgs.msg.String)
