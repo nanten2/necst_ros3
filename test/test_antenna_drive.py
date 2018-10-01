@@ -11,12 +11,24 @@ import std_msgs.msg
 
 
 class TestAntennaDrive(unittest.TestCase):
+    
+    received = {
+        'drive': False,
+        'cmd': False,
+        'cmd2': False,
+        'lock': False,
+    }
+
+    p = {
+        'drive': False,
+        'cmd': False,
+        'cmd2': False,
+        'lock': False,
+    }
+
     def setUp(self):
-        self.recv_msg = None
-        self.received = False
-        
         rospy.init_node(name)
-        self.timeout = rospy.get_param('~timeout')
+        self.timeout = float(rospy.get_param('~timeout'))
         
         self.pub_emergency = rospy.Publisher(
             name = 'antenna_emergency',
@@ -40,6 +52,7 @@ class TestAntennaDrive(unittest.TestCase):
             name = 'drive',
             data_class = std_msgs.msg.String,
             callback = self.callback,
+            callback_args = 'drive',
             queue_size = 1,
         )
 
@@ -47,6 +60,7 @@ class TestAntennaDrive(unittest.TestCase):
             name = 'drive_cmd',
             data_class = std_msgs.msg.String,
             callback = self.callback,
+            callback_args = 'cmd',
             queue_size = 1,
         )
 
@@ -54,6 +68,7 @@ class TestAntennaDrive(unittest.TestCase):
             name = 'drive_cmd2',
             data_class = std_msgs.msg.String,
             callback = self.callback,
+            callback_args = 'cmd2',
             queue_size = 1,
         )
 
@@ -61,6 +76,7 @@ class TestAntennaDrive(unittest.TestCase):
             name = 'drive_lock',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
+            callback_args = 'lock',
             queue_size = 1,
         )
 
