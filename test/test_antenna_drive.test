@@ -1,13 +1,20 @@
 <launch>
 
+  <include file="$(find necst_ros3)/launch/nanten2-antenna.launch" />
+
   <node pkg = "necst_ros3"
-      name = "antenna_drive"
-      type = "antenna_drive.py">
+      name = "antenna_drive_simulator"
+      type = "antenna_drive_simulator.py">
   </node>
 
   <node pkg = "necst_ros3"
-      name = "antenna_drive_sim"
-      type = "antenna_drive_sim.py">
+      name = "antenna_emergency_simulator"
+      type = "antenna_emergency_simulator.py">
+  </node>
+
+  <node pkg = "necst_ros3"
+      name = "antenna_control_simulator"
+      type = "antenna_control_simulator.py">
   </node>
 
   <test pkg = "necst_ros3"
