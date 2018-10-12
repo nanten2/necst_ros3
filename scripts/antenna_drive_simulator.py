@@ -99,6 +99,8 @@ class antenna_drive_sim(object):
             latch = True,
             queue_size = 1,
         )
+
+        self.cmd = "off"
         pass
 
     def callback(self, msg, argname):
@@ -120,15 +122,15 @@ class antenna_drive_sim(object):
         while not rospy.is_shutdown():
             if self.cmd != cmd_last:
                 if self.cmd == 'on':
-                    self.pub_din1(True)
-                    self.pub_din2(True)
-                    self.pub_din3(True)
-                    self.pub_din4(True)
+                    self.pub_din1.publish(True)
+                    self.pub_din2.publish(True)
+                    self.pub_din3.publish(True)
+                    self.pub_din4.publish(True)
                 elif self.cmd == 'off':
-                    self.pub_din1(False)
-                    self.pub_din2(False)
-                    self.pub_din3(False)
-                    self.pub_din4(False)
+                    self.pub_din1.publish(False)
+                    self.pub_din2.publish(False)
+                    self.pub_din3.publish(False)
+                    self.pub_din4.publish(False)
                 cmd_last = self.cmd
                 pass
             

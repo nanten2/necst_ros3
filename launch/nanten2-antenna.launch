@@ -78,12 +78,11 @@
   </node>
  
   <node name = "az_commander_pid"
-        type = "relay.py"
-        pkg = "necst_ros3">
-    <param name = "config_file"
-           value = "$(find necst_ros3)/relay_conf/antenna_az_commander_pid.conf" />
+        type = "antenna_az_commander_pid.py"
+        pkg = "necst_ros3"
+        output = "screen">
   </node>
-
+  
   <node name = "az_cmd_writer"
         type = "relay.py"
         pkg = "necst_ros3">
@@ -99,10 +98,8 @@
   </node>
 
   <node name = "el_commander_pid"
-        type = "relay.py"
+        type = "antenna_el_commander_pid.py"
         pkg = "necst_ros3">
-    <param name = "config_file"
-           value = "$(find necst_ros3)/relay_conf/antenna_el_commander_pid.conf" />
   </node>
  
   <node name = "el_cmd_writer"

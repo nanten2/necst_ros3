@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-name = "antenna_az_commander_pid"
+name = "antenna_el_commander_pid"
 
 import math
 import time
@@ -8,7 +8,7 @@ import rospy
 import std_msgs.msg
 
 
-class antenna_az_feedback(object):
+class antenna_el_feedback(object):
 
     speed_d = 0.0
     pre_arcsec = 0.0
@@ -25,49 +25,49 @@ class antenna_az_feedback(object):
     
     def __init__(self):
         self.topic_to = rospy.Publisher(
-                name = "/az_speed",
+                name = "/el_speed",
                 data_class = std_msgs.msg.Float64,
                 queue_size = 1,
             )
 
         topic_from1 = rospy.Subscriber(
-                name = "az_cmd",
+                name = "el_cmd",
                 data_class = std_msgs.msg.Float64,
-                callback = self.antenna_az_feedback,
+                callback = self.antenna_el_feedback,
                 queue_size = 1,
             )
 
         topic_from2 = rospy.Subscriber(
-                name = "/az",
+                name = "/el",
                 data_class = std_msgs.msg.Float64,
-                callback = self.antenna_az_encoder,
+                callback = self.antenna_el_encoder,
                 queue_size = 1,
             )
 
         topic_from_pid = rospy.Subscriber(
-                name = "az_pid",
+                name = "el_pid",
                 data_class = std_msgs.msg.Float32MultiArray,
-                callback = self.antenna_az_pid,
+                callback = self.antenna_el_pid,
                 queue_size = 1,
             )
 
         topic_from_lock = rospy.Subscriber(
-                name = "az_lock",
+                name = "el_lock",
                 data_class = std_msgs.msg.Bool,
-                callback = self.antenna_az_lock,
+                callback = self.antenna_el_lock,
                 queue_size = 1,
             )
 
         pass
 
-    def antenna_az_feedback(self, command):
+    def antenna_el_feedback(self, command):
         MOTOR_MAXSTEP = 1000
-        MOTOR_AZ_MAXRATE = 10000
+        MOTOR_el_MAXRATE = 10000
         rate_to_arcsec = (12/7)*(3600/10000)
         
         arcsec_cmd = command.data * 3600.
         
-        #for az >= 180*3600 and az <= -180*3600
+        #for el >= 180*3600 and el <= -180*3600
         if self.arcsec_enc > 40*3600 and arcsec_cmd+360*3600 < 220*3600:
             arcsec_cmd += 360*3600
         elif self.arcsec_enc < -40*3600 and arcsec_cmd-360*3600 > -220*3600:
@@ -78,11 +78,12 @@ class antenna_az_feedback(object):
         else:
             pass
         self.t_now = time.time()
-        
+
         ret = calc_pid(arcsec_cmd, self.arcsec_enc,
                 self.pre_arcsec, self.pre_hensa, self.ihensa, self.enc_before,
                 self.t_now, self.t_past,
                 self.p_coeff, self.i_coeff, self.d_coeff)
+        
         speed = ret[0]
 
         #update
@@ -103,12 +104,13 @@ class antenna_az_feedback(object):
             self.speed_d += a*MOTOR_MAXSTEP*rate_to_arcsec
 
         #limit of max speed
-        if self.speed_d > MOTOR_AZ_MAXRATE*rate_to_arcsec:
-            self.speed_d = MOTOR_AZ_MAXRATE*rate_to_arcsec
-        if self.speed_d < -MOTOR_AZ_MAXRATE*rate_to_arcsec:
-            self.speed_d = -MOTOR_AZ_MAXRATE*rate_to_arcsec
+        if self.speed_d > MOTOR_el_MAXRATE*rate_to_arcsec:
+            self.speed_d = MOTOR_el_MAXRATE*rate_to_arcsec
+        if self.speed_d < -MOTOR_el_MAXRATE*rate_to_arcsec:
+            self.speed_d = -MOTOR_el_MAXRATE*rate_to_arcsec
         
         command_speed = self.speed_d
+        
         if self.lock == True:
             self.speed_d = 0.0
             self.topic_to_publish(0.0)
@@ -117,17 +119,17 @@ class antenna_az_feedback(object):
             self.topic_to.publish(command_speed)
         return
 
-    def antenna_az_encoder(self, status):
+    def antenna_el_encoder(self, status):
         self.arcsec_enc = status.data * 3600.
         return
 
-    def antenna_az_pid(self, status):
+    def antenna_el_pid(self, status):
         self.p_coeff = status.data[0]
         self.i_coeff = status.data[1]
         self.d_coeff = status.data[2]
         return
     
-    def antenna_az_lock(self, status):
+    def antenna_el_lock(self, status):
         self.lock = status.data
         return
 
@@ -135,7 +137,7 @@ def calc_pid(target_arcsec, encoder_arcsec, pre_arcsec, pre_hensa, ihensa, enc_b
     """                                                                         
     DESCRIPTION                                                                 
     ===========                                                                 
-    This function determine az&el speed for antenna                             
+    This function determine el&el speed for antenna                             
     """
 
     #calculate ichi_hensa
@@ -164,6 +166,6 @@ def calc_pid(target_arcsec, encoder_arcsec, pre_arcsec, pre_hensa, ihensa, enc_b
 
 if __name__ == "__main__":
     rospy.init_node(name)
-    feedback = antenna_az_feedback()
+    feedback = antenna_el_feedback()
     rospy.spin()
 

@@ -17,6 +17,11 @@
       type = "antenna_control_simulator.py">
   </node>
 
+  <node pkg = "necst_ros3"
+      name = "antenna_error_simulator"
+      type = "antenna_error_simulator.py">
+  </node>
+
   <test pkg = "necst_ros3"
   test-name = "test_antenna_drive"
   type = "test_antenna_drive.py">
