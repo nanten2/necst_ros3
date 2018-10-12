@@ -1,0 +1,8 @@
+<launch>
+
+  <node name = "XFFTS_simulator"
+        type = "data_server_du_v3.py"
+        pkg = "nascorx_xffts">
+  </node>
+
+</launch>
