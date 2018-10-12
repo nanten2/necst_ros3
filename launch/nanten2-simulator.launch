@@ -1,0 +1,6 @@
+<launch>
+
+  <include ns="spectrometer" file="$(find necst_ros3)/launch/nanten2-spectrometer.launch" />
+  <include ns="spectrometer" file="$(find necst_ros3)/launch/nanten2-spectrometer-simulator.launch" />
+
+</launch>

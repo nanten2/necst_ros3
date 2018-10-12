@@ -37,6 +37,11 @@ class topic_monitor(object):
         new('dome_door_rightposition', std_msgs.msg.String)
         new('dome_emergency', std_msgs.msg.Bool)
         
+        # Spectrometer
+        # ------------
+        new('/spectrometer/data1', std_msgs.msg.Float64MultiArray)
+        new('/spectrometer/data2', std_msgs.msg.Float64MultiArray)
+
         pass
     
     def callback(self, msg, args):
