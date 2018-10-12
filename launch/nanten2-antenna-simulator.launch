@@ -15,4 +15,9 @@
         pkg = "necst_ros3">
   </node>
 
+  <node name = "antenna_error_simulator"
+        type = "antenna_error_simulator.py"
+        pkg = "necst_ros3">
+  </node>
+
 </launch>

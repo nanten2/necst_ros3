@@ -16,14 +16,14 @@ class encoder_az_sim(object):
     def __init__(self):
 
         self.topic_to = rospy.Publisher(
-                name = "encoder_az_input_sim",
+                name = "/cpz6204_rsw0/di01",
                 data_class = std_msgs.msg.Int64,
                 latch = True,
                 queue_size = 1,
             )
 
         self.topic_from = rospy.Subscriber(
-                name = "antenna_az_feedback",
+                name = "/az_speed",
                 data_class = std_msgs.msg.Float64,
                 callback = self.encoder_az_sim,
                 queue_size = 1,
@@ -35,12 +35,12 @@ class encoder_az_sim(object):
 
     def publish_status(self):
 
-        enc_az_last = 0
+        enc_az_last = None
         while not rospy.is_shutdown():
             self.enc_az += self.command_speed * 0.01 * 0.617
 
             if self.enc_az != enc_az_last:
-                topic_to.publish(int(self.enc_az / (360*3600/(23600*400))))
+                self.topic_to.publish(int(self.enc_az / (360*3600/(23600*400))))
 
                 enc_az_last = self.enc_az
 

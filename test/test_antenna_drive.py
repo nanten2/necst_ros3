@@ -31,13 +31,13 @@ class TestAntennaDrive(unittest.TestCase):
         self.timeout = float(rospy.get_param('~timeout'))
         
         self.pub_emergency = rospy.Publisher(
-            name = 'antenna_emergency',
+            name = 'emergency',
             data_class = std_msgs.msg.Bool,
             queue_size = 1,
         )
 
         self.pub_control = rospy.Publisher(
-            name = 'antenna_control',
+            name = 'control',
             data_class = std_msgs.msg.Bool,
             queue_size = 1,
         )
@@ -154,7 +154,7 @@ class TestAntennaDrive(unittest.TestCase):
         self.send('on')
         time.sleep(self.timeout * 0.2)
         self.assertEqual(self.recv('cmd2'), 'on')
-        self.assertEqual(self.recv('door'), 'on')
+        self.assertEqual(self.recv('drive'), 'on')
         return
     
     def _test_emergency(self):
@@ -167,18 +167,17 @@ class TestAntennaDrive(unittest.TestCase):
         # switch on emergency
         self.send_emergency(True)
         time.sleep(self.timeout * 0.5)
-        self.assertEqual(self.recv('cmd'), 'on')
-        self.assertEqual(self.recv('cmd2'), 'on')
         self.assertEqual(self.recv('lock'), True)
         
         self.send('off')
-        self.assertRaises(Exception, self.recv, 'cmd2')
+        time.sleep(self.timeout * 0.5)
         self.assertEqual(self.recv('cmd'), 'off')
+        self.assertRaises(Exception, self.recv, 'cmd2')
         
         # switch off emergency
         self.send_emergency(False)
         self.assertEqual(self.recv('lock'), False)
-        self.assertEqual(self.recv('cmd'), 'off')
+        self.send('off')
         time.sleep(self.timeout * 1.1)
         self.assertEqual(self.recv('drive'), 'off')
         return
@@ -192,17 +191,16 @@ class TestAntennaDrive(unittest.TestCase):
 
         self.send_control('LOCAL')
         time.sleep(self.timeout * 0.5)
-        self.assertEqual(self.recv('cmd'), 'on')
-        self.assertEqual(self.recv('cmd2'), 'on')
         self.assertEqual(self.recv('lock'), True)
         
         self.send('off')
-        self.assertRaises(Exception, self.recv, 'cmd2')
+        time.sleep(self.timeout * 0.5)
         self.assertEqual(self.recv('cmd'), 'off')
+        self.assertRaises(Exception, self.recv, 'cmd2')
         
         self.send_control('REMOTE')
         self.assertEqual(self.recv('lock'), False)
-        self.assertEqual(self.recv('cmd'), 'off')
+        self.send('off')
         time.sleep(self.timeout * 1.1)
         self.assertEqual(self.recv('drive'), 'off')
         return
