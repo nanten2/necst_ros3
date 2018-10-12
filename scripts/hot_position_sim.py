@@ -10,33 +10,24 @@ import std_msgs.msg
 
 class hot_position_sim(object):
 
-    bit_status = [0,0,0,0,0,0,0,0]
+    bit_status = [1,0,0,0]
 
     def __init__(self):
 
-        self.topic_to = []
-        for i in range(1,3):
-            topic_to_ = rospy.Publisher(
-                    name = "hot_cpz2724_rsw0_di%d"%(i),
-                    data_class = std_msgs.msg.Byte,
+        self.topic_to = [rospy.Publisher(
+                    name = "/cpz2724_rsw0/di0%d"%(i),
+                    data_class = std_msgs.msg.Bool,
                     queue_size = 1,
                     latch = True
-                )
-            self.topic_to.append(topic_to_)
-            continue
+                ) for i in range(1,3)]
 
-
-        self.topic_from = []
-        for j in range(1,9):
-            topic_from_ = rospy.Subscriber(
-                    name = 'hot_cpz2724_rsw1_do%d'%(j),
-                    data_class = std_msgs.msg.Byte,
+        self.topic_from = [rospy.Subscriber(
+                    name = '/cpz2724_rsw0/do0%d'%(j),
+                    data_class = std_msgs.msg.Bool,
                     callback = self.update_bit_status,
                     callback_args = {'index': j-1 },
                     queue_size = 1,
-                )
-            self.topic_from.append(topic_from_)
-            continue
+                ) for j in range(1,5)]
 
         pass
 
@@ -46,31 +37,26 @@ class hot_position_sim(object):
         return
 
     def publish_hot(self):
-        byte_last = []
         while not rospy.is_shutdown():
             byte = self.bit_status
-            print(byte)
 
-            if byte != byte_last:
-                if byte == [0,0,0,0,1,0,0,0]:
-                    print("publish")
-                    self.topic_to[0].publish(1)
-                    self.topic_to[1].publish(1)
-                    time.sleep(4)
-                    self.topic_to[0].publish(0)
-                    self.topic_to[1].publish(1)
-                elif byte == [0,1,0,0,1,1,0,0]:
-                    print("publish")
-                    self.topic_to[0].publish(1)
-                    self.topic_to[1].publish(1)
-                    time.sleep(4)
-                    self.topic_to[0].publish(1)
-                    self.topic_to[1].publish(0)
+            if byte == [0,0,0,0] or byte == [1,0,0,0]:
+                self.topic_to[0].publish(1)
+                self.topic_to[1].publish(1)
+                time.sleep(2)
+                self.topic_to[0].publish(0)
+                self.topic_to[1].publish(1)
+            elif byte == [0,1,0,0] or byte == [1,1,0,0]:
+                self.topic_to[0].publish(1)
+                self.topic_to[1].publish(1)
+                time.sleep(2)
+                self.topic_to[0].publish(1)
+                self.topic_to[1].publish(0)
             else:
                 pass
 
-            byte_last = byte
-            time.sleep(0.05)
+            self.bit_status = [1,1,1,1]
+            time.sleep(0.1)
             continue
 
         return

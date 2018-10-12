@@ -1,0 +1,6 @@
+<launch>
+
+  <include ns="hot" file="$(find necst_ros3)/launch/nanten2-hot.launch" />
+  <include ns="hot" file="$(find necst_ros3)/launch/nanten2-hot-simulator.launch" />
+
+</launch>
