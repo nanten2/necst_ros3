@@ -1,0 +1,6 @@
+<launch>
+
+  <include ns="weather" file="$(find necst_ros3)/launch/nanten2-weather.launch" />
+  <include ns="weather" file="$(find necst_ros3)/launch/nanten2-weather-simulator.launch" />
+
+</launch>
