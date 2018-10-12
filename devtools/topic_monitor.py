@@ -37,6 +37,19 @@ class topic_monitor(object):
         new('dome_door_rightposition', std_msgs.msg.String)
         new('dome_emergency', std_msgs.msg.Bool)
         
+        # Hot
+        # ---
+        new('/hot/position', std_msgs.msg.String)
+        new('/hot/position_cmd', std_msgs.msg.String)
+        new('/hot/position_lock', std_msgs.msg.Bool)
+        
+        new('/cpz2724_rsw0/di01', std_msgs.msg.Bool)
+        new('/cpz2724_rsw0/di02', std_msgs.msg.Bool)
+        new('/cpz2724_rsw0/do01', std_msgs.msg.Bool)
+        new('/cpz2724_rsw0/do02', std_msgs.msg.Bool)
+        new('/cpz2724_rsw0/do03', std_msgs.msg.Bool)
+        new('/cpz2724_rsw0/do04', std_msgs.msg.Bool)
+        
         pass
     
     def callback(self, msg, args):

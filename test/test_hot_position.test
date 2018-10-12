@@ -1,9 +1,6 @@
 <launch>
 
-  <node pkg = "necst_ros3"
-      name = "hot_position"
-      type = "hot_position.py">
-  </node>
+  <include file="$(find necst_ros3)/launch/nanten2-hot.launch" />
 
   <node pkg = "necst_ros3"
       name = "hot_position_sim"
