@@ -15,7 +15,7 @@ class m2_emergency_sim(object):
     
     def __init__(self):
         self.pub = rospy.Publisher(
-            name = '/cpz2724_rsw1/di16',
+            name = '/cpz2724_rsw1/di15',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
@@ -32,8 +32,10 @@ class m2_emergency_sim(object):
         return
 
 
-if __name__=='__main__':
+if __name__=='__main__':	
     rospy.init_node(name)
     c = m2_emergency_sim()
-    c.off_emergency()
-rospy.spin()
+    c.on_emergency()
+    rospy.spin()
+
+

@@ -1,0 +1,41 @@
+<launch>
+  
+  <node name = "limit_reader_m2"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/limit_reader_m2.conf" />
+  </node>
+
+  <node name = "position_reader_m2"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/position_reader_m2.conf" />
+  </node>
+
+  <node name = "position_commander_m2"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/position_commander_m2.conf" />
+  </node>
+
+  <node name = "position_simulator_m2"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/position_simulator_m2.conf" />
+  </node>
+
+  <node name = "limit_simulator_di15"
+        type = "limit_simulator_di15.py"
+        pkg = "necst_ros3">
+  </node>
+
+  <node name = "limit_simulator_di16"
+        type = "limit_simulator_di16.py"
+        pkg = "necst_ros3">
+  </node>
+
+</launch>
