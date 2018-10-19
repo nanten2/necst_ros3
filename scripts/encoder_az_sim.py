@@ -16,7 +16,7 @@ class encoder_az_sim(object):
     def __init__(self):
 
         self.topic_to = rospy.Publisher(
-                name = "/cpz6204_rsw0/di01",
+                name = "/cpz6204_rsw0/ch01",
                 data_class = std_msgs.msg.Int64,
                 latch = True,
                 queue_size = 1,
