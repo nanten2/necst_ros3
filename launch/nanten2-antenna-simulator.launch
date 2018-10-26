@@ -1,0 +1,23 @@
+<launch>
+
+  <node name = "antenna_drive_simulator"
+        type = "antenna_drive_simulator.py"
+        pkg = "necst_ros3">
+  </node>
+
+  <node name = "antenna_emergency_simulator"
+        type = "antenna_emergency_simulator.py"
+        pkg = "necst_ros3">
+  </node>
+
+  <node name = "antenna_control_simulator"
+        type = "antenna_control_simulator.py"
+        pkg = "necst_ros3">
+  </node>
+
+  <node name = "antenna_error_simulator"
+        type = "antenna_error_simulator.py"
+        pkg = "necst_ros3">
+  </node>
+
+</launch>
