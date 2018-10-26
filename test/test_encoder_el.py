@@ -1,6 +1,7 @@
+
 #! /usr/bin/env python2
 
-name = 'test_dome_emergency'
+name = 'test_encoder_el'
 
 # ----
 import time
@@ -10,7 +11,7 @@ import rostest
 import std_msgs.msg
 
 
-class TestDomeEmergency(unittest.TestCase):
+class TestEncoderEl(unittest.TestCase):
     def setUp(self):
         self.recv_msg = None
         self.received = False
@@ -19,14 +20,14 @@ class TestDomeEmergency(unittest.TestCase):
         self.timeout = rospy.get_param('~timeout')
         
         self.pub = rospy.Publisher(
-            name = 'dome_emergency_input_sim',
-            data_class = std_msgs.msg.Bool,
+            name = 'encoder_el_input_sim',
+            data_class = std_msgs.msg.Int64,
             queue_size = 1,
         )
         
         self.sub = rospy.Subscriber(
-            name = 'dome_emergency',
-            data_class = std_msgs.msg.Bool,
+            name = 'encoder_el',
+            data_class = std_msgs.msg.Float64,
             callback = self.callback,
             queue_size = 1,
         )
@@ -54,25 +55,16 @@ class TestDomeEmergency(unittest.TestCase):
             time.sleep(0.001)
             continue
         return self.recv_msg
-    
-    def test_all(self):
-        self._test_emergency_on()
-        self._test_emergency_off()
-        return
-    
-    def _test_emergency_on(self):
-        self.send(True)
-        ret = self.recv()
-        self.assertEqual(ret.data, True)
-        return
 
-    def _test_emergency_off(self):
-        self.send(False)
+    def test_encoder_el(self):
+        self.send(0)
         ret = self.recv()
-        self.assertEqual(ret.data, False)
+        self.assertEqual(ret.data, 0.0)
+        self.send(100)
+        ret = self.recv()
+        self.assertEqual(ret.data, 360*3600/(23600*400)*100)
         return
-
 
 
 if __name__=='__main__':
-    rostest.rosrun('necst_ros3', 'test_dome_emergency', TestDomeEmergency)
+    rostest.rosrun('necst_ros3', 'test_encoder_el', TestEncoderEl)
