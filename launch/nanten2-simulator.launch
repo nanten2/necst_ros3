@@ -1,6 +1,14 @@
 <launch>
 
+
+  <include ns="antenna" file="$(find necst_ros3)/launch/nanten2-antenna.launch" />
+  <include ns="antenna" file="$(find necst_ros3)/launch/nanten2-antenna-simulator.launch" />
+
+  <include ns="encoder" file="$(find necst_ros3)/launch/nanten2-encoder.launch" />
+  <include ns="encoder" file="$(find necst_ros3)/launch/nanten2-encoder-simulator.launch" />
+
   <include ns="hot" file="$(find necst_ros3)/launch/nanten2-hot.launch" />
   <include ns="hot" file="$(find necst_ros3)/launch/nanten2-hot-simulator.launch" />
+
 
 </launch>

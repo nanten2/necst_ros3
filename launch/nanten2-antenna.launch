@@ -1,0 +1,112 @@
+<launch>
+
+  <node name = "antenna_control_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_control_reader.conf" />
+  </node>
+    
+  <node name = "antenna_emergency_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_emergency_reader.conf" />
+  </node>
+
+  <node name = "antenna_error_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_error_reader.conf" />
+  </node>
+
+  <node name = "drive_locker"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_drive_locker.conf" />
+  </node>
+
+  <node name = "drive_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_drive_reader.conf" />
+  </node>
+
+  <node name = "drive_az_writer"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_drive_az_writer.conf" />
+  </node>
+
+  <node name = "drive_el_writer"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_drive_el_writer.conf" />
+  </node>
+
+  <node name = "drive_contactor_az_writer"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_drive_contactor_az_writer.conf" />
+  </node>
+
+  <node name = "drive_contactor_el_writer"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_drive_contactor_el_writer.conf" />
+  </node>
+
+  <node name = "drive_commander"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_drive_commander.conf" />
+  </node>
+
+  <node name = "az_locker"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_az_locker.conf" />
+  </node>
+ 
+  <node name = "az_commander_pid"
+        type = "antenna_az_commander_pid.py"
+        pkg = "necst_ros3"
+        output = "screen">
+  </node>
+  
+  <node name = "az_cmd_writer"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_az_cmd_writer.conf" />
+  </node>
+
+  <node name = "el_locker"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_el_locker.conf" />
+  </node>
+
+  <node name = "el_commander_pid"
+        type = "antenna_el_commander_pid.py"
+        pkg = "necst_ros3">
+  </node>
+ 
+  <node name = "el_cmd_writer"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_el_cmd_writer.conf" />
+  </node>
+
+</launch>
