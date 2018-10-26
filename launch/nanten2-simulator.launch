@@ -1,42 +1,9 @@
 <launch>
 
+  <include ns="antenna" file="$(find necst_ros3)/launch/nanten2-antenna.launch" />
+  <include ns="antenna" file="$(find necst_ros3)/launch/nanten2-antenna-simulator.launch" />
 
-<!-- Device : Dome -->
+  <include ns="encoder" file="$(find necst_ros3)/launch/nanten2-encoder.launch" />
+  <include ns="encoder" file="$(find necst_ros3)/launch/nanten2-encoder-simulator.launch" />
 
-  <node pkg = "necst_ros3"
-  	name = "dome_control"
-	type = "dome_control.py">
-    <param name="name_topic_from" value="dome_control_input_sim" />
-  </node>
-
-  <node pkg = "necst_ros3"
-  	name = "dome_emergency"
-	type = "dome_emergency.py">
-    <param name="name_topic_from" value="dome_emergency_input_sim" />
-  </node>
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door"
-	type = "dome_door.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_cmd"
-	type = "dome_door_cmd.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_cmd_sim"
-	type = "dome_door_cmd_sim.py">
-    <param name="travel_time_left" value="30.0" />
-    <param name="travel_time_right" value="31.0" />
-  </node>
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_lock"
-	type = "dome_door_lock.py" />
-
-<!--
-  <node pkg = "necst_ros3"
-  	name = "dome_door_watcher_finalize_move"
-	type = "dome_door_watcher_finalize_move.py" />
--->
 </launch>
