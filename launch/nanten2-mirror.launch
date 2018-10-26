@@ -1,0 +1,7 @@
+<launch>
+
+  <include ns="m2" file="$(find necst_ros3)/launch/nanten2-m2.launch" />
+  <include ns="m4" file="$(find necst_ros3)/launch/nanten2-m4.launch" />
+
+
+</launch>

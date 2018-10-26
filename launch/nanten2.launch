@@ -21,31 +21,45 @@
 	type = "dome_door_cmd.py" />
 
   <node pkg = "necst_ros3"
+  	name = "dome_door_lock"
+	type = "dome_door_lock.py" />
+
+  <node pkg = "necst_ros3"
   	name = "dome_door_watcher_finalize_move"
 	type = "dome_door_watcher_finalize_move.py" />
 
   <node pkg = "necst_ros3"
-  	name = "dome_door_left_drive"
-	type = "dome_door_left_drive.py" />
+  	name = "dome_door_leftaction_mapper"
+	type = "dome_door_action_mapper.py">
+    <remap from="dome_door_action_mapper" to="dome_door_leftaction_mapper" />
+    <param name="name_topic_to" value="dome_door_leftaction" />
+    <param name="name_topic_from" value="cpz2724_rsw2_di05" />
+  </node>
 
   <node pkg = "necst_ros3"
-  	name = "dome_door_left_position"
-	type = "dome_door_left_position.py" />
+  	name = "dome_door_rightaction_mapper"
+	type = "dome_door_action_mapper.py">
+    <remap from="dome_door_action_mapper" to="dome_door_rightaction_mapper" />
+    <param name="name_topic_to" value="dome_door_rightaction" />
+    <param name="name_topic_from" value="cpz2724_rsw2_di02" />
+  </node>
 
   <node pkg = "necst_ros3"
-  	name = "dome_door_left_drive"
-	type = "dome_door_left_drive.py" />
+  	name = "dome_door_leftposition_mapper"
+	type = "dome_door_position_mapper.py">
+    <remap from="dome_door_position_mapper" to="dome_door_leftposition_mapper" />
+    <param name="name_topic_to" value="dome_door_leftposition" />
+    <param name="name_topic_from1" value="cpz2724_rsw2_di06" />
+    <param name="name_topic_from2" value="cpz2724_rsw2_di07" />
+  </node>
 
   <node pkg = "necst_ros3"
-  	name = "dome_door_left_position"
-	type = "dome_door_left_position.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_right_drive"
-	type = "dome_door_right_drive.py" />
-
-  <node pkg = "necst_ros3"
-  	name = "dome_door_right_position"
-	type = "dome_door_right_position.py" />
+  	name = "dome_door_rightposition_mapper"
+	type = "dome_door_position_mapper.py">
+    <remap from="dome_door_position_mapper" to="dome_door_rightposition_mapper" />
+    <param name="name_topic_to" value="dome_door_rightposition" />
+    <param name="name_topic_from1" value="cpz2724_rsw2_di03" />
+    <param name="name_topic_from2" value="cpz2724_rsw2_di04" />
+  </node>
 
 </launch>
