@@ -1,0 +1,8 @@
+<launch>
+
+  <node name = "hot_position_simulator"
+        type = "hot_position_sim.py"
+        pkg = "necst_ros3">
+  </node>
+
+</launch>
