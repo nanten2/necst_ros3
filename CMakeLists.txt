@@ -199,11 +199,5 @@ include_directories(
 
 if(CATKIN_ENABLE_TESTING)
   find_package(rostest REQUIRED)
-  add_rostest(test/test_dome_control.test)
-  add_rostest(test/test_dome_emergency.test)
-  add_rostest(test/test_dome_door.test)
-  add_rostest(test/test_dome_door_cmd.test)
-  add_rostest(test/test_dome_door_cmd_sim.test)
-  add_rostest(test/test_dome_door_lock.test)
-  add_rostest(test/test_dome_door_integ_sim.test)
+  add_rostest(test/test_antenna_drive.test)
 endif()
