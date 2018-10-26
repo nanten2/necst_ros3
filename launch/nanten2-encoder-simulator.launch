@@ -1,0 +1,13 @@
+<launch>
+
+  <node name = "encoder_az_simulator"
+        type = "encoder_az_sim.py"
+        pkg = "necst_ros3">
+  </node>
+
+  <node name = "encoder_el_simulator"
+        type = "encoder_el_sim.py"
+        pkg = "necst_ros3">
+  </node>
+
+</launch>

@@ -1,0 +1,17 @@
+<launch>
+
+  <node name = "data1_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/spectrometer_data1_reader.conf" />
+  </node>
+
+  <node name = "data2_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/spectrometer_data2_reader.conf" />
+  </node>
+
+</launch>

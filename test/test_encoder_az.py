@@ -1,6 +1,7 @@
+
 #! /usr/bin/env python2
 
-name = 'test_dome_control'
+name = 'test_encoder_az'
 
 # ----
 import time
@@ -10,7 +11,7 @@ import rostest
 import std_msgs.msg
 
 
-class TestDomeControl(unittest.TestCase):
+class TestEncoderAz(unittest.TestCase):
     def setUp(self):
         self.recv_msg = None
         self.received = False
@@ -19,14 +20,14 @@ class TestDomeControl(unittest.TestCase):
         self.timeout = rospy.get_param('~timeout')
         
         self.pub = rospy.Publisher(
-            name = 'dome_control_input_sim',
-            data_class = std_msgs.msg.Bool,
+            name = 'encoder_az_input_sim',
+            data_class = std_msgs.msg.Int64,
             queue_size = 1,
         )
         
         self.sub = rospy.Subscriber(
-            name = 'dome_control',
-            data_class = std_msgs.msg.String,
+            name = 'encoder_az',
+            data_class = std_msgs.msg.Float64,
             callback = self.callback,
             queue_size = 1,
         )
@@ -55,24 +56,15 @@ class TestDomeControl(unittest.TestCase):
             continue
         return self.recv_msg
 
-    def test_all(self):
-        self._test_control_local()
-        self._test_control_remote()
-        return
-    
-    def _test_control_local(self):
-        self.send(True)
+    def test_encoder_az(self):
+        self.send(0)
         ret = self.recv()
-        self.assertEqual(ret.data, 'LOCAL')
-        return
-
-    def _test_control_remote(self):
-        self.send(False)
+        self.assertEqual(ret.data, 0.0)
+        self.send(100)
         ret = self.recv()
-        self.assertEqual(ret.data, 'REMOTE')
+        self.assertEqual(ret.data, 360*3600/(23600*400)*100)
         return
-
 
 
 if __name__=='__main__':
-    rostest.rosrun('necst_ros3', 'test_dome_control', TestDomeControl)
+    rostest.rosrun('necst_ros3', 'test_encoder_az', TestEncoderAz)
