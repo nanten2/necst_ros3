@@ -17,7 +17,7 @@ class dome_memb_sim(object):
         'do2': None,
     }
     
-    def __init__(self, travel_time_left, travel_time_right):
+    def __init__(self, travel_time):
         self.sim = dome_memb_simulator(travel_time)
         
         self.do1 = rospy.Subscriber(
