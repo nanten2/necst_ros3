@@ -1,7 +1,21 @@
 <launch>
 
+  <include ns="antenna" file="$(find necst_ros3)/launch/nanten2-antenna.launch" />
+  <include ns="antenna" file="$(find necst_ros3)/launch/nanten2-antenna-simulator.launch" />
+
   <include ns="dome" file="$(find necst_ros3)/launch/nanten2-dome.launch" />
   <include ns="dome" file="$(find necst_ros3)/launch/nanten2-dome-simulator.launch" />
 
+  <include ns="encoder" file="$(find necst_ros3)/launch/nanten2-encoder.launch" />
+  <include ns="encoder" file="$(find necst_ros3)/launch/nanten2-encoder-simulator.launch" />
+
+  <include ns="hot" file="$(find necst_ros3)/launch/nanten2-hot.launch" />
+  <include ns="hot" file="$(find necst_ros3)/launch/nanten2-hot-simulator.launch" />
+
+  <include ns="weather" file="$(find necst_ros3)/launch/nanten2-weather.launch" />
+  <include ns="weather" file="$(find necst_ros3)/launch/nanten2-weather-simulator.launch" />
+
+  <include ns="spectrometer" file="$(find necst_ros3)/launch/nanten2-spectrometer.launch" />
+  <include ns="spectrometer" file="$(find necst_ros3)/launch/nanten2-spectrometer-simulator.launch" />
 
 </launch>
