@@ -84,20 +84,6 @@ class topic_monitor(object):
         new('cpz6204_rsw0/di01', std_msgs.msg.Int64)
         new('cpz6204_rsw0/di02', std_msgs.msg.Int64)
 
-        
-        # Dome
-        # ----
-        new('dome_control', std_msgs.msg.String)
-        new('dome_door', std_msgs.msg.String)
-        new('dome_door_cmd', std_msgs.msg.String)
-        new('dome_door_cmd2', std_msgs.msg.String)
-        new('dome_door_leftaction', std_msgs.msg.String)
-        new('dome_door_leftposition', std_msgs.msg.String)
-        new('dome_door_lock', std_msgs.msg.Bool)
-        new('dome_door_rightaction', std_msgs.msg.String)
-        new('dome_door_rightposition', std_msgs.msg.String)
-        new('dome_emergency', std_msgs.msg.Bool)
-
         # Hot
         # ---
         new('/hot/position', std_msgs.msg.String)
