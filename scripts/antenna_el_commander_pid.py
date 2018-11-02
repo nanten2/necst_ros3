@@ -22,6 +22,8 @@ class antenna_el_feedback(object):
     p_coeff = 3.7
     i_coeff = 3.0
     d_coeff = 0.0
+
+    lock = False
     
     def __init__(self):
         self.topic_to = rospy.Publisher(
