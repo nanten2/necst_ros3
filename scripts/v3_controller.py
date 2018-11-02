@@ -4,8 +4,6 @@ name = 'v3_controller'
 
 # ----
 import time
-import threading
-import configparser
 
 import rospy
 import std_msgs.msg
@@ -18,6 +16,11 @@ class controller(object):
         self.ps = PS()
 
         # ----
+        self.antenna = ANTENNA()
+        self.dome = DOME()
+        self.m2 = M2()
+        self.m4 = M4()
+        self.hot = HOT()
         pass
 
     def display_publisher(self):
