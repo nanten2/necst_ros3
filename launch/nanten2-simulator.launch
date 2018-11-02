@@ -13,9 +13,13 @@
   <include ns="hot" file="$(find necst_ros3)/launch/nanten2-hot-simulator.launch" />
 
   <include ns="weather" file="$(find necst_ros3)/launch/nanten2-weather.launch" />
+<!--
   <include ns="weather" file="$(find necst_ros3)/launch/nanten2-weather-simulator.launch" />
+-->
 
   <include ns="spectrometer" file="$(find necst_ros3)/launch/nanten2-spectrometer.launch" />
+<!--
   <include ns="spectrometer" file="$(find necst_ros3)/launch/nanten2-spectrometer-simulator.launch" />
+-->
 
 </launch>
