@@ -115,7 +115,7 @@ class antenna_el_feedback(object):
         
         if self.lock == True:
             self.speed_d = 0.0
-            self.topic_to_publish(0.0)
+            self.topic_to.publish(0.0)
             return
         else:
             self.topic_to.publish(command_speed)
