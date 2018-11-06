@@ -28,4 +28,9 @@
         pkg = "necst_ros3">
   </node>        
 
+  <node name = "error_simulator"
+        type = "dome_error_simulator.py"
+        pkg = "necst_ros3">
+  </node>        
+
 </launch>
