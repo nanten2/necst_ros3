@@ -21,6 +21,55 @@
            value = "$(find necst_ros3)/relay_conf/dome_error_reader.conf" />
   </node>
 
+  <node name = "az_locker"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_az_locker.conf" />
+  </node>
+
+  <node name = "az_action_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_az_action_reader.conf" />
+  </node>
+
+  <node name = "az_commander"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_az_commander.conf" />
+  </node>
+
+  <node name = "az_encoder_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_az_encoder_reader.conf" />
+  </node>
+
+  <node name = "az_encoder_writer"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_az_encoder_writer.conf" />
+  </node>
+
+  <node name = "az_speed_writer"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_az_speed_writer.conf" />
+  </node>
+
+  <node name = "az_switch_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_az_switch_reader.conf" />
+  </node>
+
   <node name = "door_locker"
         type = "relay.py"
         pkg = "necst_ros3">
@@ -104,5 +153,12 @@
     <param name = "config_file"
            value = "$(find necst_ros3)/relay_conf/dome_memb_cmd_writer.conf" />
   </node>
- 
+
+  <node name = "memb_locker"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_memb_locker.conf" />
+  </node>
+
 </launch>

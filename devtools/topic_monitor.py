@@ -44,7 +44,7 @@ class topic_monitor(object):
         new('/antenna/el_lock', std_msgs.msg.Bool)
         new('/antenna/el_pid', std_msgs.msg.Float32MultiArray)
         new('/el_speed', std_msgs.msg.Float64)
-        
+        """ 
         new('cpz2724_rsw0/di01', std_msgs.msg.Bool)
         new('cpz2724_rsw0/di02', std_msgs.msg.Bool)
         new('cpz2724_rsw0/di03', std_msgs.msg.Bool)
@@ -83,9 +83,15 @@ class topic_monitor(object):
         # -------
         new('cpz6204_rsw0/di01', std_msgs.msg.Int64)
         new('cpz6204_rsw0/di02', std_msgs.msg.Int64)
-
+        """
         # Dome
         # ----
+        new('dome/az', std_msgs.msg.Float32)
+        new('dome/az_action', std_msgs.msg.String)
+        new('dome/az_cmd', std_msgs.msg.Float32)
+        new('dome/az_lock', std_msgs.msg.Bool)
+        new('dome/az_speed_cmd', std_msgs.msg.String)
+        new('dome/az_switch', std_msgs.msg.Int8)
         new('dome/control', std_msgs.msg.String)
         new('dome/door', std_msgs.msg.String)
         new('dome/door_cmd', std_msgs.msg.String)
@@ -102,7 +108,7 @@ class topic_monitor(object):
         new('dome/memb_cmd', std_msgs.msg.String)
         new('dome/memb_cmd2', std_msgs.msg.String)
         new('dome/memb_lock', std_msgs.msg.Bool)
-        
+        """
         # cpz2724 rsw2
         # ------------
         new('cpz2724_rsw2/di01', std_msgs.msg.Bool)
@@ -169,20 +175,20 @@ class topic_monitor(object):
         new('cpz2724_rsw2/do30', std_msgs.msg.Bool)
         new('cpz2724_rsw2/do31', std_msgs.msg.Bool)
         new('cpz2724_rsw2/do32', std_msgs.msg.Bool)
-
+        """
         # Hot
         # ---
         new('/hot/position', std_msgs.msg.String)
         new('/hot/position_cmd', std_msgs.msg.String)
         new('/hot/position_lock', std_msgs.msg.Bool)
-        
+        """
         new('/cpz2724_rsw0/di01', std_msgs.msg.Bool)
         new('/cpz2724_rsw0/di02', std_msgs.msg.Bool)
         new('/cpz2724_rsw0/do01', std_msgs.msg.Bool)
         new('/cpz2724_rsw0/do02', std_msgs.msg.Bool)
         new('/cpz2724_rsw0/do03', std_msgs.msg.Bool)
         new('/cpz2724_rsw0/do04', std_msgs.msg.Bool)
-        
+        """
         # Spectrometer
         # ------------
         new('/spectrometer/data1', std_msgs.msg.Float64MultiArray)
