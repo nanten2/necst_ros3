@@ -37,7 +37,7 @@ class encoder_az_sim(object):
 
         enc_az_last = None
         while not rospy.is_shutdown():
-            self.enc_az += self.command_speed * 0.01 * 0.617
+            self.enc_az += self.command_speed * 0.1 * 0.617
 
             if self.enc_az != enc_az_last:
                 self.topic_to.publish(int(self.enc_az / (360*3600/(23600*400))))

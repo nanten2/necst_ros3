@@ -15,7 +15,7 @@ class antenna_error_sim(object):
     
     def __init__(self):
         self.pub = rospy.Publisher(
-            name = '/cpz2724_rsw0/di05',
+            name = '/necctrl/cpz2724_rsw0/di05',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,

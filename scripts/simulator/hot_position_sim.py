@@ -10,19 +10,19 @@ import std_msgs.msg
 
 class hot_position_sim(object):
 
-    bit_status = [1,0,0,0]
+    bit_status = [1,1,1,1]
 
     def __init__(self):
 
         self.topic_to = [rospy.Publisher(
-                    name = "/cpz2724_rsw0/di0%d"%(i),
+                    name = "/necopt/cpz2724_rsw0/di0%d"%(i),
                     data_class = std_msgs.msg.Bool,
                     queue_size = 1,
                     latch = True
                 ) for i in range(1,3)]
 
         self.topic_from = [rospy.Subscriber(
-                    name = '/cpz2724_rsw0/do0%d'%(j),
+                    name = '/necopt/cpz2724_rsw0/do0%d'%(j),
                     data_class = std_msgs.msg.Bool,
                     callback = self.update_bit_status,
                     callback_args = {'index': j-1 },
@@ -37,6 +37,8 @@ class hot_position_sim(object):
         return
 
     def publish_hot(self):
+        self.topic_to[0].publish(0)
+        self.topic_to[1].publish(1)
         while not rospy.is_shutdown():
             byte = self.bit_status
 
