@@ -21,11 +21,9 @@ class antenna_drive_sim(object):
         'do6': None,
     }
 
-    cmd = ''
-    
     def __init__(self):
         self.do1 = rospy.Subscriber(
-            name = '/cpz2724_rsw1/do01',
+            name = '/necctrl/cpz2724_rsw1/do01',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do1',
@@ -33,7 +31,7 @@ class antenna_drive_sim(object):
         )
         
         self.do2 = rospy.Subscriber(
-            name = '/cpz2724_rsw1/do02',
+            name = '/necctrl/cpz2724_rsw1/do02',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do2',
@@ -41,7 +39,7 @@ class antenna_drive_sim(object):
         )
         
         self.do3 = rospy.Subscriber(
-            name = '/cpz2724_rsw1/do09',
+            name = '/necctrl/cpz2724_rsw1/do09',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do3',
@@ -49,7 +47,7 @@ class antenna_drive_sim(object):
         )
         
         self.do4 = rospy.Subscriber(
-            name = '/cpz2724_rsw1/do10',
+            name = '/necctrl/cpz2724_rsw1/do10',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do4',
@@ -57,7 +55,7 @@ class antenna_drive_sim(object):
         )
         
         self.do5 = rospy.Subscriber(
-            name = '/cpz2724_rsw1/do11',
+            name = '/necctrl/cpz2724_rsw1/do11',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do5',
@@ -65,7 +63,7 @@ class antenna_drive_sim(object):
         )
         
         self.do6 = rospy.Subscriber(
-            name = '/cpz2724_rsw1/do12',
+            name = '/necctrl/cpz2724_rsw1/do12',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do6',
@@ -73,28 +71,28 @@ class antenna_drive_sim(object):
         )
         
         self.pub_din1 = rospy.Publisher(
-            name = '/cpz2724_rsw0/di01',
+            name = '/necctrl/cpz2724_rsw0/di01',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
         
         self.pub_din2 = rospy.Publisher(
-            name = '/cpz2724_rsw0/di02',
+            name = '/necctrl/cpz2724_rsw0/di02',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
         
         self.pub_din3 = rospy.Publisher(
-            name = '/cpz2724_rsw0/di03',
+            name = '/necctrl/cpz2724_rsw0/di03',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
         
         self.pub_din4 = rospy.Publisher(
-            name = '/cpz2724_rsw0/di04',
+            name = '/necctrl/cpz2724_rsw0/di04',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,

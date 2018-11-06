@@ -1,5 +1,10 @@
 <launch>
 
+  <node name = "az_simulator"
+        type = "dome_az_simulator.py"
+        pkg = "necst_ros3">
+  </node>
+
   <node name = "door_simulator"
         type = "dome_door_simulator.py"
         pkg = "necst_ros3">

@@ -16,7 +16,7 @@ class antenna_control_sim(object):
     
     def __init__(self):
         self.pub = rospy.Publisher(
-            name = '/cpz2724_rsw0/di26',
+            name = '/necctrl/cpz2724_rsw0/di26',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
