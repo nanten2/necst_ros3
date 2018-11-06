@@ -113,7 +113,7 @@ class antenna_az_feedback(object):
         command_speed = self.speed_d
         if self.lock == True:
             self.speed_d = 0.0
-            self.topic_to_publish(0.0)
+            self.topic_to.publish(0.0)
             return
         else:
             self.topic_to.publish(command_speed)
