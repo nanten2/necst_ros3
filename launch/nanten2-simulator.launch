@@ -22,4 +22,6 @@
   <include ns="spectrometer" file="$(find necst_ros3)/launch/nanten2-spectrometer-simulator.launch" />
 -->
 
+  <include ns="obs" file="$(find necst_ros3)/launch/nanten2-obs.launch" />
+
 </launch>

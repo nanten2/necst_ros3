@@ -33,7 +33,7 @@ class antenna_az_feedback(object):
             )
 
         topic_from1 = rospy.Subscriber(
-                name = "az_cmd",
+                name = "az_cmd2",
                 data_class = std_msgs.msg.Float64,
                 callback = self.antenna_az_feedback,
                 queue_size = 1,
