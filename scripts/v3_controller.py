@@ -151,7 +151,7 @@ class ANTENNA(object):
         
         return
 
-    def onepoint_move(self, command_az, command_el, coord="altaz", off_x=0, off_y=0, offcoord="altaz", hosei="hosei_230.txt", lamda=2600, dcos=0, limit=True, rotation=True):
+    def onepoint_move(self, command_az, command_el, coord="altaz", planet="", off_x=0, off_y=0, offcoord="altaz", hosei="hosei_230.txt", lamda=2600, dcos=0, limit=True, rotation=True):
         name = "/obs/onepoint_command"
 
         self.ps.set_publisher(
