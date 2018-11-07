@@ -33,7 +33,7 @@ class antenna_el_feedback(object):
             )
 
         topic_from1 = rospy.Subscriber(
-                name = "el_cmd",
+                name = "el_cmd2",
                 data_class = std_msgs.msg.Float64,
                 callback = self.antenna_el_feedback,
                 queue_size = 1,

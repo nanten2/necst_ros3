@@ -7,6 +7,7 @@ import time
 
 import rospy
 import std_msgs.msg
+import necst.msg
 
 
 class controller(object):
@@ -123,16 +124,21 @@ class ANTENNA(object):
         self.ps.publish(topic_name=name, msg=command)
         return
 
-    def onepoint_move(self, command_az, command_el): # deg
+    def _az_move(self, command_az): # deg
         name_az = "/antenna/az_cmd"
-        name_el = "/antenna/el_cmd"
-        
+
         self.ps.set_publisher(
                 topic_name = name_az,
                 data_class = std_msgs.msg.Float64,
                 queue_size = 1,
                 latch = False
             )
+
+        self.ps.publish(topic_name=name_az, msg=command_az)
+        return
+
+    def _el_move(self, command_el): # deg
+        name_el = "/antenna/el_cmd"
         
         self.ps.set_publisher(
                 topic_name = name_el,
@@ -141,10 +147,38 @@ class ANTENNA(object):
                 latch = False
             )
 
-        self.ps.publish(topic_name=name_az, msg=command_az)
         self.ps.publish(topic_name=name_el, msg=command_el)
         
         return
+
+    def onepoint_move(self, command_az, command_el, coord="altaz", off_x=0, off_y=0, offcoord="altaz", hosei="hosei_230.txt", lamda=2600, dcos=0, limit=True, rotation=True):
+        name = "/obs/onepoint_command"
+
+        self.ps.set_publisher(
+                topic_name = name,
+                data_class = necst.msg.Move_mode_msg,
+                queue_size = 1,
+                latch = False
+            )
+
+        command = necst.msg.Move_mode_msg()
+        command.x = command_az
+        command.y = command_el
+        command.coord = coord
+        command.planet = planet
+        command.off_x = off_x
+        command.off_y = off_y
+        command.offcoord = offcoord
+        command.hosei = hosei
+        command.lamda = lamda
+        command.dcos = dcos
+        command.limit = limit
+        command.rotation = rotation
+        command.timestamp = time.time()
+
+        self.ps.publish(topic_name=name, msg=command)
+        return
+
 
 class DOME(object):
 
