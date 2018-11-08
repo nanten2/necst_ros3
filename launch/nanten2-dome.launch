@@ -35,6 +35,13 @@
            value = "$(find necst_ros3)/relay_conf/dome_az_action_reader.conf" />
   </node>
 
+  <node name = "az_tracking"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/dome_az_tracking.conf" />
+  </node>
+
   <node name = "az_commander"
         type = "relay.py"
         pkg = "necst_ros3">
