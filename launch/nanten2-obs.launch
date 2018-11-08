@@ -2,8 +2,7 @@
 
   <node name = "antenna_azel_list"
         type = "ROS_azel_list.py"
-        pkg = "necst"
-        output = "screen">
+        pkg = "necst">
   </node>
 
   <node name = "worldcoordinate_onepoint"
@@ -13,7 +12,8 @@
 
   <node name = "antenna_move"
         type = "antenna_v3.py"
-        pkg = "necst">
+        pkg = "necst"
+        output = "screen">
   </node>
 
 </launch>
