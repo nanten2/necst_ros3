@@ -77,6 +77,13 @@
            value = "$(find necst_ros3)/relay_conf/antenna_az_locker.conf" />
   </node>
 
+  <node name = "az_soft_limit"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_az_soft_limit.conf" />
+  </node>
+
   <node name = "az_commander_pid"
         type = "antenna_az_commander_pid.py"
         pkg = "necst_ros3"
@@ -95,6 +102,13 @@
         pkg = "necst_ros3">
     <param name = "config_file"
            value = "$(find necst_ros3)/relay_conf/antenna_el_locker.conf" />
+  </node>
+
+  <node name = "el_soft_limit"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_el_soft_limit.conf" />
   </node>
 
   <node name = "el_commander_pid"
