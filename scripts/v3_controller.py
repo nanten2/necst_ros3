@@ -123,33 +123,34 @@ class ANTENNA(object):
 
         self.ps.publish(topic_name=name, msg=command)
         return
-
-    def _az_move(self, command_az): # deg
-        name_az = "/antenna/az_cmd"
+    
+    """
+    def _az_move(self, command): # deg
+        name = "/antenna/az_cmd"
 
         self.ps.set_publisher(
-                topic_name = name_az,
+                topic_name = name,
                 data_class = std_msgs.msg.Float64,
                 queue_size = 1,
                 latch = False
             )
 
-        self.ps.publish(topic_name=name_az, msg=command_az)
+        self.ps.publish(topic_name=name, msg=command)
         return
 
-    def _el_move(self, command_el): # deg
-        name_el = "/antenna/el_cmd"
+    def _el_move(self, command): # deg
+        name = "/antenna/el_cmd"
         
         self.ps.set_publisher(
-                topic_name = name_el,
+                topic_name = name,
                 data_class = std_msgs.msg.Float64,
                 queue_size = 1,
                 latch = False
             )
 
-        self.ps.publish(topic_name=name_el, msg=command_el)
-        
+        self.ps.publish(topic_name=name, msg=command)
         return
+    """
 
     def onepoint_move(self, command_az, command_el, coord="altaz", planet="", off_x=0, off_y=0, offcoord="altaz", hosei="hosei_230.txt", lamda=2600, dcos=0, limit=True, rotation=True):
         name = "/obs/onepoint_command"
