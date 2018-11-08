@@ -94,7 +94,7 @@ class topic_monitor(object):
         pass
     
     def callback(self, msg, args):
-        self.values[args['name']] = msg.data
+        self.values[args['name']] = str(msg.data)
         self.refresh()
         return
 
@@ -107,7 +107,7 @@ class topic_monitor(object):
         maxlen = max([len(_k) for _k in self.values.keys()])
         print('----')
         for key in sorted(self.values):
-            print(('{0:<'+str(maxlen)+'} {1:.10}').format(key, self.values[key]))
+            print(('{0:<'+str(maxlen)+'} {1:.7s}').format(key, self.values[key]))
             continue
         self.refreshing = False
         return
