@@ -106,9 +106,11 @@ class topic_monitor(object):
         self.refreshing = True
         maxlen = max([len(_k) for _k in self.values.keys()])
         print('----')
+        s = ""
         for key in sorted(self.values):
-            print(('{0:<'+str(maxlen)+'} {1:.7s}').format(key, self.values[key]))
+            s += (('{0:<'+str(maxlen)+'} {1:.7s}').format(key, self.values[key]) + "\n")
             continue
+        print(s)
         self.refreshing = False
         return
     
