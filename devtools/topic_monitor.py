@@ -92,6 +92,7 @@ class topic_monitor(object):
         new('dome/az_lock', std_msgs.msg.Bool)
         new('dome/az_speed_cmd', std_msgs.msg.String)
         new('dome/az_switch', std_msgs.msg.Int8)
+        new('dome/az_tracking', std_msgs.msg.Bool)
         new('dome/control', std_msgs.msg.String)
         new('dome/door', std_msgs.msg.String)
         new('dome/door_cmd', std_msgs.msg.String)
