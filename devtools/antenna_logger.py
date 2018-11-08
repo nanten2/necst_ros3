@@ -7,7 +7,7 @@ import time
 import datetime
 import threading
 sys.path.append("/home/amigos/python/")
-import n2lite
+from n2lite import n2lite
 
 import rospy
 import std_msgs.msg
@@ -67,13 +67,14 @@ class logger(object):
         return
 
     def log(self):
+        print("DATABASE OPEN")
         t = datetime.datetime.fromtimestamp(time.time())
         dbpath = '/home/amigos/data/antenna_{}.db'.format(t.strftime('%Y%m%d_%H%M%S'))
         self.n2 = n2lite.N2lite(dbpath)
         self.make_table()
         while not rospy.is_shutdown():
 
-            self.n2.write("datatime", "", (time.time(),))
+            self.n2.write("datatime", "", "({})".format(time.time()))
             self.n2.write("encoder", "", (self.az, self.el))
             self.n2.write("command", "", (self.az_cmd, self.el_cmd))
             self.n2.write("command2", "", (self.az_cmd2, self.el_cmd2))
@@ -82,7 +83,9 @@ class logger(object):
 
             time.sleep(0.001) # 10 msec.
         
-        else: self.n2.close()
+        else: 
+            self.n2.close()
+            print("DATABASE CLOSE")
         return
 
     def start_thread(self):
