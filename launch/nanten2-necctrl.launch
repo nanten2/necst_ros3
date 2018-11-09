@@ -1,5 +1,5 @@
 <launch>
 
-  <include ns="necctrl" file="$(find pci_boards_driver)/launch/necctrl_cpz2724m.launch" />
+  <include ns="necctrl" file="$(find necst_ros3)/launch/necctrl-boards.launch" />
 
 </launch>
