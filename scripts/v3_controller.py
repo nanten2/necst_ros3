@@ -25,7 +25,7 @@ class controller(object):
         pass
 
     def display_publisher(self):
-        print(self.ps.pub.keys())
+        [print(k) for k in self.ps.pub]
         return
 
     def delete_publisher(self):
