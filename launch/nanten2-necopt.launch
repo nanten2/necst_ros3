@@ -1,0 +1,5 @@
+<launch>
+
+  <include ns="necopt" file="$(find pci_boards_driver)/launch/necopt_cpz2724m.launch" />
+
+</launch>
