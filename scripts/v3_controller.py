@@ -28,54 +28,18 @@ class controller(object):
         [print(k) for k in self.ps.pub]
         return
 
-    def delete_publisher(self):
-        self.ps.pub.clear()
-        return
-
-    """
-    def display_subscriber(self):
-        print(self.ps.sub.keys())
-        return
-
-    def delete_subscriber(self):
-        self.ps.sub.clear()
-        return
-    """
-
 
 class PS(object):
     pub = {
             #"topic_name":rospy.Publisher(name, data_class, queue_size, latch)
             }
     
-    """
-    sub = {
-            #"topic_name":[rospy.Subscriber(name, data_class, callback, callback_args), 0]
-            }
-    """
-
     def __init__(self):
-        """
-        sub_th = threading.Thread(
-                target = self.sub_function,
-                daemon = True
-                )
-        sub_th.start()
-        """
         pass
 
     def publish(self, topic_name, msg):
         self.pub[topic_name].publish(msg)
         return
-    
-    """
-    def subscribe(self, topic_name):
-        return self.sub[topic_name][1]
-
-    def callback(self, req, topic_name):
-        self.sub[topic_name][1] = req.data
-        return
-    """
 
     def set_publisher(self, topic_name, data_class, queue_size, latch=True):
         if topic_name not in self.pub:
@@ -88,21 +52,6 @@ class PS(object):
             time.sleep(0.01)
         else: pass
         return
-
-    """
-    def set_subscriber(self, topic_name, data_class):
-        self.sub[topic_name] = [rospy.Subscriber(
-                                            name = topic_name,
-                                            data_class = data_class,
-                                            callback = self.callback,
-                                            callback_args = topic_name
-                                        ), None]
-        return
-
-    def sub_function(self):
-        rospy.spin()
-        return
-    """
 
 
 class ANTENNA(object):
