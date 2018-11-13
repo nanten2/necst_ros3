@@ -1,5 +1,5 @@
 <launch>
 
-  <include ns="necopt" file="$(find necst_ros3)/launch/necopt_boards.launch" />
+  <include ns="necopt" file="$(find necst_ros3)/launch/necopt-boards.launch" />
 
 </launch>
