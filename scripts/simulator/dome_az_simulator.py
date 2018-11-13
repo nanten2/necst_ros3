@@ -18,7 +18,7 @@ class dome_az_simulator(object):
     def __init__(self):
 
         self.topic_to = rospy.Publisher(
-                name = "/cpz6204_rsw1/ax1",
+                name = "/cpz6204_rsw1/ch1",
                 data_class = std_msgs.msg.Int64,
                 queue_size = 1,
             )
