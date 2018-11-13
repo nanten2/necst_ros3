@@ -2,10 +2,11 @@
   
   <node pkg="pci_boards_driver" 
         name="cpz2724m_rsw0" 
-        type="cpz2724m.py" >
+        type="cpz2724m.py"
+        output="screen" >
     <param name="~rsw_id" value="0" />
   </node>
-
+  
   <node pkg="pci_boards_driver" 
         name="cpz2724m_rsw1" 
         type="cpz2724m.py" >
