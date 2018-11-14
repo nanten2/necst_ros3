@@ -97,6 +97,13 @@
            value = "$(find necst_ros3)/relay_conf/antenna_az_cmd_writer.conf" />
   </node>
 
+  <node name = "az_stop_commander"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_az_stop_commander.conf" />
+  </node>
+
   <node name = "el_locker"
         type = "relay.py"
         pkg = "necst_ros3">
@@ -121,6 +128,13 @@
         pkg = "necst_ros3">
     <param name = "config_file"
            value = "$(find necst_ros3)/relay_conf/antenna_el_cmd_writer.conf" />
+  </node>
+
+  <node name = "el_stop_commander"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/antenna_el_stop_commander.conf" />
   </node>
 
 </launch>
