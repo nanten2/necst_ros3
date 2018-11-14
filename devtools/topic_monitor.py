@@ -37,11 +37,13 @@ class topic_monitor(object):
         new('/az', std_msgs.msg.Float64)
         new('/antenna/az_cmd', std_msgs.msg.Float64)
         new('/antenna/az_lock', std_msgs.msg.Bool)
+        new('/antenna/az_soft_limit', std_msgs.msg.Bool)
         new('/antenna/az_pid', std_msgs.msg.Float32MultiArray)
         new('/az_speed', std_msgs.msg.Float64)
         new('/el', std_msgs.msg.Float64)
         new('/antenna/el_cmd', std_msgs.msg.Float64)
         new('/antenna/el_lock', std_msgs.msg.Bool)
+        new('/antenna/el_soft_limit', std_msgs.msg.Bool)
         new('/antenna/el_pid', std_msgs.msg.Float32MultiArray)
         new('/el_speed', std_msgs.msg.Float64)
         """ 
