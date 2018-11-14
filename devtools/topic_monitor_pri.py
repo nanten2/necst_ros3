@@ -41,6 +41,8 @@ class topic_monitor(object):
         new('/antenna/control', std_msgs.msg.String)
         new('/antenna/emergency', std_msgs.msg.Bool)
         new('/antenna/error', std_msgs.msg.String)
+        new('/antenna/az_soft_limit', std_msgs.msg.Bool)
+        new('/antenna/el_soft_limit', std_msgs.msg.Bool)
         
         # Dome
         # ----
