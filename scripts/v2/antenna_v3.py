@@ -24,6 +24,7 @@ class Antenna(object):
         self.start_time = time.time()
 
         rospy.Subscriber('list_azel', necst.msg.List_coord_msg, self.set_parameter, queue_size=1000)
+        rospy.Subscriber('stop_cmd', std_msgs.msg.Bool, self.stop_move, queue_size=1)
 
         topic_from_az = rospy.Subscriber(
                 name = "/antenna/az_lock",
@@ -154,6 +155,15 @@ class Antenna(object):
 
                 self.topic_az.publish(tar_az/3600.)
                 self.topic_el.publish(tar_el/3600.)
+        return
+
+    def stop_move(self, req):
+        if time.time() - self.start_time <1:
+            return
+        if req.data:
+            self.parameters['az_list'] = []
+            self.parameters['el_list'] = []
+            self.parameters['start_time_list'] = []
         return
 
 

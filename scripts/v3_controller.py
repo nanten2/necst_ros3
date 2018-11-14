@@ -129,6 +129,19 @@ class ANTENNA(object):
         self.ps.publish(topic_name=name, msg=command)
         return
 
+    def stop(self, command):
+        name = "/obs/stop_cmd"
+        
+        self.ps.set_publisher(
+                topic_name = name,
+                data_class = std_msgs.msg.Bool,
+                queue_size = 1,
+                latch = True
+            )
+
+        self.ps.publish(topic_name=name, msg=command)
+        return
+
 
 class DOME(object):
 
