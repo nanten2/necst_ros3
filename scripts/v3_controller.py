@@ -108,7 +108,7 @@ class ANTENNA(object):
                 topic_name = name,
                 data_class = necst.msg.Move_mode_msg,
                 queue_size = 1,
-                latch = False
+                latch = True
             )
 
         command = necst.msg.Move_mode_msg()

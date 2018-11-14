@@ -12,8 +12,7 @@
 
   <node name = "antenna_move"
         type = "antenna_v3.py"
-        pkg = "necst_ros3"
-        output = "screen">
+        pkg = "necst_ros3">
   </node>
 
 </launch>
