@@ -11,10 +11,6 @@ import std_msgs.msg
 
 class weather_alert(object):
 
-    rain = 0.0
-    out_humi = 0.0
-    wind_speed = 0.0
-
     def __init__(self):
 
         sub_rain = rospy.Subscriber(
