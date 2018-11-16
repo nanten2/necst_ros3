@@ -24,7 +24,7 @@ class dome_alert(object):
 
         sub_error = rospy.Subscriber(
                 name = "/dome/error",
-                data_class = std_msgs.msg.Bool,
+                data_class = std_msgs.msg.String,
                 callback = self.callback_error,
                 queue_size = 1,
             )
