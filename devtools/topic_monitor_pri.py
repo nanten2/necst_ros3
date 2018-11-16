@@ -74,25 +74,6 @@ class topic_monitor(object):
         new('/hot/position_cmd', std_msgs.msg.String)
         new('/hot/position_lock', std_msgs.msg.Bool)
         
-        # Weather
-        # -------
-        new('/weather/B_humi', std_msgs.msg.Float32)
-        new('/weather/B_temp', std_msgs.msg.Float32)
-        new('/weather/D_humi', std_msgs.msg.Float32)
-        new('/weather/D_temp', std_msgs.msg.Float32)
-        new('/weather/cabin_temp1', std_msgs.msg.Float32)
-        new('/weather/cabin_temp2', std_msgs.msg.Float32)
-        new('/weather/dome_temp1', std_msgs.msg.Float32)
-        new('/weather/dome_temp2', std_msgs.msg.Float32)
-        new('/weather/outside1_humi', std_msgs.msg.Float32)
-        new('/weather/outside1_temp', std_msgs.msg.Float32)
-        new('/weather/outside2_humi', std_msgs.msg.Float32)
-        new('/weather/outside2_temp', std_msgs.msg.Float32)
-        new('/weather/press', std_msgs.msg.Float32)
-        new('/weather/rain', std_msgs.msg.Float32)
-        new('/weather/wind_direction', std_msgs.msg.Float32)
-        new('/weather/wind_speed', std_msgs.msg.Float32)
-
         pass
     
     def callback(self, msg, args):
