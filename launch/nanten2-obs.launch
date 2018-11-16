@@ -15,4 +15,10 @@
         pkg = "necst_ros3">
   </node>
 
+  <node name = "alert"
+        type = "v3_alert.py"
+        pkg = "necst_ros3"
+        output = "screen">
+  </node>
+
 </launch>
