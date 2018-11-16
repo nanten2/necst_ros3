@@ -39,21 +39,21 @@ class azel_list(object):
         pass
 
     def _receive_press(self, req):
-        if req.press == 0:
-            req.press = 500
-        self.press = req.press
+        if req.data == 0:
+            req.data = 500
+        self.press = req.data
         return
 
     def _receive_temp(self, req):
-        if req.out_temp > 273.15:
-            req.out_temp -= 273.15
-        self.out_temp = req.out_temp
+        if req.data > 273.15:
+            req.data -= 273.15
+        self.out_temp = req.data
         return
 
     def _receive_humi(self, req):
-        if req.out_humi > 1:
-            req.out_humi = req.out_humi/100.
-        self.out_humi = req.out_humi
+        if req.data > 1:
+            req.data = req.data/100.
+        self.out_humi = req.data
         return
     
     def _receive_list(self, req):
