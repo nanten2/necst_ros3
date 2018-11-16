@@ -8,6 +8,8 @@ import time
 import rospy
 import std_msgs.msg
 
+WARN = "\033[31m"
+END = "\033[0m\n"
 
 class weather_alert(object):
 
@@ -38,23 +40,23 @@ class weather_alert(object):
 
     def callback_rain(self, req):
         if req.data > 1.:
-            print("Warning : probably raining \n")
+            print("[WEATHER] : probably raining \n")
         else: pass
         return
 
     def callback_humi(self,req):
         if 60 < req.data <=80:
-            print("Warning : out_humi over 60 % \n")
+            print("[WEATHER] : out_humi over 60 % \n")
         elif req.data > 80:
-            print("Emergency : out_humi over 80 % \n")
+            print(WARN + "[WEATHER] : out_humi over 80 % " + END)
         else: pass
         return
 
     def callback_wind(self, req):
         if 10 < req.data < 15:
-            print("Warning : wind_speed over 10 \n")
+            print("[WEATHER] : wind_speed over 10 \n")
         elif 15 <= req.data:
-            print("Emergency : wind_speed over 15 \n")
+            print(WARN + "[WEATHER] : wind_speed over 15 " + END)
         else: pass
         return
 

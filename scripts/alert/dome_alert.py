@@ -8,6 +8,8 @@ import time
 import rospy
 import std_msgs.msg
 
+WARN = "\033[31m"
+END = "\033[0m\n"
 
 class dome_alert(object):
 
@@ -32,13 +34,13 @@ class dome_alert(object):
 
     def callback_emergency(self, req):
         if req.data:
-            print("[DOME] : !!! EMERGENCY !!! \n")
+            print(WARN + "[DOME] : !!! EMERGENCY !!! " + END)
         else: pass
         return
 
     def callback_error(self, req):
         if req.data:
-            print("[DOME] : ERROR {} \n".format(req.data))
+            print(WARN + "[DOME] : ERROR {} ".format(req.data) + END)
         else: pass
         return
 
