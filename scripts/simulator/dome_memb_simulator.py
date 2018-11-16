@@ -21,7 +21,7 @@ class dome_memb_sim(object):
         self.sim = dome_memb_simulator(travel_time)
         
         self.do1 = rospy.Subscriber(
-            name = '/cpz2724_rsw2/do07',
+            name = '/necctrl/cpz2724_rsw2/do07',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do1',
@@ -29,7 +29,7 @@ class dome_memb_sim(object):
         )
         
         self.do2 = rospy.Subscriber(
-            name = '/cpz2724_rsw2/do08',
+            name = '/necctrl/cpz2724_rsw2/do08',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do2',
@@ -37,7 +37,7 @@ class dome_memb_sim(object):
         )
         
         self.pub_1 = rospy.Publisher(
-            name = '/cpz2724_rsw2/di09',
+            name = '/necctrl/cpz2724_rsw2/di09',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
@@ -45,7 +45,7 @@ class dome_memb_sim(object):
         
         
         self.pub_2 = rospy.Publisher(
-            name = '/cpz2724_rsw2/di10',
+            name = '/necctrl/cpz2724_rsw2/di10',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
@@ -53,7 +53,7 @@ class dome_memb_sim(object):
         
         
         self.pub_act = rospy.Publisher(
-            name = '/cpz2724_rsw2/di08',
+            name = '/necctrl/cpz2724_rsw2/di08',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,

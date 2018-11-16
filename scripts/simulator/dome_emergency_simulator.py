@@ -16,7 +16,7 @@ class dome_emergency_sim(object):
     
     def __init__(self):
         self.pub = rospy.Publisher(
-            name = '/cpz2724_rsw2/di01',
+            name = '/necctrl/cpz2724_rsw2/di01',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,

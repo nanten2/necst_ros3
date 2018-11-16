@@ -21,7 +21,7 @@ class dome_door_sim(object):
         self.sim = dome_door_simulator(travel_time_left, travel_time_right)
         
         self.do1 = rospy.Subscriber(
-            name = '/cpz2724_rsw2/do05',
+            name = '/necctrl/cpz2724_rsw2/do05',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do1',
@@ -29,7 +29,7 @@ class dome_door_sim(object):
         )
         
         self.do2 = rospy.Subscriber(
-            name = '/cpz2724_rsw2/do06',
+            name = '/necctrl/cpz2724_rsw2/do06',
             data_class = std_msgs.msg.Bool,
             callback = self.callback,
             callback_args = 'do2',
@@ -37,42 +37,42 @@ class dome_door_sim(object):
         )
         
         self.pub_left1 = rospy.Publisher(
-            name = '/cpz2724_rsw2/di06',
+            name = '/necctrl/cpz2724_rsw2/di06',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
         
         self.pub_left2 = rospy.Publisher(
-            name = '/cpz2724_rsw2/di07',
+            name = '/necctrl/cpz2724_rsw2/di07',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
         
         self.pub_right1 = rospy.Publisher(
-            name = '/cpz2724_rsw2/di03',
+            name = '/necctrl/cpz2724_rsw2/di03',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
         
         self.pub_right2 = rospy.Publisher(
-            name = '/cpz2724_rsw2/di04',
+            name = '/necctrl/cpz2724_rsw2/di04',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
         
         self.pub_left_act = rospy.Publisher(
-            name = '/cpz2724_rsw2/di05',
+            name = '/necctrl/cpz2724_rsw2/di05',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
         )
         
         self.pub_right_act = rospy.Publisher(
-            name = '/cpz2724_rsw2/di02',
+            name = '/necctrl/cpz2724_rsw2/di02',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,

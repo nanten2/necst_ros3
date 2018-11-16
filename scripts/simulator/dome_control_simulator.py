@@ -16,7 +16,7 @@ class dome_control_sim(object):
     
     def __init__(self):
         self.pub = rospy.Publisher(
-            name = '/cpz2724_rsw2/di11',
+            name = '/necctrl/cpz2724_rsw2/di11',
             data_class = std_msgs.msg.Bool,
             latch = True,
             queue_size = 1,
