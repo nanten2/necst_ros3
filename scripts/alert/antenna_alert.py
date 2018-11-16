@@ -8,6 +8,8 @@ import time
 import rospy
 import std_msgs.msg
 
+WARN = "\033[31m"
+END = "\033[0m\n"
 
 class antenna_alert(object):
 
@@ -57,13 +59,13 @@ class antenna_alert(object):
 
     def callback_emergency(self, req):
         if req.data:
-            print("[ANTENNA] : !!! EMERGENCY !!! \n")
+            print(WARN + "[ANTENNA] : !!! EMERGENCY !!! " + END)
         else: pass
         return
 
     def callback_error(self, req):
         if req.data:
-            print("[ANTENNA] : ERROR {} \n".format(req.data))
+            print(WARN + "[ANTENNA] : ERROR {} ".format(req.data) + END)
         else: pass
         return
 
