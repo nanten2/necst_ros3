@@ -1,0 +1,21 @@
+<launch>
+
+  <node name = "weather_alert"
+        type = "weather_alert.py"
+        pkg = "necst_ros3"
+        output = "screen">
+  </node>
+
+  <node name = "antenna_alert"
+        type = "antenna_alert.py"
+        pkg = "necst_ros3"
+        output = "screen">
+  </node>
+
+  <node name = "dome_alert"
+        type = "dome_alert.py"
+        pkg = "necst_ros3"
+        output = "screen">
+  </node>
+
+</launch>
