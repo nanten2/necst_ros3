@@ -24,7 +24,7 @@ class dome_az_simulator(object):
             )
 
         self.topic_from1 = rospy.Subscriber(
-                name = "/cpz2724_rsw2/do01",
+                name = "/necctrl/cpz2724_rsw2/do01",
                 data_class = std_msgs.msg.Bool,
                 callback = self.dome_az_simulator,
                 callback_args = 0,
@@ -32,7 +32,7 @@ class dome_az_simulator(object):
             )
 
         self.topic_from2 = rospy.Subscriber(
-                name = "/cpz2724_rsw2/do02",
+                name = "/necctrl/cpz2724_rsw2/do02",
                 data_class = std_msgs.msg.Bool,
                 callback = self.dome_az_simulator,
                 callback_args = 1,
@@ -40,7 +40,7 @@ class dome_az_simulator(object):
             )
 
         self.topic_from3 = rospy.Subscriber(
-                name = "/cpz2724_rsw2/do03",
+                name = "/necctrl/cpz2724_rsw2/do03",
                 data_class = std_msgs.msg.Bool,
                 callback = self.dome_az_simulator,
                 callback_args = 2,
@@ -48,7 +48,7 @@ class dome_az_simulator(object):
             )
 
         self.topic_from4 = rospy.Subscriber(
-                name = "/cpz2724_rsw2/do04",
+                name = "/necctrl/cpz2724_rsw2/do04",
                 data_class = std_msgs.msg.Bool,
                 callback = self.dome_az_simulator,
                 callback_args = 3,
