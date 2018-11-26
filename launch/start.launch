@@ -1,0 +1,10 @@
+<launch>
+
+  <include file="$(find necst_ros3)/launch/necobs.launch" />
+
+  <group>
+    <machine name="fac" address="fac" env-loader="/root/ros/devel/env.sh" user="root" password="root" />
+    <include file="$(find necst_ros3)/launch/necctrl.launch"
+  </group>
+
+</launch>
