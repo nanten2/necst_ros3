@@ -74,7 +74,7 @@ class logger(object):
         self.make_table()
         while not rospy.is_shutdown():
 
-            self.n2.write("datatime", "", "({})".format(time.time()))
+            self.n2.write("datatime", "", (time.time(),))
             self.n2.write("encoder", "", (self.az, self.el))
             self.n2.write("command", "", (self.az_cmd, self.el_cmd))
             self.n2.write("command2", "", (self.az_cmd2, self.el_cmd2))
