@@ -1,0 +1,5 @@
+<launch>
+
+  <include ns="necctrl" file="$(find necst_ros3)/launch/necctrl-boards.launch" />
+
+</launch>
