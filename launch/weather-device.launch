@@ -1,0 +1,9 @@
+<launch>
+
+  <node name = "weather_davis"
+        type = "nanten_davis_v3.py"
+        pkg = "davis"
+        output = "screen">
+  </node>
+
+</launch>
