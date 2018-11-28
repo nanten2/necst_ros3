@@ -27,7 +27,7 @@ class antenna_el_feedback(object):
     
     def __init__(self):
         self.topic_to = rospy.Publisher(
-                name = "/el_speed",
+                name = "el_speed",
                 data_class = std_msgs.msg.Float64,
                 queue_size = 1,
             )
@@ -40,7 +40,7 @@ class antenna_el_feedback(object):
             )
 
         topic_from2 = rospy.Subscriber(
-                name = "/el",
+                name = "el",
                 data_class = std_msgs.msg.Float64,
                 callback = self.antenna_el_encoder,
                 queue_size = 1,

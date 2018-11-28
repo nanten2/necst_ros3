@@ -23,7 +23,7 @@ class encoder_az_sim(object):
             )
 
         self.topic_from = rospy.Subscriber(
-                name = "/az_speed",
+                name = "/antenna/az_speed",
                 data_class = std_msgs.msg.Float64,
                 callback = self.encoder_az_sim,
                 queue_size = 1,
