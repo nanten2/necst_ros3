@@ -65,7 +65,6 @@ class topic_monitor(object):
         new('dome/door_lock', std_msgs.msg.Bool)
         new('dome/memb_lock', std_msgs.msg.Bool)
         new('dome/control', std_msgs.msg.String)
-        new('dome/emergency', std_msgs.msg.Bool)
         new('dome/error', std_msgs.msg.String)
         
         # Hot

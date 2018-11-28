@@ -15,13 +15,6 @@ class dome_alert(object):
 
     def __init__(self):
 
-        sub_emergency = rospy.Subscriber(
-                name = "/dome/emergency",
-                data_class = std_msgs.msg.Bool,
-                callback = self.callback_emergency,
-                queue_size = 1,
-            )
-
         sub_error = rospy.Subscriber(
                 name = "/dome/error",
                 data_class = std_msgs.msg.String,
@@ -31,12 +24,6 @@ class dome_alert(object):
 
         pass
 
-
-    def callback_emergency(self, req):
-        if req.data:
-            print(WARN + "[DOME] : !!! EMERGENCY !!! " + END)
-        else: pass
-        return
 
     def callback_error(self, req):
         if req.data:

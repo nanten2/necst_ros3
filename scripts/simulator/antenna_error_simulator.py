@@ -30,8 +30,8 @@ class antenna_error_sim(object):
         pass
     
     def set_error(self):
-        [self.pub1[i].publish(False) for i in range(5)]
-        [self.pub2[i].publish(False) for i in range(15)]
+        [self.pub1[i].publish(True) for i in range(5)]
+        [self.pub2[i].publish(True) for i in range(15)]
         return
 
 

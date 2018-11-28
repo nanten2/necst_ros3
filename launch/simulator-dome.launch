@@ -18,11 +18,6 @@
     <param name="travel_time" value="5.0" />
   </node>
     
-  <node name = "emergency_simulator"
-        type = "dome_emergency_simulator.py"
-        pkg = "necst_ros3">
-  </node>
-
   <node name = "control_simulator"
         type = "dome_control_simulator.py"
         pkg = "necst_ros3">
