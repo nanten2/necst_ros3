@@ -101,14 +101,14 @@ if __name__ == '__main__':
     st.start_thread()
 
     sub_az = rospy.Subscriber(
-            name = "/az",
+            name = "/antenna/az",
             data_class = std_msgs.msg.Float64,
             callback = st.callback_az,
             queue_size = 1,
         )
 
     sub_el = rospy.Subscriber(
-            name = "/el",
+            name = "/antenna/el",
             data_class = std_msgs.msg.Float64,
             callback = st.callback_el,
             queue_size = 1,
@@ -143,14 +143,14 @@ if __name__ == '__main__':
         )
 
     sub_az_speed = rospy.Subscriber(
-            name = "/az_speed",
+            name = "/antenna/az_speed",
             data_class = std_msgs.msg.Float64,
             callback = st.callback_az_speed,
             queue_size = 1,
         )
 
     sub_el_speed = rospy.Subscriber(
-            name = "/el_speed",
+            name = "/antenna/el_speed",
             data_class = std_msgs.msg.Float64,
             callback = st.callback_el_speed,
             queue_size = 1,
