@@ -25,11 +25,11 @@ class antenna_emergency_sim(object):
         pass
     
     def on_emergency(self):
-        self.pub.publish(True)
+        self.pub.publish(False)
         return
 
     def off_emergency(self):
-        self.pub.publish(False)
+        self.pub.publish(True)
         return
 
 
