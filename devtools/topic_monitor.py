@@ -104,7 +104,6 @@ class topic_monitor(object):
         new('dome/door_lock', std_msgs.msg.Bool)
         new('dome/door_rightaction', std_msgs.msg.String)
         new('dome/door_rightposition', std_msgs.msg.String)
-        new('dome/emergency', std_msgs.msg.Bool)
         new('dome/error', std_msgs.msg.String)
         new('dome/memb', std_msgs.msg.String)
         new('dome/memb_action', std_msgs.msg.String)
