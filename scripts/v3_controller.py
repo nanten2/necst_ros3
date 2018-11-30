@@ -129,6 +129,38 @@ class ANTENNA(object):
         self.ps.publish(topic_name=name, msg=command)
         return
 
+    def onepoint_move(self, command_az, command_el, coord="altaz", dx, dy, dt, num, rampt, delay, current_time, off_x=0, off_y=0, offcoord="altaz", hosei="hosei_230.txt", lamda=2600, dcos=0, limit=True):
+        name = "/obs/antenna_otf"
+
+        self.ps.set_publisher(
+                topic_name = name,
+                data_class = necst.msg.Otf_mode_msg,
+                queue_size = 1,
+                latch = True
+            )
+
+        command = necst.msg.Otf_mode_msg()
+        command.x = command_az
+        command.y = command_el
+        command.coord_sys = coord
+        command.dx = dx
+        command.dy = dy
+        command.dt = dt
+        command.num = num
+        command.rampt = rampt
+        command.delay = delay
+        command.off_x = off_x
+        command.off_y = off_y
+        command.offcoord = offcoord
+        command.hosei = hosei
+        command.lamda = lamda
+        command.dcos = dcos
+        command.limit = limit
+        command.timestamp = time.time()
+
+        self.ps.publish(topic_name=name, msg=command)
+        return
+
     def stop(self, command):
         name = "/obs/stop_cmd"
         
