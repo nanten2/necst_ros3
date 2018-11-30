@@ -129,7 +129,7 @@ class ANTENNA(object):
         self.ps.publish(topic_name=name, msg=command)
         return
 
-    def onepoint_move(self, command_az, command_el, coord="altaz", dx, dy, dt, num, rampt, delay, current_time, off_x=0, off_y=0, offcoord="altaz", hosei="hosei_230.txt", lamda=2600, dcos=0, limit=True):
+    def otf_scan(self, command_az, command_el, dx, dy, dt, num, rampt, delay, current_time, coord="altaz", off_x=0, off_y=0, offcoord="altaz", hosei="hosei_230.txt", lamda=2600, dcos=0, limit=True):
         name = "/obs/antenna_otf"
 
         self.ps.set_publisher(
