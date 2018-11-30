@@ -108,10 +108,10 @@ class logger(object):
         while not rospy.is_shutdown():
 
             self.n2.write("datatime", "", (time.time(),))
-            self.n2.write("encoder", "", (self.az, self.el))
-            self.n2.write("command", "", (self.az_cmd, self.el_cmd))
-            self.n2.write("command2", "", (self.az_cmd2, self.el_cmd2))
-            self.n2.write("speed", "", (self.az_speed, self.el_speed))
+            self.n2.write("drive", "", (self.drive, self.drive_cmd, self.drive_cmd2))
+            self.n2.write("az", "", (self.az, self.az_cmd, self.az_cmd2, self.az_speed))
+            self.n2.write("el", "", (self.el, self.el_cmd, self.el_cmd2, self.el_speed))
+            self.n2.write("io", "", (self.error, self.control, self.emergency))
 
             time.sleep(0.0001) # 0.1 msec.
         
