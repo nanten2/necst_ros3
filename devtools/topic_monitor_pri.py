@@ -73,6 +73,7 @@ class topic_monitor(object):
         new('/hot/position_cmd', std_msgs.msg.String)
         new('/hot/position_lock', std_msgs.msg.Bool)
         
+        new('/weather/wind_speed', std_msgs.msg.Float32)
         pass
     
     def callback(self, msg, args):
