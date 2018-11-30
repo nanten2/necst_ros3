@@ -75,7 +75,7 @@ if __name__ == '__main__':
     st = logger()
     st.start_thread()
 
-    self.sub_do = [rospy.Subscriber(
+    sub_do = [rospy.Subscriber(
                     name = "cpz2724_rsw{0}/do{1}".format(args[1], ch),
                     data_class = std_msgs.msg.Bool,
                     callback = st.callback_do,
@@ -83,7 +83,7 @@ if __name__ == '__main__':
                     queue_size = 1
                 ) for ch in st.ch_list]
 
-    self.sub_di = [rospy.Subscriber(
+    sub_di = [rospy.Subscriber(
                     name = "cpz2724_rsw{0}/di{1}".format(args[1], ch),
                     data_class = std_msgs.msg.Bool,
                     callback = st.callback_di,
