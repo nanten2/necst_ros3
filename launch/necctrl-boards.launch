@@ -24,7 +24,6 @@
     <param name="~rsw_id" value="2" />
   </node>
 
-<!--
   <node pkg="pci_boards_driver"
         name="cpz6204_rsw0"
         type="cpz6204.py"
@@ -32,8 +31,8 @@
         machine="rxfac1">
     <param name="~rsw_id" value="0" />
   </node>
--->
 
+<!--
   <node pkg="pci_boards_driver"
         name="cpz6204_rsw1" 
         type="cpz6204.py" 
@@ -41,5 +40,6 @@
         machine="rxfac1">
     <param name="~rsw_id" value="1" />
   </node>
+-->
 
 </launch>
