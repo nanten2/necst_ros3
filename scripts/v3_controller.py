@@ -129,6 +129,60 @@ class ANTENNA(object):
         self.ps.publish(topic_name=name, msg=command)
         return
 
+    def otf_scan(self, command_az, command_el, coord, dx, dy, dt, num, rampt, delay, current_time, off_x=0, off_y=0, offcoord="j2000", dcos=0, hosei="hosei_230.txt", lamda=2600, limit=True):
+        """ otf scan
+
+        Parameters
+        ----------
+        x        : target_x [deg]
+        y        : target_y [deg]
+        coord    : "j2000" or "b1950" or "galactic"
+        dx       : x_grid length [arcsec]
+        dy       : y_grid length [arcsec]
+        dt       : exposure time [s]
+        num      : scan point [ num / 1 line]
+        rampt    : ramp time [s]
+        delay    : (start observation time)-(now time) [s]
+        current_time    : time.time()
+        off_x    : (target_x)-(scan start_x) [arcsec]
+        off_y    : (target_y)-(scan start_y) [arcsec]
+        offcoord : equal coord (no implementation)
+        dcos     : projection (no:0, yes:1)
+        hosei    : hosei file name (default ; hosei_230.txt)
+        lamda    : observation wavelength [um] (default ; 2600)
+        limit    : soft limit [az:-240~240, el:30~80] (True:limit_on, False:limit_off)
+        """
+        name = "/obs/antenna_otf"
+
+        self.ps.set_publisher(
+                topic_name = name,
+                data_class = necst.msg.Otf_mode_msg,
+                queue_size = 1,
+                latch = True
+            )
+
+        command = necst.msg.Otf_mode_msg()
+        command.x = command_az
+        command.y = command_el
+        command.coord_sys = coord
+        command.dx = dx
+        command.dy = dy
+        command.dt = dt
+        command.num = num
+        command.rampt = rampt
+        command.delay = delay
+        command.off_x = off_x
+        command.off_y = off_y
+        command.offcoord = offcoord
+        command.hosei = hosei
+        command.lamda = lamda
+        command.dcos = dcos
+        command.limit = limit
+        command.timestamp = time.time()
+
+        self.ps.publish(topic_name=name, msg=command)
+        return
+
     def stop(self, command):
         name = "/obs/stop_cmd"
         
