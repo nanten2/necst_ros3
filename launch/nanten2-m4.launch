@@ -1,0 +1,17 @@
+<launch>
+
+  <node name = "position_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/m4_position_reader.conf" />
+  </node>
+
+  <node name = "position_commander"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/m4_position_commander.conf" />
+  </node>
+
+</launch>
