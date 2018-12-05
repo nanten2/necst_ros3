@@ -1,0 +1,8 @@
+<launch>
+  
+  <node name = "m4_position_simulator"
+        type = "m4_position_simulator"
+        pkg = "necst_ros3">
+  </node>
+
+</launch>
