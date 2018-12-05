@@ -1,9 +1,9 @@
 <launch>
 
   <include file="$(find necst_ros3)/launch/necobs.launch" />
-<!--
+
   <include file="$(find necst_ros3)/launch/weather-device.launch" />
--->
+
   <group>
     <machine name="rxfac1" address="rxfac1" env-loader="/root/ros/devel/env.sh" user="root" password="root" />
     <include file="$(find necst_ros3)/launch/necctrl.launch" />
