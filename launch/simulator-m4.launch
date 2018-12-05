@@ -1,7 +1,7 @@
 <launch>
   
   <node name = "m4_position_simulator"
-        type = "m4_position_simulator"
+        type = "m4_position_simulator.py"
         pkg = "necst_ros3">
   </node>
 
