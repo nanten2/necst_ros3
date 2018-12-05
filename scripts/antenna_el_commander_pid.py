@@ -19,8 +19,8 @@ class antenna_el_feedback(object):
 
     arcsec_enc = 0.0
 
-    p_coeff = 3.7
-    i_coeff = 3.0
+    p_coeff = 2.2
+    i_coeff = 0.0
     d_coeff = 0.0
 
     lock = False
