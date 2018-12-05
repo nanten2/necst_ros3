@@ -60,15 +60,15 @@ class m4_position_sim(object):
                 if self.cmd == 'NASCO':
                     self.pub_busy.publish(True)
                     time.sleep(4)
-                    self.pub_busy.publish(False)
-                    self.pub_p.publise(True)
+                    self.pub_p.publish(True)
                     self.pub_m.publish(False)
+                    self.pub_busy.publish(False)
                 elif self.cmd == 'SMART':
                     self.pub_busy.publish(True)
                     time.sleep(4)
-                    self.pub_busy.publish(False)
-                    self.pub_p.publise(False)
+                    self.pub_p.publish(False)
                     self.pub_m.publish(True)
+                    self.pub_busy.publish(False)
                 cmd_last = self.cmd
                 pass
             
