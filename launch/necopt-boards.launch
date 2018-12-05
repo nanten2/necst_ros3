@@ -4,24 +4,25 @@
         name="cpz2724m_rsw0" 
         type="cpz2724m.py"
         output="screen"
-        machine="fac">
+        machine="rxfac1">
     <param name="~rsw_id" value="0" />
   </node>
 
+<!--
   <node pkg="pci_boards_driver" 
         name="cpz2724m_rsw1" 
         type="cpz2724m.py"
         output="screen"
-        machine="fac">
+        machine="rxfac1">
     <param name="~rsw_id" value="1" />
   </node>
-
+-->
 
   <node pkg="pci_boards_driver"
         name="cpz7204_rsw0" 
         type="cpz7204.py"
         output="screen"
-        machine="fac">
+        machine="rxfac1">
     <param name="~rsw_id" value="0" />
   </node>
 
