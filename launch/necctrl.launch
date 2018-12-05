@@ -2,8 +2,8 @@
 
   <include ns="necctrl" file="$(find necst_ros3)/launch/necctrl-boards.launch" />
 
-  <include ns="antenna" file="$(find necst_ros3)/launch/antenna-test.launch" />
+  <include ns="antenna" file="$(find necst_ros3)/launch/necctrl-antenna.launch" />
 
-  <include ns="encoder" file="$(find necst_ros3)/launch/encoder-test.launch" />
+  <include ns="encoder" file="$(find necst_ros3)/launch/necctrl-encoder.launch" />
 
 </launch>
