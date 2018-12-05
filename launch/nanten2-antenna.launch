@@ -83,13 +83,13 @@
     <param name = "config_file"
            value = "$(find necst_ros3)/relay_conf/antenna_az_soft_limit.conf" />
   </node>
-
+<!--
   <node name = "az_commander_pid"
         type = "antenna_az_commander_pid.py"
         pkg = "necst_ros3"
         output = "screen">
   </node>
-  
+-->
   <node name = "az_cmd_writer"
         type = "relay.py"
         pkg = "necst_ros3">
@@ -118,10 +118,12 @@
            value = "$(find necst_ros3)/relay_conf/antenna_el_soft_limit.conf" />
   </node>
 
+<!--
   <node name = "el_commander_pid"
         type = "antenna_el_commander_pid.py"
         pkg = "necst_ros3">
   </node>
+-->
  
   <node name = "el_cmd_writer"
         type = "relay.py"

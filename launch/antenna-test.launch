@@ -1,0 +1,15 @@
+<launch>
+  <node name = "az_commander_pid"
+        type = "antenna_az_commander_pid.py"
+        pkg = "necst_ros3"
+        output = "screen"
+        machine = "rxfac1">
+  </node>
+  
+  <node name = "el_commander_pid"
+        type = "antenna_el_commander_pid.py"
+        pkg = "necst_ros3"
+        output = "screen"
+        machine = "rxfac1">
+  </node>
+</launch>
