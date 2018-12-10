@@ -21,4 +21,9 @@
            value = "$(find necst_ros3)/relay_conf/m2_position_commander.conf" />
   </node>
 
+  <node name = "position_mapper"
+        type = "m2_position_mapper.py"
+        pkg = "necst_ros3">
+  </node>
+
 </launch>
