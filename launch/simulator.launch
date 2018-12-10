@@ -15,6 +15,11 @@
   <include ns="m4" file="$(find necst_ros3)/launch/nanten2-m4.launch" />
   <include ns="m4" file="$(find necst_ros3)/launch/simulator-m4.launch" />
 
+  <include ns="m2" file="$(find necst_ros3)/launch/nanten2-m2.launch" />
+<!--
+  <include ns="m2" file="$(find necst_ros3)/launch/simulator-m2.launch" />
+-->
+
   <include ns="weather" file="$(find necst_ros3)/launch/nanten2-weather.launch" />
 <!--
   <include ns="weather" file="$(find necst_ros3)/launch/simulator-weather.launch" />
