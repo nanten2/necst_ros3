@@ -79,7 +79,15 @@ class topic_monitor(object):
         # ---
         new('/m4/position', std_msgs.msg.String)
         new('/m4/position_cmd', std_msgs.msg.String)
+        
+        # M2
+        # ---
+        new('/m2/position', std_msgs.msg.Float64)
+        new('/m2/position_cmd', std_msgs.msg.Float64)
+        new('/m2/limit', std_msgs.msg.String)
 
+        # Weather
+        # ---
         new('/weather/wind_speed', std_msgs.msg.Float32)
         pass
     
