@@ -85,6 +85,14 @@ class topic_monitor(object):
         new('/cpz7204_rsw0/p_EL', std_msgs.msg.Bool)
         new('/cpz7204_rsw0/step', std_msgs.msg.Bool)
 
+        # M2
+        # ---
+        new('/m2/position', std_msgs.msg.Float64)
+        new('/m2/position_cmd', std_msgs.msg.Float64)
+        new('/m2/limit', std_msgs.msg.String)
+
+        # Weather
+        # ---
         new('/weather/wind_speed', std_msgs.msg.Float32)
         pass
     
