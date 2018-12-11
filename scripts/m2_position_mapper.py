@@ -18,7 +18,7 @@ class m2_position_mapper(object):
         self.array = std_msgs.msg.ByteMultiArray()
 
         self.do1 = rospy.Publisher(
-                name = "/necopt/cpz2724_rsw1/do1_08",
+                name = "/necopt/cpz2724_rsw1/do1_8",
                 data_class = std_msgs.msg.ByteMultiArray,
                 queue_size = 1,
             )
