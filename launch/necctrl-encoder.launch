@@ -3,7 +3,7 @@
   <node name = "encoder_az_reader"
         type = "relay.py"
         pkg = "necst_ros3"
-        machine = "rxfac1">
+        machine = "necctrl">
     <param name = "config_file"
            value = "/root/ros/src/necst_ros3/relay_conf/encoder_az_reader.conf" />
   </node>
@@ -11,7 +11,7 @@
   <node name = "encoder_el_reader"
         type = "relay.py"
         pkg = "necst_ros3"
-        machine = "rxfac1">
+        machine = "necctrl">
     <param name = "config_file"
            value = "/root/ros/src/necst_ros3/relay_conf/encoder_el_reader.conf" />
   </node>
@@ -19,7 +19,7 @@
   <node name = "encoder_origin_commander"
         type = "relay.py"
         pkg = "necst_ros3"
-        machine = "rxfac1">
+        machine = "necctrl">
     <param name = "config_file"
            value = "/root/ros/src/necst_ros3/relay_conf/encoder_origin_commander.conf" />
   </node>
