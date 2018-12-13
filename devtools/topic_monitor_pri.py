@@ -80,10 +80,10 @@ class topic_monitor(object):
         new('/m4/position', std_msgs.msg.String)
         new('/m4/position_cmd', std_msgs.msg.String)
         
-        new('/cpz7204_rsw0/busy', std_msgs.msg.Bool)
-        new('/cpz7204_rsw0/m_EL', std_msgs.msg.Bool)
-        new('/cpz7204_rsw0/p_EL', std_msgs.msg.Bool)
-        new('/cpz7204_rsw0/step', std_msgs.msg.Bool)
+        #new('/cpz7204_rsw0/busy', std_msgs.msg.Bool)
+        #new('/cpz7204_rsw0/m_EL', std_msgs.msg.Bool)
+        #new('/cpz7204_rsw0/p_EL', std_msgs.msg.Bool)
+        #new('/cpz7204_rsw0/step', std_msgs.msg.Bool)
 
         # M2
         # ---
@@ -97,7 +97,10 @@ class topic_monitor(object):
         pass
     
     def callback(self, msg, args):
-        self.values[args['name']] = str(msg.data)
+        if type(msg.data) == float: 
+            self.values[args['name']] = '%10f'%(msg.data)
+        else:
+            self.values[args['name']] = str(msg.data)
         self.refresh()
         return
 
@@ -111,7 +114,7 @@ class topic_monitor(object):
         #print('----')
         s = ""
         for key in sorted(self.values):
-            s += (('{0:<'+str(maxlen)+'} {1:.7s}').format(key, self.values[key]) + "\n")
+            s += (('{0:<'+str(maxlen)+'} {1:.10s}').format(key, self.values[key]) + "\n")
             continue
         print(s)
         self.refreshing = False
