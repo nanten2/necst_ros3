@@ -1,12 +1,5 @@
 <launch>
 
-  <node name = "hot_position_locker"
-        type = "relay.py"
-        pkg = "necst_ros3">
-    <param name = "config_file"
-           value = "$(find necst_ros3)/relay_conf/hot_position_locker.conf" />
-  </node>
-    
   <node name = "hot_position_writer"
         type = "relay.py"
         pkg = "necst_ros3">

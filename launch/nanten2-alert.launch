@@ -1,5 +1,12 @@
 <launch>
 
+  <node name = "alert_monitor"
+        type = "alert_monitor.py"
+        pkg = "necst_ros3"
+        output = "screen">
+  </node>
+
+<!--
   <node name = "weather_alert"
         type = "weather_alert.py"
         pkg = "necst_ros3"
@@ -17,5 +24,6 @@
         pkg = "necst_ros3"
         output = "screen">
   </node>
+-->
 
 </launch>
