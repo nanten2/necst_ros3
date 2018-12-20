@@ -19,7 +19,7 @@ class worldcoord(object):
     msg = ""
     
     def __init__(self):
-        self.sub = rospy.Subscriber("onepoint_command", Move_mode_msg, self.note_command, queue_size=1)
+        self.sub = rospy.Subscriber("onepoint_cmd", Move_mode_msg, self.note_command, queue_size=1)
         self.pub = rospy.Publisher("wc_list", List_coord_msg, queue_size=1)
         self.thread_start = threading.Thread(target=self.create_list)
         pass
