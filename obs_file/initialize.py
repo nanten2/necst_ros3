@@ -7,6 +7,7 @@ import datetime
 import argparse
 sys.path.append("/home/amigos/ros/src/necst_ros3/scripts")
 import v3_controller
+import v3_reader
 import signal
 
 def handler(signal, frame):
@@ -50,7 +51,7 @@ else:
 print("[{}]  INITIALIZE START".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
 con = v3_controller.controller()
-red = v3_reader.reader()
+red = v3_reader.reader(node=False)
 
 con.antenna.drive("on")
 print("[{}]  ANTENNA DRIVE ON".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))

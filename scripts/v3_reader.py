@@ -12,8 +12,10 @@ import necst.msg
 
 class reader(object):
 
-    def __init__(self):
-        rospy.init_node(name)
+    def __init__(self, node=True):
+        if node: rospy.init_node(name)
+        else: pass
+
         self.ps = PS()
 
         # ----
@@ -42,7 +44,8 @@ class PS(object):
         pass
 
     def subscribe(self, topic_name):
-        self.sub[topic_name].unregister()
+        #TODO get rid WARN
+        #self.sub[topic_name].unregister()
         return self.values[topic_name]
 
     def set_subscriber(self, topic_name, data_class, queue_size):
