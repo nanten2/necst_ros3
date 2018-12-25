@@ -13,6 +13,7 @@ import doppler_nanten
 dp = doppler_nanten.doppler_nanten()
 sys.path.append("/home/amigos/ros/src/necst_ros3/scripts")
 import v3_controller
+import v3_reader
 import signal
 
 def handler(num, flame):
@@ -75,6 +76,7 @@ print("[{0}]  OBJECT {1}".format(datetime.datetime.strftime(datetime.datetime.no
 # ====
 
 con = v3_controller.controller()
+red = v3_reader.reader()
 con.dome.tracking()
 
 obsdir = '/home/amigos/necst-obsfiles/'
@@ -258,18 +260,17 @@ while num < n:
     _now = time.time()
     con.hot.position("IN")
     print("[{}]  HOT IN".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-    status = con.read_status()
-    while status.Current_Hot != "IN":
+    hot = red.hot.position()
+    while hot != "IN":
         print("[{}]  HOT MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        status = con.read_status()        
+        hot = red.hot.position()
         time.sleep(0.5)
             
-    temp = float(con.read_status().CabinTemp1)# + 273.15
+    temp = float(red.weather.cabin_temp())
     print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
     dp1 = 0
-    status = con.read_status()
-    d = con.oneshot_achilles(exposure=integ_off)
+    d = red.achilles.oneshot(exposure=integ_off)
     print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
     d1 = d['dfs1'][0]
@@ -277,26 +278,26 @@ while num < n:
     d1_list.append(d1)
     d2_list.append(d2)
     tdim6_list.append([16384,1,1])
-    tmp_time = status.Time
+    tmp_time = time.time()
     tmp2 = datetime.datetime.fromtimestamp(tmp_time)
     tmp3 = tmp2.strftime("%Y/%m/%d %H:%M:%S")
     date_list.append(tmp3)    
     thot_list.append(temp)
     vframe_list.append(dp1)#dp1[0])
     vframe2_list.append(dp1)#dp1[0])
-    lst_list.append(status.LST)
-    az_list.append(status.Current_Az)
-    el_list.append(status.Current_El)
+    #lst_list.append(status.LST)
+    az_list.append(red.antenna.az())
+    el_list.append(red.antenna.el())
     tau_list.append(tau)
-    hum_list.append(status.OutHumi)
-    tamb_list.append(status.OutTemp)
-    press_list.append(status.Press)
-    windspee_list.append(status.WindSp)
-    winddire_list.append(status.WindDir)
+    hum_list.append(red.weather.out_humi())
+    tamb_list.append(red.weather.out_temp())
+    press_list.append(red.weather.pressure())
+    windspee_list.append(red.weather.wind_speed())
+    winddire_list.append(red.weather.wind_direction())
     sobsmode_list.append('HOT')
-    mjd_list.append(status.MJD)
-    secofday_list.append(status.Secofday)
-    subref_list.append(status.Current_M2)
+    #mjd_list.append(status.MJD)
+    #secofday_list.append(status.Secofday)
+    subref_list.append(red.m2.position())
     latest_hottime = time.time()
     P_hot = numpy.sum(d1)
     tsys_list.append(0)
@@ -309,18 +310,17 @@ while num < n:
 
     con.hot.position("OUT")
     print("[{}]  HOT OUT".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-    status = con.read_status()
-    while status.Current_Hot != "OUT":
+    hot = red.hot.position()
+    while hot != "OUT":
         print("[{}]  HOT MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        status = con.read_status()        
+        hot = red.hot.position()
         time.sleep(0.5)
         continue
 
-    temp = float(status.CabinTemp1)# + 273.15
+    temp = float(red.weather.cabin_temp())
     print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
-    status = con.read_status()
-    d = con.oneshot_achilles(exposure=integ_off)
+    d = red.achilles.oneshot(exposure=integ_off)
     print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
     d1 = d['dfs1'][0]
@@ -328,26 +328,26 @@ while num < n:
     d1_list.append(d1)
     d2_list.append(d2)
     tdim6_list.append([16384,1,1])
-    tmp_time = status.Time
+    tmp_time = time.time()
     tmp2 = datetime.datetime.fromtimestamp(tmp_time)
     tmp3 = tmp2.strftime("%Y/%m/%d %H:%M:%S")
     date_list.append(tmp3)    
     thot_list.append(temp)
     vframe_list.append(dp1)#dp1[0])
     vframe2_list.append(dp1)#dp1[0])
-    lst_list.append(status.LST)
-    az_list.append(status.Current_Az)
-    el_list.append(status.Current_El)
+    #lst_list.append(status.LST)
+    az_list.append(red.antenna.az())
+    el_list.append(red.antenna.el())
     tau_list.append(tau)
-    hum_list.append(status.OutHumi)
-    tamb_list.append(status.OutTemp)
-    press_list.append(status.Press)
-    windspee_list.append(status.WindSp)
-    winddire_list.append(status.WindDir)
+    hum_list.append(red.weather.out_humi())
+    tamb_list.append(red.weather.out_temp())
+    press_list.append(red.weather.pressure())
+    windspee_list.append(red.weather.wind_speed())
+    winddire_list.append(red.weather.wind_direction())
     sobsmode_list.append('OFF')
-    mjd_list.append(status.MJD)
-    secofday_list.append(status.Secofday)
-    subref_list.append(status.Current_M2)
+    #mjd_list.append(status.MJD)
+    #secofday_list.append(status.Secofday)
+    subref_list.append(red.m2.position())
     P_sky = numpy.sum(d1)
     tsys = temp/(P_hot/P_sky-1)
     tsys_list.append(tsys)
@@ -376,43 +376,42 @@ while num < n:
                 print("[{}]  OBSERVATION : LEFT OR LOWER".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
                 off_x = offset_x + (obs['xgrid']*lp)*gx
                 off_y = offset_y + (obs['ygrid']*lp)*gy
-            con.planet_move(planet, off_x = off_x,off_y = off_y, 
+            con.antenna.planet_move(planet, off_x = off_x,off_y = off_y, 
                             offcoord = cosydel,dcos = offset_dcos)
             print("[{0}]  OFF_X {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), offset_x))
             print("[{0}]  OFF_Y {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), offset_y))
             print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-        status = con.read_status()
-        temp = float(status.CabinTemp1)# + 273.15
+        temp = float(red.weather.cabin_temp())
         print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
-        d = con.oneshot_achilles(exposure=integ_on)
+        d = red.achilles.oneshot(exposure=integ_on)
         print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         d1 = d['dfs1'][0]
         d2 = d['dfs2'][0]
         d1_list.append(d1)
         d2_list.append(d2)
         tdim6_list.append([16384,1,1])
-        tmp_time = status.Time
+        tmp_time = time.time()
         tmp2 = datetime.datetime.fromtimestamp(tmp_time)
         tmp3 = tmp2.strftime("%Y/%m/%d %H:%M:%S")
         date_list.append(tmp3)        
         thot_list.append(temp)
         vframe_list.append(dp1)#dp1[0])
         vframe2_list.append(dp1)#dp1[0])
-        lst_list.append(status.LST)
-        az_list.append(status.Current_Az)
-        el_list.append(status.Current_El)
+        #lst_list.append(status.LST)
+        az_list.append(red.antenna.az())
+        el_list.append(red.antenna.el())
         tau_list.append(tau)
-        hum_list.append(status.OutHumi)
-        tamb_list.append(status.OutTemp)
-        press_list.append(status.Press)
-        windspee_list.append(status.WindSp)
-        winddire_list.append(status.WindDir)
+        hum_list.append(red.weather.out_humi())
+        tamb_list.append(red.weather.out_temp())
+        press_list.append(red.weather.pressure())
+        windspee_list.append(red.weather.wind_speed())
+        winddire_list.append(red.weather.wind_direction())
         sobsmode_list.append('ON')
-        mjd_list.append(status.MJD)
-        secofday_list.append(status.Secofday)
-        subref_list.append(status.Current_M2)
+        #mjd_list.append(status.MJD)
+        #secofday_list.append(status.Secofday)
+        subref_list.append(red.m2.position())
         tsys_list.append(tsys)
         _2NDLO_list1.append(dp1)#dp1[3]['sg21']*1000)    
         _2NDLO_list2.append(dp1)#dp1[3]['sg22']*1000)
@@ -428,18 +427,17 @@ while num < n:
 
 con.hot.position("IN")
 print("[{}]  HOT IN".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-status = con.read_status()
-while status.Current_Hot != "IN":
+hot = red.hot.position()
+while hot != "IN":
     print("[{}]  HOT MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-    status = con.read_status()        
+    hot = red.hot.position()
     time.sleep(0.5)
     continue
 
-status = con.read_status()
-temp = float(status.CabinTemp1)# + 273.15
+temp = float(red.weather.cabin_temp())
 print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
         
-d = con.oneshot_achilles(exposure=integ_off)
+d = red.achilles.oneshot(exposure=integ_off)
 print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
 d1 = d['dfs1'][0]
@@ -447,26 +445,26 @@ d2 = d['dfs2'][0]
 d1_list.append(d1)
 d2_list.append(d2)
 tdim6_list.append([16384,1,1])
-tmp_time = status.Time
+tmp_time = time.time()
 tmp2 = datetime.datetime.fromtimestamp(tmp_time)
 tmp3 = tmp2.strftime("%Y/%m/%d %H:%M:%S")
 date_list.append(tmp3)
 thot_list.append(temp)
 vframe_list.append(dp1)#dp1[0])
 vframe2_list.append(dp1)#dp1[0])
-lst_list.append(status.LST)
-az_list.append(status.Current_Az)
-el_list.append(status.Current_El)
+#lst_list.append(status.LST)
+az_list.append(red.antenna.az())
+el_list.append(red.antenna.el())
 tau_list.append(tau)
-hum_list.append(status.OutHumi)
-tamb_list.append(status.OutTemp)
-press_list.append(status.Press)
-windspee_list.append(status.WindSp)
-winddire_list.append(status.WindDir)
+hum_list.append(red.weather.out_humi())
+tamb_list.append(red.weather.out_temp())
+press_list.append(red.weather.pressure())
+windspee_list.append(red.weather.wind_speed())
+winddire_list.append(red.weather.wind_direction())
 sobsmode_list.append('HOT')
-mjd_list.append(status.MJD)
-secofday_list.append(status.Secofday)
-subref_list.append(status.Current_M2)
+#mjd_list.append(status.MJD)
+#secofday_list.append(status.Secofday)
+subref_list.append(red.m2.position())
 P_hot = numpy.sum(d1)
 tsys_list.append(0)
 _2NDLO_list1.append(dp1)#dp1[3]['sg21']*1000)
