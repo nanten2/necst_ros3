@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-node_name = "sun_alert"
+name = "sun_alert"
 
 import sys
 import time
@@ -21,17 +21,24 @@ class alert(object):
     az_list = ""
     el_list = ""
 
-    sun_limit = False
-    alert_msg = ""
     emergency = ""
     warning = ""
-    status_dome = "OPEN"
-    status_memb = "OPEN"
+    status_dome = ""
+    status_memb = ""
+
+    az = 0.
+    el = 45.
 
     def __init__(self):
 
         self.topic_to = rospy.Publisher(
                 name = "sun",
+                data_class = std_msgs.msg.Bool,
+                queue_size = 1,
+            )
+
+        self.stop = rospy.Publisher(
+                name = "/obs/stop_cmd",
                 data_class = std_msgs.msg.Bool,
                 queue_size = 1,
             )
@@ -50,6 +57,20 @@ class alert(object):
                 queue_size = 1,
             )
 
+        sub_door = rospy.Subscriber(
+                name = "/dome/door",
+                data_class = std_msgs.msg.String,
+                callback = self.callback_door,
+                queue_size = 1,
+            )
+
+        sub_memb = rospy.Subscriber(
+                name = "/dome/memb",
+                data_class = std_msgs.msg.String,
+                callback = self.callback_memb,
+                queue_size = 1,
+            )
+
         self.nanten2 = EarthLocation(lat = -22.96995611*u.deg, lon = -67.70308139*u.deg, height = 4863.85*u.m)
         pass
            
@@ -59,6 +80,14 @@ class alert(object):
            
     def callback_el(self, req):
         self.el = req.data
+        return
+
+    def callback_door(self, req):
+        self.status_dome = req.data
+        return
+
+    def callback_memb(self, req):
+        self.status_memb = req.data
         return
 
     def thread_start(self):
@@ -75,14 +104,15 @@ class alert(object):
             if self.emergency:
                 print(self.emergency)
                 self.topic_to.publish(True)
-                #con.dome_close()
-                #con.memb_close()
+                self.stop.publish(True)
                 self.emergency = ""
             elif self.warning:
                 print(self.warning)
+                self.topic_to.publish(False)
                 self.warning = ""
-            else: pass
-            time.sleep(0.01)
+            else:
+                self.topic_to.publish(False)
+            time.sleep(0.5)
         return
 
     def check_sun_position(self):
@@ -102,14 +132,16 @@ class alert(object):
             sun = get_body("sun", Time(now))#+timedelta(hours=12)))
             sun.location = self.nanten2
             azel = sun.altaz
-            sun_az = azel.az.arcsec
-            sun_el = azel.alt.arcsec
+            #sun_az = azel.az.arcsec
+            #sun_el = azel.alt.arcsec
+            sun_az = 50*3600
+            sun_el = 70*3600
             az = self.az*3600
             el = self.el*3600
 
-            if 0<abs(i-sun_az)<15*3600. or 345*3600.<abs(i-sun_az)<360*3600.:
+            if 0<abs(az-sun_az)<15*3600. or 345*3600.<abs(az-sun_az)<360*3600.:
                 check_az = True
-            if 0<abs(i-sun_el)<15*3600.:
+            if 0<abs(el-sun_el)<15*3600.:
                 check_el = True
 
             if check_az and check_el and self.status_dome != "CLOSE" and self.status_memb != "CLOSE":
@@ -133,6 +165,7 @@ class alert(object):
         return
     
 if __name__ == "__main__":
+    rospy.init_node(name)
     al = alert()
     al.thread_start()
     rospy.spin()
