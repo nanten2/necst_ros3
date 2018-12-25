@@ -132,10 +132,8 @@ class alert(object):
             sun = get_body("sun", Time(now))#+timedelta(hours=12)))
             sun.location = self.nanten2
             azel = sun.altaz
-            #sun_az = azel.az.arcsec
-            #sun_el = azel.alt.arcsec
-            sun_az = 50*3600
-            sun_el = 70*3600
+            sun_az = azel.az.arcsec
+            sun_el = azel.alt.arcsec
             az = self.az*3600
             el = self.el*3600
 
