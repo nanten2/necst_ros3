@@ -1,0 +1,8 @@
+<launch>
+
+  <node name = "oneshot_achilles"
+        type = "oneshot_achilles.py"
+        pkg = "necst_ros3">
+  </node>
+
+</launch>

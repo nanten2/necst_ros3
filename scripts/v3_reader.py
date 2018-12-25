@@ -190,12 +190,24 @@ class ACHILLES(object):
         self.ps = PS()
         pass
 
-    def oneshot(self, repeat=1, exposure=1.0, stime=0.0):
-        name = ""
+    def oneshot_dfs1(self):
+        name = "/achilles/data1"
 
         self.ps.set_subscriber(
                 topic_name = name,
-                data_class = std_msgs.msg.String,
+                data_class = std_msgs.msg.Float64MultiArray,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+    def oneshot_dfs2(self):
+        name = "/achilles/data2"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float64MultiArray,
                 queue_size = 1,
             )
 
