@@ -271,11 +271,11 @@ while num < n:
 
     dp1 = 0
     con.spectrometer.oneshot(exposure=integ_off)
-    d = [red.achilles.oneshot_dfs1().data, red.achilles.oneshot_dfs2().data]
+    d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
     print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-    d1 = d[0][0]
-    d2 = d[1][0]
+    d1 = d[0]
+    d2 = d[1]
     d1_list.append(d1)
     d2_list.append(d2)
     tdim6_list.append([16384,1,1])
@@ -298,7 +298,7 @@ while num < n:
     sobsmode_list.append('HOT')
     #mjd_list.append(status.MJD)
     #secofday_list.append(status.Secofday)
-    subref_list.append(red.m2.position())
+    #subref_list.append(red.m2.position())
     latest_hottime = time.time()
     P_hot = numpy.sum(d1)
     tsys_list.append(0)
@@ -322,11 +322,11 @@ while num < n:
     print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
     con.spectrometer.oneshot(exposure=integ_off)
-    d = [red.achilles.oneshot_dfs1().data, red.achilles.oneshot_dfs2().data]
+    d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
     print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-    d1 = d[0][0]
-    d2 = d[1][0]
+    d1 = d[0]
+    d2 = d[1]
     d1_list.append(d1)
     d2_list.append(d2)
     tdim6_list.append([16384,1,1])
@@ -349,7 +349,7 @@ while num < n:
     sobsmode_list.append('OFF')
     #mjd_list.append(status.MJD)
     #secofday_list.append(status.Secofday)
-    subref_list.append(red.m2.position())
+    #subref_list.append(red.m2.position())
     P_sky = numpy.sum(d1)
     tsys = temp/(P_hot/P_sky-1)
     tsys_list.append(tsys)
@@ -388,10 +388,10 @@ while num < n:
         print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
         con.spectrometer.oneshot(exposure=integ_on)
-        d = [red.achilles.oneshot_dfs1().data, red.achilles.oneshot_dfs2().data]
+        d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
         print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        d1 = d[0][0]
-        d2 = d[1][0]
+        d1 = d[0]
+        d2 = d[1]
         d1_list.append(d1)
         d2_list.append(d2)
         tdim6_list.append([16384,1,1])
@@ -414,7 +414,7 @@ while num < n:
         sobsmode_list.append('ON')
         #mjd_list.append(status.MJD)
         #secofday_list.append(status.Secofday)
-        subref_list.append(red.m2.position())
+        #subref_list.append(red.m2.position())
         tsys_list.append(tsys)
         _2NDLO_list1.append(dp1)#dp1[3]['sg21']*1000)    
         _2NDLO_list2.append(dp1)#dp1[3]['sg22']*1000)
@@ -441,11 +441,11 @@ temp = float(red.weather.cabin_temp())
 print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
         
 con.spectrometer.oneshot(exposure=integ_off)
-d = [red.achilles.oneshot_dfs1().data, red.achilles.oneshot_dfs2().data]
+d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
 print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-d1 = d[0][0]
-d2 = d[1][0]
+d1 = d[0]
+d2 = d[1]
 d1_list.append(d1)
 d2_list.append(d2)
 tdim6_list.append([16384,1,1])
@@ -468,7 +468,7 @@ winddire_list.append(red.weather.wind_direction())
 sobsmode_list.append('HOT')
 #mjd_list.append(status.MJD)
 #secofday_list.append(status.Secofday)
-subref_list.append(red.m2.position())
+#subref_list.append(red.m2.position())
 P_hot = numpy.sum(d1)
 tsys_list.append(0)
 _2NDLO_list1.append(dp1)#dp1[3]['sg21']*1000)
