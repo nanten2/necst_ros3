@@ -102,7 +102,7 @@ class ANTENNA(object):
     """
 
     def onepoint_move(self, command_az, command_el, coord="altaz", planet="", off_x=0, off_y=0, offcoord="altaz", hosei="hosei_230.txt", lamda=2600, dcos=0, limit=True, rotation=True):
-        name = "/obs/onepoint_command"
+        name = "/obs/onepoint_cmd"
 
         self.ps.set_publisher(
                 topic_name = name,
@@ -152,7 +152,7 @@ class ANTENNA(object):
         lamda    : observation wavelength [um] (default ; 2600)
         limit    : soft limit [az:-240~240, el:30~80] (True:limit_on, False:limit_off)
         """
-        name = "/obs/antenna_otf"
+        name = "/obs/otf_cmd"
 
         self.ps.set_publisher(
                 topic_name = name,
@@ -183,7 +183,56 @@ class ANTENNA(object):
         self.ps.publish(topic_name=name, msg=command)
         return
 
-    def stop(self, command):
+
+    def planet_move(self, planet, off_x=0, off_y=0, offcoord="altaz", hosei="hosei_230.txt", lamda=2600, dcos=0, limit=True, rotation=True):
+        """ planet_move
+        
+        Parameters
+        ----------
+        planet   : planet_number or name 
+                   1.Mercury 2.Venus 4.Mars 5.Jupiter 6.Saturn 7.Uranus 8.Neptune, 9.Pluto, 10.Moon, 11.Sun
+        off_x    : offset_x [arcsec]
+        off_y    : offset_y [arcsec]
+        offcoord : "altaz" or "j2000" or "b1950" or "galactic" 
+        hosei    : hosei file name (default ; hosei_230.txt)
+        lamda    : observation wavelength [um] (default ; 2600)
+        dcos     : projection (no:0, yes:1)
+        limit    : soft limit [az:-240~240, el:30~80] (True:limit_on, False:limit_off)
+        """
+        name = "/obs/planet_cmd"
+
+        self.ps.set_publisher(
+                topic_name = name,
+                data_class = necst.msg.Move_mode_msg,
+                queue_size = 1,
+                latch = True
+            )
+
+        if isinstance(planet, int):
+            planet_list = {1:"mercury", 2:"venus", 4:"mars", 5:"jupiter",6:"saturn", 7:"uranus", 8:"neptune", 10:"moon", 11:"sun"}
+            planet = planet_list[int(planet)]
+        else:
+            pass
+
+        command = necst.msg.Move_mode_msg()
+        command.x = 0
+        command.y = 0
+        command.coord = "planet"
+        command.planet = planet
+        command.off_x = off_x
+        command.off_y = off_y
+        command.offcoord = offcoord
+        command.hosei = hosei
+        command.lamda = lamda
+        command.dcos = dcos
+        command.limit = limit
+        command.rotation = rotation
+        command.timestamp = time.time()
+
+        self.ps.publish(topic_name=name, msg=command)
+        return
+
+    def stop(self):
         name = "/obs/stop_cmd"
         
         self.ps.set_publisher(
@@ -193,7 +242,7 @@ class ANTENNA(object):
                 latch = True
             )
 
-        self.ps.publish(topic_name=name, msg=command)
+        self.ps.publish(topic_name=name, msg=True)
         return
 
 
