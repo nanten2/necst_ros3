@@ -50,6 +50,8 @@ else:
 print("[{}]  INITIALIZE START".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
 con = v3_controller.controller()
+red = v3_reader.reader()
+
 con.antenna.drive("on")
 print("[{}]  ANTENNA DRIVE ON".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 con.dome.door("OPEN")
@@ -61,10 +63,33 @@ if opt:
     time.sleep(10)
 
 con.dome.tracking(True)
-print("[{}]  DOME TRACKING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-time.sleep(5)
+track = red.antenna.az() - red.dome.az()
+while track > 1:
+    print("[{}]  DOME TRACKING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+    time.sleep(5)
+    track = red.antenna.az() - red.dome.az()
+    continue
+
 con.dome.tracking(False)
 print("[{}]  DOME TRACKING END".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-time.sleep(5)
+
+print("[{}]  INITIALIZE CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+
+print("[{}]  ANTENNA DRIVE CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+while red.antenna.drive() != "on":
+    time.sleep(1)
+    continue
+
+print("[{}]  DOME DOOR CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+while red.dome.door() != "OPEN":
+    time.sleep(1)
+    continue
+
+if opt:
+    print("[{}]  DOME MEMB CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+    while red.dome.memb() != "OPEN":
+        time.sleep(1)
+        continue
+
 print("[{}]  INITIALIZE END".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
