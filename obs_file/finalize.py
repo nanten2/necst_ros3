@@ -70,7 +70,6 @@ print("[{}]  DOME DOOR CLOSE".format(datetime.datetime.strftime(datetime.datetim
 con.dome.door("CLOSE")
 print("[{}]  DOME DOOR CLOSE".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-print("dome_move")
 con.dome.move(90)
 print("[{}]  DOME MOVE (HOME POSITION)".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
@@ -78,6 +77,7 @@ time.sleep(15)
 con.antenna.stop()
 print("[{}]  ANTENNA STOP".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 con.antenna.drive("off")
+time.sleep(1)
 print("[{}]  ANTENNA DRIVE OFF".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
 print("[{}]  FINALIZE END".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
