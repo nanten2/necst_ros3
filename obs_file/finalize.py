@@ -7,6 +7,7 @@ import datetime
 import argparse
 sys.path.append("/home/amigos/ros/src/necst_ros3/scripts")
 import v3_controller
+import v3_reader
 import signal
 
 def handler(signal, frame):
@@ -50,7 +51,7 @@ else:
 print("[{}]  FINALIZE START".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
 con = v3_controller.controller()
-red = v3_reader.reader()
+red = v3_reader.reader(node=False)
 
 con.antenna.stop()
 print("[{}]  ANTENNA STOP".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
@@ -80,11 +81,11 @@ print("[{}]  FINALIZE CHECK".format(datetime.datetime.strftime(datetime.datetime
 
 print("[{}]  ANTENNA POSITION CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 if snow:
-    while round(red.antenna.az(), 2) != -90.0 and round(red.antenna.el(), 2) != 0.0:
+    while round(red.antenna.az(), 2) != -90.0 or round(red.antenna.el(), 2) != 0.0:
         time.sleep(1)
         continue
 else:
-    while round(red.antenna.az(), 2) != 0.0 and round(red.antenna.el(), 2) != 45.0:
+    while round(red.antenna.az(), 2) != 0.0 or round(red.antenna.el(), 2) != 45.0:
         time.sleep(1)
         continue
 
@@ -104,7 +105,7 @@ while red.dome.memb() != "CLOSE":
     continue
 
 print("[{}]  DOME AZ CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-while round(red.dome.az()) != 90:
+while abs(round(red.dome.az()) - 90) != 1:
     time.sleep(1)
     continue
 

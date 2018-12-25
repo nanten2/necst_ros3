@@ -76,8 +76,8 @@ print("[{0}]  OBJECT {1}".format(datetime.datetime.strftime(datetime.datetime.no
 # ====
 
 con = v3_controller.controller()
-red = v3_reader.reader()
-con.dome.tracking()
+red = v3_reader.reader(node=False)
+con.dome.tracking(True)
 
 obsdir = '/home/amigos/necst-obsfiles/'
 obs_items = open(obsdir+obsfile, 'r').read().split('\n')
@@ -172,7 +172,7 @@ planet_number = {1:'mercury', 2:'venus', 4:'mars', 5:'jupiter', 6:'saturn', 7:'u
 dirname = 'n%s_%s_%s_crossedge_%s_pointing'%(timestamp ,obs['molecule_1'] ,obs['transiti_1'].split('=')[1],planet_number[planet])
 savedir = os.path.join(datahome, name, dirname)
 
-print("[{0}]  MAKE DIRECTORY {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), **locals()))
+print("[{}]  MAKE DIRECTORY".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 os.makedirs(savedir)
 
 # Data aquisition
