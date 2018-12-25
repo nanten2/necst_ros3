@@ -15,6 +15,11 @@
         pkg = "necst_ros3">
   </node>
 
+  <node name = "worldcoordinate_planet"
+        type = "ROS_scan_planet.py"
+        pkg = "necst_ros3">
+  </node>
+
   <node name = "antenna_move"
         type = "antenna_v3.py"
         pkg = "necst_ros3">

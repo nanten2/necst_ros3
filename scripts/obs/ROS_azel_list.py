@@ -189,8 +189,6 @@ class azel_list(object):
                     msg.from_node =node_name
                     msg.timestamp = time.time()
                     self.pub.publish(msg)
-                    print("msg", msg)
-                    print("publish ok")
                 else:
                     limit_flag = False
                     move_flag = False
