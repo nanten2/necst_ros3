@@ -10,7 +10,7 @@ import time
 nanten2 = EarthLocation(lat = -22.96995611*u.deg, lon = -67.70308139*u.deg, height = 4863.85*u.m)
 
 ''' 1st_star list '''
-f = open("/Users/k.noda/lab/necst_ros3/lib/1st_star_list.txt","r")
+f = open("/home/amigos/ros/src/necst_ros3/lib/1st_star_list.txt","r")
 ff = f.readlines()
 f.close()
 ''' planet list '''
@@ -46,5 +46,5 @@ while True:
         if 20 < planet_altaz[i].alt.deg < 80:
             print(planet_list[i]," "*(8-len(planet_list[i])) , ": (az, el) = (", round(planet_altaz[i].az.deg, 4), ", ", round(planet_altaz[i].alt.deg, 4), ")")
     print("******************************")
-    time.sleep(1)
+    time.sleep(10)
     continue

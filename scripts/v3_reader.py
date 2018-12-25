@@ -17,10 +17,11 @@ class reader(object):
         self.ps = PS()
 
         # ----
+        self.hot = HOT()
         pass
 
     def display_subscriber(self):
-        [print(k) for k in self.ps.pub]
+        [print(k) for k in self.ps.sub]
         return
 
 
@@ -47,8 +48,7 @@ class PS(object):
                                         callback_args = topic_name,
                                         queue_size = queue_size,
                                     )
-            time.sleep(0.1)
-        else: pass
+        time.sleep(0.1)
         return
 
     def callback(self, msg, args):
