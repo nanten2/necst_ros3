@@ -4,6 +4,7 @@ name = "oneshot_achilles"
 
 import sys
 import rospy
+import time
 import std_msgs.msg
 sys.path.append("/home/amigos/ros/src/necst_ros3/lib")
 import achilles
@@ -22,8 +23,8 @@ def callback(req):
     [data2.extend(i) for i in list(data[1])]
     [dfs2_list.append(data2[i*16384:(i+1)*16384]) for i in range(int(len(data2)/16384))]
     
-    array1.data = dfs1_list
-    array2.data = dfs2_list
+    array1.data = dfs1_list[0]
+    array2.data = dfs2_list[0]
     
     pub1.publish(array1)
     pub2.publish(array2)

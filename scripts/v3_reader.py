@@ -191,7 +191,7 @@ class ACHILLES(object):
         pass
 
     def oneshot_dfs1(self):
-        name = "/achilles/data1"
+        name = "/spectrometer/data1"
 
         self.ps.set_subscriber(
                 topic_name = name,
@@ -203,7 +203,7 @@ class ACHILLES(object):
         return ret
 
     def oneshot_dfs2(self):
-        name = "/achilles/data2"
+        name = "/spectrometer/data2"
 
         self.ps.set_subscriber(
                 topic_name = name,

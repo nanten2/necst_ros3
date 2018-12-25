@@ -4,6 +4,8 @@ name = "achilles_oneshot_simulator"
 
 import sys
 import rospy
+import numpy
+import time
 import std_msgs.msg
 sys.path.append("/home/amigos/ros/src/necst_ros3/lib")
 
@@ -14,8 +16,8 @@ def callback(req):
     array1 = std_msgs.msg.Float64MultiArray()
     array2 = std_msgs.msg.Float64MultiArray()
     
-    array1.data = [[0],[0]]
-    array2.data = [[0],[0]]
+    array1.data = [0.,0.]
+    array2.data = [0.,0.]
     
     pub1.publish(array1)
     pub2.publish(array2)

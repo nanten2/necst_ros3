@@ -397,5 +397,5 @@ class SPECTROMETER(object):
                 latch = True
             )
 
-        self.ps.publish(topic_name=name, msg=command)
+        self.ps.publish(topic_name=name, msg=exposure)
         return
