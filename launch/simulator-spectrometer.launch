@@ -1,8 +1,15 @@
 <launch>
 
+<!--
   <node name = "XFFTS_simulator"
         type = "data_server_du_v3.py"
         pkg = "nascorx_xffts">
+  </node>
+-->
+
+  <node name = "achilles_oneshot_simulator"
+        type = "achilles_oneshot_simulator.py"
+        pkg = "necst_ros3">
   </node>
 
 </launch>
