@@ -270,11 +270,12 @@ while num < n:
     print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
     dp1 = 0
-    d = red.achilles.oneshot(exposure=integ_off)
+    con.spectrometer.oneshot(exposure=integ_off)
+    d = [red.achilles.oneshot_dfs1().data, red.achilles.oneshot_dfs2().data]
     print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-    d1 = d['dfs1'][0]
-    d2 = d['dfs2'][0]
+    d1 = d[0][0]
+    d2 = d[1][0]
     d1_list.append(d1)
     d2_list.append(d2)
     tdim6_list.append([16384,1,1])
@@ -320,11 +321,12 @@ while num < n:
     temp = float(red.weather.cabin_temp())
     print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
-    d = red.achilles.oneshot(exposure=integ_off)
+    con.spectrometer.oneshot(exposure=integ_off)
+    d = [red.achilles.oneshot_dfs1().data, red.achilles.oneshot_dfs2().data]
     print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-    d1 = d['dfs1'][0]
-    d2 = d['dfs2'][0]
+    d1 = d[0][0]
+    d2 = d[1][0]
     d1_list.append(d1)
     d2_list.append(d2)
     tdim6_list.append([16384,1,1])
@@ -385,10 +387,11 @@ while num < n:
         temp = float(red.weather.cabin_temp())
         print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
-        d = red.achilles.oneshot(exposure=integ_on)
+        con.spectrometer.oneshot(exposure=integ_on)
+        d = [red.achilles.oneshot_dfs1().data, red.achilles.oneshot_dfs2().data]
         print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        d1 = d['dfs1'][0]
-        d2 = d['dfs2'][0]
+        d1 = d[0][0]
+        d2 = d[1][0]
         d1_list.append(d1)
         d2_list.append(d2)
         tdim6_list.append([16384,1,1])
@@ -437,11 +440,12 @@ while hot != "IN":
 temp = float(red.weather.cabin_temp())
 print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
         
-d = red.achilles.oneshot(exposure=integ_off)
+con.spectrometer.oneshot(exposure=integ_off)
+d = [red.achilles.oneshot_dfs1().data, red.achilles.oneshot_dfs2().data]
 print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-d1 = d['dfs1'][0]
-d2 = d['dfs2'][0]
+d1 = d[0][0]
+d2 = d[1][0]
 d1_list.append(d1)
 d2_list.append(d2)
 tdim6_list.append([16384,1,1])

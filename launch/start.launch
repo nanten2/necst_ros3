@@ -3,6 +3,7 @@
   <include file="$(find necst_ros3)/launch/necobs.launch" />
 
   <include file="$(find necst_ros3)/launch/weather-device.launch" />
+  <include file="$(find necst_ros3)/launch/achilles.launch" />
 
   <group>
     <machine name="necctrl" address="necctrl" env-loader="/root/ros/devel/env.sh" user="root" password="root" />

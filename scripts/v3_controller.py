@@ -22,6 +22,7 @@ class controller(object):
         self.m2 = M2()
         self.m4 = M4()
         self.hot = HOT()
+        self.spectrometer = SPECTROMETER()
         pass
 
     def display_publisher(self):
@@ -373,6 +374,25 @@ class HOT(object):
         self.ps.set_publisher(
                 topic_name = name,
                 data_class = std_msgs.msg.String,
+                queue_size = 1,
+                latch = True
+            )
+
+        self.ps.publish(topic_name=name, msg=command)
+        return
+
+class SPECTROMETER(object):
+
+    def __init__(self):
+        self.ps = PS()
+        pass
+
+    def oneshot(self, exposure):
+        name = "/spectrometer/oneshot_cmd"
+        
+        self.ps.set_publisher(
+                topic_name = name,
+                data_class = std_msgs.msg.Float32,
                 queue_size = 1,
                 latch = True
             )
