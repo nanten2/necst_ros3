@@ -24,9 +24,7 @@
   <include ns="weather" file="$(find necst_ros3)/launch/simulator-weather.launch" />
 
   <include ns="spectrometer" file="$(find necst_ros3)/launch/nanten2-spectrometer.launch" />
-<!--
   <include ns="spectrometer" file="$(find necst_ros3)/launch/simulator-spectrometer.launch" />
--->
 
   <include ns="obs" file="$(find necst_ros3)/launch/nanten2-obs.launch" />
   <include ns="alert" file="$(find necst_ros3)/launch/nanten2-alert.launch" />
