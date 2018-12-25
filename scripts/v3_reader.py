@@ -17,7 +17,11 @@ class reader(object):
         self.ps = PS()
 
         # ----
+        self.antenna = ANTENNA()
         self.hot = HOT()
+        self.m2 = M2()
+        self.achilles = ACHILLES()
+        self.weather = WEATHER()
         pass
 
     def display_subscriber(self):
@@ -56,6 +60,36 @@ class PS(object):
         return
 
 
+class ANTENNA(object):
+
+    def __init__(self):
+        self.ps = PS()
+        pass
+
+    def az(self):
+        name = "/antenna/az"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float64,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+    def el(self):
+        name = "/antenna/el"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float64,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
 class HOT(object):
 
     def __init__(self):
@@ -68,6 +102,120 @@ class HOT(object):
         self.ps.set_subscriber(
                 topic_name = name,
                 data_class = std_msgs.msg.String,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+class M2(object):
+
+    def __init__(self):
+        self.ps = PS()
+        pass
+
+    def position(self):
+        name = "/m2/position"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float64,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+class ACHILLES(object):
+
+    def __init__(self):
+        self.ps = PS()
+        pass
+
+    def oneshot(self, repeat=1, exposure=1.0, stime=0.0):
+        name = ""
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.String,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+class WEATHER(object):
+
+    def __init__(self):
+        self.ps = PS()
+        pass
+
+    def cabin_temp(self):
+        name = "/weather/cabin_temp1"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float32,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+    def out_temp(self):
+        name = "/weather/outside2_temp"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float32,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+    def out_humi(self):
+        name = "/weather/outside2_humi"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float32,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+    def pressure(self):
+        name = "/weather/press"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float32,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+    def wind_speed(self):
+        name = "/weather/wind_speed"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float32,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+    def wind_direction(self):
+        name = "/weather/wind_direction"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float32,
                 queue_size = 1,
             )
 
