@@ -1,5 +1,15 @@
 <launch>
 
+  <node name = "antenna_az_commander_pid"
+        type = "antenna_az_commander_pid.py"
+        pkg = "necst_ros3">
+  </node>
+
+  <node name = "antenna_el_commander_pid"
+        type = "antenna_el_commander_pid.py"
+        pkg = "necst_ros3">
+  </node>
+
   <node name = "antenna_drive_simulator"
         type = "antenna_drive_simulator.py"
         pkg = "necst_ros3">

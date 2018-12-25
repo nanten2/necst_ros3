@@ -1,5 +1,19 @@
 <launch>
 
+  <node name = "encoder_az_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/encoder_az_reader.conf" />
+  </node>
+
+  <node name = "encoder_el_reader"
+        type = "relay.py"
+        pkg = "necst_ros3">
+    <param name = "config_file"
+           value = "$(find necst_ros3)/relay_conf/encoder_el_reader.conf" />
+  </node>
+
   <node name = "encoder_az_simulator"
         type = "encoder_az_sim.py"
         pkg = "necst_ros3">
