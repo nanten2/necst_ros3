@@ -6,6 +6,12 @@
         output = "screen">
   </node>
 
+  <node name = "sun_alert"
+        type = "sun_alert.py"
+        pkg = "necst_ros3"
+        output = "screen">
+  </node>
+
 <!--
   <node name = "weather_alert"
         type = "weather_alert.py"
