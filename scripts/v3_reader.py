@@ -18,6 +18,7 @@ class reader(object):
 
         # ----
         self.antenna = ANTENNA()
+        self.dome = DOME()
         self.hot = HOT()
         self.m2 = M2()
         self.achilles = ACHILLES()
@@ -66,6 +67,18 @@ class ANTENNA(object):
         self.ps = PS()
         pass
 
+    def drive(self):
+        name = "/antenna/drive"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.String,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
     def az(self):
         name = "/antenna/az"
 
@@ -84,6 +97,48 @@ class ANTENNA(object):
         self.ps.set_subscriber(
                 topic_name = name,
                 data_class = std_msgs.msg.Float64,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+class DOME(object):
+
+    def __init__(self):
+        self.ps = PS()
+        pass
+
+    def az(self):
+        name = "/dome/az"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float32,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+    def door(self):
+        name = "/dome/door"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.String,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+    def memb(self):
+        name = "/dome/memb"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.String,
                 queue_size = 1,
             )
 

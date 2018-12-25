@@ -50,6 +50,7 @@ else:
 print("[{}]  FINALIZE START".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
 con = v3_controller.controller()
+red = v3_reader.reader()
 
 con.antenna.stop()
 print("[{}]  ANTENNA STOP".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
@@ -72,12 +73,40 @@ print("[{}]  DOME DOOR CLOSE".format(datetime.datetime.strftime(datetime.datetim
 
 con.dome.move(90)
 print("[{}]  DOME MOVE (HOME POSITION)".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+time.sleep(10)
 
-time.sleep(15)
+
+print("[{}]  FINALIZE CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+
+print("[{}]  ANTENNA POSITION CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+if snow:
+    while round(red.antenna.az(), 2) != -90.0 and round(red.antenna.el(), 2) != 0.0:
+        time.sleep(1)
+        continue
+else:
+    while round(red.antenna.az(), 2) != 0.0 and round(red.antenna.el(), 2) != 45.0:
+        time.sleep(1)
+        continue
+
 con.antenna.stop()
 print("[{}]  ANTENNA STOP".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 con.antenna.drive("off")
-time.sleep(1)
 print("[{}]  ANTENNA DRIVE OFF".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+
+print("[{}]  DOME DOOR CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+while red.dome.door() != "CLOSE":
+    time.sleep(1)
+    continue
+
+print("[{}]  DOME MEMB CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+while red.dome.memb() != "CLOSE":
+    time.sleep(1)
+    continue
+
+print("[{}]  DOME AZ CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+while round(red.dome.az()) != 90:
+    time.sleep(1)
+    continue
+
 
 print("[{}]  FINALIZE END".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
