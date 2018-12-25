@@ -11,7 +11,7 @@ import std_msgs.msg
 class encoder_el_sim(object):
     
     command_speed = 0.0
-    enc_el = 45.0 * 3600.
+    enc_el = 0.0
 
     def __init__(self):
 
