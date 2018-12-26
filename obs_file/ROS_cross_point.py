@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#!/usr/bin/env python3
 # coding:utf-8
 
 
@@ -117,6 +117,8 @@ else:
 
 import v3_controller
 con = v3_controller.controller()
+import v3_reader
+red = v3_reader.reader(False)
 con.dome.tracking(True)
 
 def handler(num, flame):
@@ -173,8 +175,7 @@ _2NDLO_list2 = []
 
 print("[{}]  START OBSERVATION".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-status = con.read_status()
-savetime = status.Time
+savetime = time.time()
 num = 0
 n = int(obs['nTest']) * 2
 latest_hottime = 0
@@ -265,7 +266,7 @@ while num < n:
             time.sleep(0.5)
             continue
 
-        con.onepoint_move(offx, offy, obs['coordsys'],off_x=obs["offset_Az"], off_y=obs["offset_El"],dcos=1)
+        con.antenna.onepoint_move(offx, offy, obs['coordsys'],off_x=obs["offset_Az"], off_y=obs["offset_El"],dcos=1)
         print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         
         
@@ -316,7 +317,7 @@ while num < n:
 
         con.antenna.stop()
         
-        con.onepoint_move(ra, dec, obs['coordsys'], off_x = off_x+obs["offset_Az"], off_y = off_y+obs["offset_El"], offcoord = cosydel,dcos=1)
+        con.antenna.onepoint_move(ra, dec, obs['coordsys'], off_x = off_x+obs["offset_Az"], off_y = off_y+obs["offset_El"], offcoord = cosydel,dcos=1)
         print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         
         temp = float(red.weather.cabin_temp())
