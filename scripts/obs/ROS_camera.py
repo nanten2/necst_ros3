@@ -40,7 +40,7 @@ class cam_controller(object):
     
 
     def callback(self, req):
-        self.filename = req.filename + '.jpg'
+        self.filename = req.data + '.jpg'
         if os.path.exists('/home/amigos/Pictures/capture/'+self.filename) == True:
             return
 

@@ -106,6 +106,30 @@ class ANTENNA(object):
         ret = self.ps.subscribe(topic_name=name)
         return ret
 
+    def az_cmd(self):
+        name = "/antenna/az_cmd"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float64,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
+    def el_cmd(self):
+        name = "/antenna/el_cmd"
+
+        self.ps.set_subscriber(
+                topic_name = name,
+                data_class = std_msgs.msg.Float64,
+                queue_size = 1,
+            )
+
+        ret = self.ps.subscribe(topic_name=name)
+        return ret
+
 class DOME(object):
 
     def __init__(self):
