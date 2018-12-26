@@ -241,7 +241,7 @@ class doppler_nanten (object):
         dec_tmp = math.radians(radec_coord.dec.deg)
 
         vobs = self.calc_vobs(ra_tmp, dec_tmp)
-        print('vobs',vobs,type(vobs))
+        #print('vobs',vobs,type(vobs))
 
         return vobs
 
@@ -324,5 +324,5 @@ class doppler_nanten (object):
 if __name__=="__main__":
     dp = doppler_nanten()
     aa = dp.set_track(83.80613, -5.374320, 0, "j2000", offset_x=0, offset_y=0, offset_dcos=0, offset_coord="j2000", stime=0, restFreq1=230538.000/1000., restFreq2=220398.684/1000., firstsb1=1, firstsb2=-1, secondLO1=8038.000000000/1000., secondLO2=9301.318999999/1000.)
-    print("\n\n\n\n\n")
-    print(aa)
+    #print("\n\n\n\n\n")
+    #print(aa)
