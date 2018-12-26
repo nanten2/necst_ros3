@@ -175,6 +175,10 @@ _2NDLO_list2 = []
 
 print("[{}]  START OBSERVATION".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
+ra = obs['lambda_on']
+dec = obs['beta_on']
+con.antenna.onepoint_move(ra, dec, obs['coordsys'])
+
 savetime = time.time()
 num = 0
 n = int(obs['nTest']) * 2
@@ -183,8 +187,6 @@ latest_hottime = 0
 while num < n:
     p_n = 0
     while p_n < point_n:
-        ra = obs['lambda_on']
-        dec = obs['beta_on']
         off_x = 0
         off_y = 0
         
@@ -215,7 +217,7 @@ while num < n:
                 time.sleep(0.5)
                     
             print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-            while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
+            while round(red.antenna.az(), 2) != round(red.antenna.az_cmd(), 2) or round(red.antenna.el(), 2) != round(red.antenna.el_cmd(), 2):
                 time.sleep(0.1)
                 continue
 
@@ -281,7 +283,7 @@ while num < n:
             dp1 = dp.set_track(obs['lambda_on'], obs['beta_on'], obs['vlsr'], obs['coordsys'], 0, 0, offset_dcos, obs['coordsys'], integ+integ, obs['restfreq_1']/1000., obs['restfreq_2']/1000., sb1, sb2, 8038.000000000/1000., 9301.318999999/1000.)#obs['cosydel']非対応
        
         print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
+        while round(red.antenna.az(), 2) != round(red.antenna.az_cmd(), 2) or round(red.antenna.el(), 2) != round(red.antenna.el_cmd(), 2):
             time.sleep(0.1)
             continue
 
@@ -331,7 +333,7 @@ while num < n:
         print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         
         print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
+        while round(red.antenna.az(), 2) != round(red.antenna.az_cmd(), 2) or round(red.antenna.el(), 2) != round(red.antenna.el_cmd(), 2):
             time.sleep(0.1)
             continue
 
@@ -434,7 +436,6 @@ P_hot = numpy.sum(d1)
 tsys_list.append(0)
 _2NDLO_list1.append(dp1[3]['sg21']*1000)
 _2NDLO_list2.append(dp1[3]['sg22']*1000)
-
 
 # ==================================
 # save data
@@ -661,4 +662,5 @@ import pointing_line
 pointing_line.analysis(f1, integ_mi=integmin, integ_ma=integmax, plot_mode=plot_mode, savepath_filename=save_path+"/result_cross_point{}.png".format(timestamp)) # f2?
 print("[{}]  POINTING ANALYSIS".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
+con.antenna.stop()
 print("[{}]  END OBSERVATION".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))

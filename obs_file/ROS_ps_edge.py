@@ -208,6 +208,8 @@ betdel_list = []
 
 print("[{}]  START OBSERVATION".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
+con.antenna.planet_move(planet)
+
 num = 0
 n = int(obs['nSeq'])*4
 latest_hottime = 0
@@ -267,7 +269,7 @@ while num < n:
         time.sleep(0.5)
 
     print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-    while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
+    while round(red.antenna.az(), 3) != round(red.antenna.az_cmd(), 3) or round(red.antenna.el(), 3) != round(red.antenna.el_cmd(), 3):
         time.sleep(0.1)
         continue
 
@@ -321,11 +323,6 @@ while num < n:
         print("[{}]  HOT MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         hot = red.hot.position()
         time.sleep(0.5)
-        continue
-
-    print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-    while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
-        time.sleep(0.1)
         continue
 
     temp = float(red.weather.cabin_temp())
@@ -395,7 +392,7 @@ while num < n:
             print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
         print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
+        while round(red.antenna.az(), 3) != round(red.antenna.az_cmd(), 3) or round(red.antenna.el(), 3) != round(red.antenna.el_cmd(), 3):
             time.sleep(0.1)
             continue
 
@@ -715,4 +712,5 @@ import pointing_moon_edge
 pointing_moon_edge.analysis(f1, integ_mi=integmin, integ_ma=integmax) # f2?
 print("[{}]  POINTING ANALYSIS".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
+con.antenna.stop()
 print("[{}]  END OBSERVATION".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
