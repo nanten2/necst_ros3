@@ -265,7 +265,12 @@ while num < n:
         print("[{}]  HOT MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         hot = red.hot.position()
         time.sleep(0.5)
-            
+
+    print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+    while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
+        time.sleep(0.1)
+        continue
+
     temp = float(red.weather.cabin_temp())
     print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
@@ -316,6 +321,11 @@ while num < n:
         print("[{}]  HOT MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         hot = red.hot.position()
         time.sleep(0.5)
+        continue
+
+    print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+    while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
+        time.sleep(0.1)
         continue
 
     temp = float(red.weather.cabin_temp())
@@ -383,6 +393,11 @@ while num < n:
             print("[{0}]  OFF_X {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), offset_x))
             print("[{0}]  OFF_Y {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), offset_y))
             print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+
+        print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+        while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
+            time.sleep(0.1)
+            continue
 
         temp = float(red.weather.cabin_temp())
         print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
