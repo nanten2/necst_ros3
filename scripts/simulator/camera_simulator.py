@@ -1,6 +1,6 @@
 #!usr/bin/env python3
 
-name = "camera_controller"
+name = "camera_simulator"
 
 import rospy
 import std_msgs.msg
@@ -10,18 +10,10 @@ import sys
 sys.path.append("/home/amigos/ros/src/necst_ros3/lib")
 import camera
 
-import cv2
-from cv_bridge import CvBridge
-from sensor_msgs.msg import Image
-
 class cam_controller(object):
     filename = ''
 
     def __init__(self):
-        self.DLSR = camera.controller()
-        self.DLSR.detect_camera()
-        self.DLSR.set_whitebalance(white='SKY')
-        self.DLSR.set_crop(crop='1.3x')
         """
         self.topic_to = rospy.Publisher(
                 name = "image",
@@ -41,11 +33,8 @@ class cam_controller(object):
 
     def callback(self, req):
         self.filename = req.filename + '.jpg'
-        if os.path.exists('/home/amigos/Pictures/capture/'+self.filename) == True:
-            return
-
-        self.DLSR.shutter_download(filename='/home/amigos/Pictures/capture/'+self.filename)
-        print('oneshot!')
+        print(self.filename)
+        print('[CAMERA] ONESHOT!')
         return
 
     """
