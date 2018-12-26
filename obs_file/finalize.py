@@ -81,11 +81,11 @@ print("[{}]  FINALIZE CHECK".format(datetime.datetime.strftime(datetime.datetime
 
 print("[{}]  ANTENNA POSITION CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 if snow:
-    while round(red.antenna.az(), 2) != -90.0 or round(red.antenna.el(), 2) != 0.0:
+    while round(red.antenna.az(), 4) != -90.0 or round(red.antenna.el(), 3) != 0.0:
         time.sleep(1)
         continue
 else:
-    while round(red.antenna.az(), 2) != 0.0 or round(red.antenna.el(), 2) != 45.0:
+    while round(red.antenna.az(), 4) != 0.0 or round(red.antenna.el(), 4) != 45.0:
         time.sleep(1)
         continue
 

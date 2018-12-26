@@ -1,0 +1,9 @@
+<launch>
+
+  <node name = "camera_controller"
+        type = "ROS_camera.py"
+        pkg = "necst_ros3"
+        machine = "ubuntu">
+  </node>
+
+</launch>
