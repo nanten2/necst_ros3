@@ -1,0 +1,9 @@
+<launch>
+
+  <node name = "camera_simulator"
+        type = "camera_simulator.py"
+        pkg = "necst_ros3"
+        output = "screen">
+  </node>
+
+</launch>
