@@ -44,12 +44,14 @@ class Antenna(object):
                 name = "/antenna/az_cmd",
                 data_class = std_msgs.msg.Float64,
                 queue_size = 1,
+                latch = True,
             )
         
         self.topic_el = rospy.Publisher(
                 name = "/antenna/el_cmd",
                 data_class = std_msgs.msg.Float64,
                 queue_size = 1,
+                latch = True,
             )
 
         pass

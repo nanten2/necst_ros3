@@ -60,7 +60,7 @@ print("[{}]  DOME DOOR OPEN".format(datetime.datetime.strftime(datetime.datetime
 
 if opt:
     con.dome.memb("OPEN")
-    print("[{}]  DOME DOOR OPEN".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+    print("[{}]  DOME MEMB OPEN".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
     time.sleep(10)
 
 con.dome.tracking(True)

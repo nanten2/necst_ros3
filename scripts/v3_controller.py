@@ -23,6 +23,7 @@ class controller(object):
         self.m4 = M4()
         self.hot = HOT()
         self.spectrometer = SPECTROMETER()
+        self.camera = CAMERA()
         pass
 
     def display_publisher(self):
@@ -398,4 +399,23 @@ class SPECTROMETER(object):
             )
 
         self.ps.publish(topic_name=name, msg=exposure)
+        return
+
+class CAMERA(object):
+
+    def __init__(self):
+        self.ps = PS()
+        pass
+
+    def oneshot(self, filename):
+        name = "/camera/oneshot_cmd"
+        
+        self.ps.set_publisher(
+                topic_name = name,
+                data_class = std_msgs.msg.String,
+                queue_size = 1,
+                latch = True
+            )
+
+        self.ps.publish(topic_name=name, msg=filename)
         return

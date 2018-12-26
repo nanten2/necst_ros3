@@ -2,7 +2,6 @@
 # coding:utf-8
 
 import os
-import shutil
 import time
 import math
 import numpy
@@ -20,6 +19,7 @@ def handler(num, flame):
     print("*** SYSTEM STOP!! ***")
     con.antenna.stop()
     con.dome.tracking(False)
+    time.sleep(1)
     sys.exit()
     return
 
@@ -33,7 +33,7 @@ END = "\033[0m\n"
 # Info
 # ----
 
-name = 'PS_EDGE_POINTING'
+name = 'ps_edge_pointing'
 description = 'Get P/S spectrum'
 
 
@@ -208,6 +208,8 @@ betdel_list = []
 
 print("[{}]  START OBSERVATION".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
+con.antenna.planet_move(planet)
+
 num = 0
 n = int(obs['nSeq'])*4
 latest_hottime = 0
@@ -265,7 +267,12 @@ while num < n:
         print("[{}]  HOT MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         hot = red.hot.position()
         time.sleep(0.5)
-            
+
+    print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+    while round(red.antenna.az(), 3) != round(red.antenna.az_cmd(), 3) or round(red.antenna.el(), 3) != round(red.antenna.el_cmd(), 3):
+        time.sleep(0.1)
+        continue
+
     temp = float(red.weather.cabin_temp())
     print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
@@ -384,12 +391,18 @@ while num < n:
             print("[{0}]  OFF_Y {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), offset_y))
             print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
+        print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+        while round(red.antenna.az(), 3) != round(red.antenna.az_cmd(), 3) or round(red.antenna.el(), 3) != round(red.antenna.el_cmd(), 3):
+            time.sleep(0.1)
+            continue
+
         temp = float(red.weather.cabin_temp())
         print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
         con.spectrometer.oneshot(exposure=integ_on)
         d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
         print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+
         d1 = d[0]
         d2 = d[1]
         d1_list.append(d1)
@@ -699,4 +712,5 @@ import pointing_moon_edge
 pointing_moon_edge.analysis(f1, integ_mi=integmin, integ_ma=integmax) # f2?
 print("[{}]  POINTING ANALYSIS".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
+con.antenna.stop()
 print("[{}]  END OBSERVATION".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
