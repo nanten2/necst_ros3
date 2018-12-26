@@ -89,13 +89,14 @@ if len(target) == 0:
         print('!!CAN NOT FIND THE NAME OF STAR!!')
         sys.exit()
 
-con = ROS_controller.controller()
+con = v3_controller.controller()
 red = v3_reader.reader(node=False)
 
 def handler(num, flame):
     print("*** SYSTEM STOP!! ***")
     con.antenna.stop()
     con.dome.tracking(False)
+    time.sleep(1)
     sys.exit()
     return
 
@@ -115,7 +116,8 @@ if planet:
     azelcoord = SkyCoord(altaz.az.deg, altaz.alt.deg, frame="altaz", unit="deg",obstime=Time(now), location=nanten2)
     radec = azelcoord.fk5
 
-    con.onepoint_move(radec.ra.deg, radec.dec.deg, 'fk5', 0, 0, offcoord="altaz", hosei='hosei_opt.txt', lamda = 0.5)        
+    con.antenna.onepoint_move(radec.ra.deg, radec.dec.deg, 'fk5', "", 0, 0, offcoord="altaz", hosei='hosei_opt.txt', lamda = 0.5)
+    time.sleep(1)
     print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
     pass
 else:
@@ -125,12 +127,13 @@ else:
     coo.obstime = Time(now)
     altaz = coo.altaz
 
-    con.onepoint_move(target[0], target[1], 'fk5', 0, 0, offcoord="altaz", hosei='hosei_opt.txt', lamda = 0.5)
+    con.antenna.onepoint_move(target[0], target[1], 'fk5', "", 0, 0, offcoord="altaz", hosei='hosei_opt.txt', lamda = 0.5)
+    time.sleep(1)
     print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
     pass
 
 print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-while round(red.antenna.az(), 1) != round(altaz.az.deg, 1) or round(red.antenna.el(), 1) != round(altaz.alt.deg, 1):
+while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
     time.sleep(0.1)
     continue
 

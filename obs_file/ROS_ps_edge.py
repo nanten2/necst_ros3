@@ -19,6 +19,7 @@ def handler(num, flame):
     print("*** SYSTEM STOP!! ***")
     con.antenna.stop()
     con.dome.tracking(False)
+    time.sleep(1)
     sys.exit()
     return
 

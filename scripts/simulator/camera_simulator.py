@@ -1,4 +1,4 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 
 name = "camera_simulator"
 
@@ -32,7 +32,7 @@ class cam_controller(object):
     
 
     def callback(self, req):
-        self.filename = req.filename + '.jpg'
+        self.filename = req.data + '.jpg'
         print(self.filename)
         print('[CAMERA] ONESHOT!')
         return
