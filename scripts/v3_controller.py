@@ -19,6 +19,7 @@ class controller(object):
         # ----
         self.antenna = ANTENNA()
         self.dome = DOME()
+        self.encoder = ENCODER()
         self.m2 = M2()
         self.m4 = M4()
         self.hot = HOT()
