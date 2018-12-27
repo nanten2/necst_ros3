@@ -217,7 +217,7 @@ while num < n:
                 time.sleep(0.5)
                     
             print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-            while round(red.antenna.az(), 2) != round(red.antenna.az_cmd(), 2) or round(red.antenna.el(), 2) != round(red.antenna.el_cmd(), 2):
+            while round(red.antenna.az(), 3) != round(red.antenna.az_cmd(), 3) or round(red.antenna.el(), 3) != round(red.antenna.el_cmd(), 3):
                 time.sleep(0.1)
                 continue
 
@@ -284,7 +284,7 @@ while num < n:
             dp1 = dp.set_track(obs['lambda_on'], obs['beta_on'], obs['vlsr'], obs['coordsys'], 0, 0, offset_dcos, obs['coordsys'], integ+integ, obs['restfreq_1']/1000., obs['restfreq_2']/1000., sb1, sb2, 8038.000000000/1000., 9301.318999999/1000.)#obs['cosydel']非対応
        
         print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        while round(red.antenna.az(), 2) != round(red.antenna.az_cmd(), 2) or round(red.antenna.el(), 2) != round(red.antenna.el_cmd(), 2):
+        while round(red.antenna.az(), 3) != round(red.antenna.az_cmd(), 3) or round(red.antenna.el(), 3) != round(red.antenna.el_cmd(), 3):
             time.sleep(0.1)
             continue
 
@@ -335,7 +335,7 @@ while num < n:
         print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         
         print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        while round(red.antenna.az(), 2) != round(red.antenna.az_cmd(), 2) or round(red.antenna.el(), 2) != round(red.antenna.el_cmd(), 2):
+        while round(red.antenna.az(), 3) != round(red.antenna.az_cmd(), 3) or round(red.antenna.el(), 3) != round(red.antenna.el_cmd(), 3):
             time.sleep(0.1)
             continue
 
