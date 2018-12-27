@@ -445,6 +445,7 @@ tsys_list.append(0)
 _2NDLO_list1.append(dp1[3]['sg21']*1000)
 _2NDLO_list2.append(dp1[3]['sg22']*1000)
 
+con.antenna.stop()
 # ==================================
 # save data
 # ==================================
