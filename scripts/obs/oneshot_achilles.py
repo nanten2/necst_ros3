@@ -16,6 +16,7 @@ def callback(req):
     array1 = std_msgs.msg.Float64MultiArray()
     array2 = std_msgs.msg.Float64MultiArray()
     
+    dfs = achilles.dfs()
     data = dfs.oneshot(repeat=1, exposure=req.data, starttime=0.0)
     
     [data1.extend(i) for i in list(data[0])]
@@ -54,7 +55,5 @@ if __name__ == "__main__":
             callback = callback,
             queue_size = 1,
         )
-
-    dfs = achilles.dfs()
 
     rospy.spin()
