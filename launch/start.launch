@@ -14,10 +14,10 @@
     <machine name="necopt" address="necopt" env-loader="/root/ros/devel/env.sh" user="root" password="root" />
     <include file="$(find necst_ros3)/launch/necopt.launch" />
   </group>
-
+<!--
   <group>
     <machine name="ubuntu" address="ubuntu" env-loader="/home/amigos/ros/devel/env.sh" user="amigos" password="" />
     <include ns="camera" file="$(find necst_ros3)/launch/camera-device.launch" />
   </group>
-
+-->
 </launch>
