@@ -105,7 +105,7 @@ while red.dome.memb() != "CLOSE":
     continue
 
 print("[{}]  DOME AZ CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-while abs(round(red.dome.az()) - 90) != 1:
+while abs(round(red.dome.az()) - 90) < 1:
     time.sleep(1)
     continue
 
