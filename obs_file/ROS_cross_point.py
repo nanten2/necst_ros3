@@ -221,7 +221,8 @@ while num < n:
                 time.sleep(0.1)
                 continue
 
-            temp = float(red.weather.cabin_temp())
+            #temp = float(red.weather.cabin_temp())
+            temp = float(30)
             print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
             
             dp1 = dp.set_track(obs['lambda_on'], obs['beta_on'], obs['vlsr'], obs['coordsys'], 0, 0, offset_dcos, obs['coordsys'], integ*2+integ, obs['restfreq_1']/1000., obs['restfreq_2']/1000., sb1, sb2, 8038.000000000/1000., 9301.318999999/1000.)#obs['cosydel']非対応
@@ -287,7 +288,8 @@ while num < n:
             time.sleep(0.1)
             continue
 
-        temp = float(red.weather.cabin_temp())
+        #temp = float(red.weather.cabin_temp())
+        temp = float(30)
         print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
         con.spectrometer.oneshot(exposure=integ)
@@ -337,7 +339,8 @@ while num < n:
             time.sleep(0.1)
             continue
 
-        temp = float(red.weather.cabin_temp())
+        #temp = float(red.weather.cabin_temp())
+        temp = float(30)
         print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
         con.spectrometer.oneshot(exposure=integ)
@@ -396,7 +399,8 @@ while hot != "IN":
     time.sleep(0.5)
     continue
 
-temp = float(red.weather.cabin_temp())
+#temp = float(red.weather.cabin_temp())
+temp = float(30)
 print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
 dp1 = dp.set_track(obs['lambda_on'], obs['beta_on'], obs['vlsr'], obs['coordsys'], 0, 0, offset_dcos, obs['coordsys'], integ*2+integ, obs['restfreq_1']/1000., obs['restfreq_2']/1000., sb1, sb2, 8038.000000000/1000., 9301.318999999/1000.)#obs['cosydel']非対応
