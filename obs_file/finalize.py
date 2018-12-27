@@ -85,7 +85,7 @@ if snow:
         time.sleep(1)
         continue
 else:
-    while round(red.antenna.az(), 4) != 0.0 or round(red.antenna.el(), 4) != 45.0:
+    while round(red.antenna.az(), 4) != 0.0 or round(red.antenna.el(), 6) != 45.0:
         time.sleep(1)
         continue
 
