@@ -37,7 +37,9 @@ class PS(object):
             #"topic_name":rospy.Subscriber(name, data_class, queue_size)
             }
     values = {
-                #"topic_name": msg.data
+                #example
+                "/antenna/az_cmd": 0.0,
+                "/antenna/el_cmd": 0.0,
                 }
     
     def __init__(self):
