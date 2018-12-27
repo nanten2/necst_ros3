@@ -273,11 +273,13 @@ while num < n:
         time.sleep(0.1)
         continue
 
-    temp = float(red.weather.cabin_temp())
+    #temp = float(red.weather.cabin_temp())
+    temp = float(30)
     print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
     dp1 = 0
     con.spectrometer.oneshot(exposure=integ_off)
+    time.sleep(integ_off+1)
     d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
     print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
@@ -325,10 +327,12 @@ while num < n:
         time.sleep(0.5)
         continue
 
-    temp = float(red.weather.cabin_temp())
+    #temp = float(red.weather.cabin_temp())
+    temp = float(30)
     print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
     con.spectrometer.oneshot(exposure=integ_off)
+    time.sleep(integ_off+1)
     d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
     print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
@@ -396,10 +400,12 @@ while num < n:
             time.sleep(0.1)
             continue
 
-        temp = float(red.weather.cabin_temp())
+        #temp = float(red.weather.cabin_temp())
+        temp = float(30)
         print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
         con.spectrometer.oneshot(exposure=integ_on)
+        time.sleep(integ_on+1)
         d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
         print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
@@ -450,10 +456,12 @@ while hot != "IN":
     time.sleep(0.5)
     continue
 
-temp = float(red.weather.cabin_temp())
+#temp = float(red.weather.cabin_temp())
+temp = float(30)
 print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
         
 con.spectrometer.oneshot(exposure=integ_off)
+time.sleep(integ_off+1)
 d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
 print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
@@ -494,6 +502,7 @@ subscan_list.append(subscan)
 con.hot.position("OUT")
 print("[{}]  HOT OUT".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
+con.antenna.stop()
 
 if obs['lo1st_sb_1'] == 'U':
     ul = 1
