@@ -13,6 +13,8 @@ import achilles
 def callback(req):
     data1 = []
     data2 = []
+    dfs1_list = []
+    dfs2_list = []
     array1 = std_msgs.msg.Float64MultiArray()
     array2 = std_msgs.msg.Float64MultiArray()
     
