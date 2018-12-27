@@ -33,7 +33,6 @@ def callback(req):
 
 if __name__ == "__main__":
     rospy.init_node(name)
-    dfs = achilles.dfs()
 
     pub1 = rospy.Publisher(
             name = "/achilles/data1",
@@ -55,5 +54,7 @@ if __name__ == "__main__":
             callback = callback,
             queue_size = 1,
         )
+
+    dfs = achilles.dfs()
 
     rospy.spin()
