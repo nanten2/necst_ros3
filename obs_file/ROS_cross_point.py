@@ -217,7 +217,7 @@ while num < n:
                 time.sleep(0.5)
                     
             print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-            while round(red.antenna.az(), 3) != round(red.antenna.az_cmd(), 3) or round(red.antenna.el(), 3) != round(red.antenna.el_cmd(), 3):
+            while round(red.antenna.az(), 4) != round(red.antenna.az_cmd(), 4) or round(red.antenna.el(), 4) != round(red.antenna.el_cmd(), 4):
                 time.sleep(0.1)
                 continue
 
@@ -227,7 +227,7 @@ while num < n:
             
             dp1 = dp.set_track(obs['lambda_on'], obs['beta_on'], obs['vlsr'], obs['coordsys'], 0, 0, offset_dcos, obs['coordsys'], integ*2+integ, obs['restfreq_1']/1000., obs['restfreq_2']/1000., sb1, sb2, 8038.000000000/1000., 9301.318999999/1000.)#obs['cosydel']非対応
             con.spectrometer.oneshot(exposure=integ)
-            time.sleep(0.1)
+            time.sleep(1)
             d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
             print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
@@ -285,7 +285,7 @@ while num < n:
             dp1 = dp.set_track(obs['lambda_on'], obs['beta_on'], obs['vlsr'], obs['coordsys'], 0, 0, offset_dcos, obs['coordsys'], integ+integ, obs['restfreq_1']/1000., obs['restfreq_2']/1000., sb1, sb2, 8038.000000000/1000., 9301.318999999/1000.)#obs['cosydel']非対応
        
         print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        while round(red.antenna.az(), 3) != round(red.antenna.az_cmd(), 3) or round(red.antenna.el(), 3) != round(red.antenna.el_cmd(), 3):
+        while round(red.antenna.az(), 4) != round(red.antenna.az_cmd(), 4) or round(red.antenna.el(), 4) != round(red.antenna.el_cmd(), 4):
             time.sleep(0.1)
             continue
 
@@ -294,7 +294,7 @@ while num < n:
         print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
         con.spectrometer.oneshot(exposure=integ)
-        time.sleep(0.1)
+        time.sleep(1)
         d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
         print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         
@@ -337,7 +337,7 @@ while num < n:
         print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         
         print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        while round(red.antenna.az(), 3) != round(red.antenna.az_cmd(), 3) or round(red.antenna.el(), 3) != round(red.antenna.el_cmd(), 3):
+        while round(red.antenna.az(), 4) != round(red.antenna.az_cmd(), 4) or round(red.antenna.el(), 4) != round(red.antenna.el_cmd(), 4):
             time.sleep(0.1)
             continue
 
@@ -346,7 +346,7 @@ while num < n:
         print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), round(temp, 2)))
 
         con.spectrometer.oneshot(exposure=integ)
-        time.sleep(0.1)
+        time.sleep(1)
         d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
         print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
@@ -408,7 +408,7 @@ print("[{0}]  TEMPERATURE {1}".format(datetime.datetime.strftime(datetime.dateti
 
 dp1 = dp.set_track(obs['lambda_on'], obs['beta_on'], obs['vlsr'], obs['coordsys'], 0, 0, offset_dcos, obs['coordsys'], integ*2+integ, obs['restfreq_1']/1000., obs['restfreq_2']/1000., sb1, sb2, 8038.000000000/1000., 9301.318999999/1000.)#obs['cosydel']非対応
 con.spectrometer.oneshot(exposure=integ)
-time.sleep(0.1)
+time.sleep(1)
 d = [red.achilles.oneshot_dfs1(), red.achilles.oneshot_dfs2()]
 print("[{}]  GET SPECTRUM".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
