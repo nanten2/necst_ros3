@@ -17,7 +17,7 @@ def callback(req):
     array2 = std_msgs.msg.Float64MultiArray()
     
     dfs = achilles.dfs()
-    data = dfs.oneshot(repeat=1, exposure=req.data, starttime=0.0)
+    data = dfs.oneshot(repeat=1, integsec=req.data, starttime=0.0)
     
     [data1.extend(i) for i in list(data[0])]
     [dfs1_list.append(data1[i*16384:(i+1)*16384]) for i in range(int(len(data1)/16384))]
