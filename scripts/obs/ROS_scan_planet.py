@@ -10,8 +10,7 @@ from astropy.coordinates import get_body, AltAz, EarthLocation, SkyCoord
 from astropy.time import Time
 import astropy.units as u
 from datetime import datetime as dt
-sys.path.append("/home/amigos/ros/src/necst/lib/")
-sys.path.append("/home/amigos/ros/src/necst/lib/")
+sys.path.append("/home/amigos/ros/src/necst_ros3/lib/")
 import calc_offset
 
 node_name = "worldcoordinate_planet"

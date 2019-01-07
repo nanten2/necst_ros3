@@ -7,8 +7,7 @@ import time
 from datetime import datetime as dt
 import threading
 import sys
-sys.path.append("/home/amigos/ros/src/necst/lib/")
-sys.path.append("/home/amigos/ros/src/necst/lib/")
+sys.path.append("/home/amigos/ros/src/necst_ros3/lib/")
 import calc_offset
 
 node_name = "worldcoordinate_onepoint"

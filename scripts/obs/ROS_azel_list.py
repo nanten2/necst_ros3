@@ -8,8 +8,7 @@ from datetime import datetime
 from astropy.time import Time
 import time
 import sys
-sys.path.append("/home/amigos/ros/src/necst/lib/")
-sys.path.append("/home/necst/ros/src/necst/lib/")
+sys.path.append("/home/amigos/ros/src/necst_ros3/lib/")
 import calc_coord
 
 
