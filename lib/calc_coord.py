@@ -6,8 +6,7 @@ from datetime import timedelta
 import time
 import math
 import sys
-sys.path.append('/home/amigos/ros/src/necst/lib')
-sys.path.append('/home/necst/ros/src/necst/lib')
+sys.path.append('/home/amigos/ros/src/necst_ros3/lib')
 import coord
 import numpy as np
 import rospy
