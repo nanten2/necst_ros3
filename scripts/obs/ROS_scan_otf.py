@@ -6,8 +6,7 @@ from necst.msg import List_coord_msg
 import time
 import threading
 import sys
-sys.path.append("/home/amigos/ros/src/necst/lib/")
-sys.path.append("/home/amigos/ros/src/necst/lib/")
+sys.path.append("/home/amigos/ros/src/necst_ros3/lib/")
 import calc_offset
 
 node_name = "worldcoordinate_otf"
