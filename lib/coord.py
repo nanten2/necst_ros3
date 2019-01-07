@@ -2,7 +2,6 @@ import math
 import time
 #from pyslalib import slalib
 import sys
-sys.path.append('/home/necst/ros/src/necst/lib')
 import ctypes
 #from jplephem.spk import SPK
 #import geomech
