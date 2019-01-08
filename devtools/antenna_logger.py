@@ -113,7 +113,7 @@ class logger(object):
             self.n2.write("el", "", (self.el, self.el_cmd, self.el_cmd2, self.el_speed))
             self.n2.write("io", "", (self.error, self.control, self.emergency))
 
-            time.sleep(0.0001) # 0.1 msec.
+            time.sleep(0.01) # 0.1 msec.
         
         else: 
             self.n2.commit_data()
