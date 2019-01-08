@@ -1,0 +1,8 @@
+<launch>
+
+  <node name = "image_saver"
+        type = "ROS_image.py"
+        pkg = "necst_ros3">
+  </node>
+
+</launch>
