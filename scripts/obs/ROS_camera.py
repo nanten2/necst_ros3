@@ -22,13 +22,14 @@ class cam_controller(object):
         self.DLSR.detect_camera()
         self.DLSR.set_whitebalance(white='SKY')
         self.DLSR.set_crop(crop='1.3x')
-        """
+
         self.topic_to = rospy.Publisher(
                 name = "image",
                 data_class = Image,
-                queue_size = 1,
+                queue_size = 100,
+                latch = True,
             )
-        """
+
         topic_from = rospy.Subscriber(
                 name = "oneshot_cmd",
                 data_class = std_msgs.msg.String,
@@ -46,27 +47,14 @@ class cam_controller(object):
 
         self.DLSR.shutter_download(filename='/home/amigos/Pictures/capture/'+self.filename)
         print('oneshot!')
-        return
 
-    """
-    def pub_image(self):
-        while True:
-            if not self.filename == '':
-                break
-        while True:
-            if os.path.exists('/home/amigos/Pictures/capture/'+self.filename) == True:
-                break
-            time.sleep(0.1)
-        
         image_path = '/home/amigos/Pictures/capture/'
         img = cv2.imread(image_path + self.filename)
         bridge = CvBridge()
-        pub = rospy.Publisher('Image', Image, queue_size = 100, latch=True)
-        pub.publish(bridge.cv2_to_imgmsg(img, 'bgr8'))
+        self.topic_to.publish(bridge.cv2_to_imgmsg(img, 'bgr8'))
         print('publish picture')
-        self.filename = ''
+        time.sleep(0.1)
         return
-    """
 
 if __name__ == '__main__':
     rospy.init_node(name)

@@ -18,5 +18,6 @@
 
   <include ns="obs" file="$(find necst_ros3)/launch/nanten2-obs.launch" />
   <include ns="alert" file="$(find necst_ros3)/launch/nanten2-alert.launch" />
+  <include ns="camera" file="$(find necst_ros3)/launch/nanten2-camera.launch" />
 
 </launch>
