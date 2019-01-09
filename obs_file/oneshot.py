@@ -133,19 +133,12 @@ else:
     pass
 
 print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
+while round(red.antenna.az(), 4) != round(red.antenna.az_cmd(), 4) or round(red.antenna.el(), 4) != round(red.antenna.el_cmd(), 4):
     time.sleep(0.1)
     continue
 
 print("[{}]  GET ONESHOT".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 con.camera.oneshot(filename)
-
-
-while True:
-    if os.path.exists(dirname + filename + '.jpg') == True:
-        break
-    time.sleep(0.01)
-    continue
 
 
 con.dome.tracking(False)
