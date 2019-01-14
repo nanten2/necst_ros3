@@ -4,6 +4,7 @@ name = "image_saver"
 
 import datetime
 import rospy
+import std_msgs
 import sys
 import cv2
 from cv_bridge import CvBridge
