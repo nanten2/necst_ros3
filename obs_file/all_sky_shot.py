@@ -42,8 +42,3 @@ else:
     print("[{}]  START OBSERVATION IN AZ SORT MODE (DEFALUT)".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
 opt.start_observation(sort=_sort)
-
-
-
-
-
