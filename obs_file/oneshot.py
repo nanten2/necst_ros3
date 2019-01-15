@@ -3,6 +3,7 @@
 import time
 import datetime
 import os
+import shutil
 import sys
 import argparse
 
@@ -140,9 +141,13 @@ while round(red.antenna.az(), 4) != round(red.antenna.az_cmd(), 4) or round(red.
 print("[{}]  GET ONESHOT".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 con.camera.oneshot(filename)
 
-
 con.dome.tracking(False)
 con.antenna.stop()
-time.sleep(0.1)
+
+
+while os.path.exists("/home/amigos/data/opt/"+filename+".jpg") == False:
+    time.sleep(0.1)
+    continue
+shutil.move("/home/amigos/data/opt/"+filename+".jpg", "/home/amigos/data/opt/oneshot")
 
 print("[{}]  END OBSERVATION".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))

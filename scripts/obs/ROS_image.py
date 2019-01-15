@@ -30,7 +30,7 @@ class Image(object):
     def Image_save(self, req):
         bridge = CvBridge()
         img_data = bridge.imgmsg_to_cv2(req, 'bgr8')
-        cv2.imwrite("/home/amigos/Pictures/capture/{}.jpg".format(self.filename), img_data)
+        cv2.imwrite("/home/amigos/data/opt/{}.jpg".format(self.filename), img_data)
         print('save picture')
         return
 

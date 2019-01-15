@@ -1,21 +1,23 @@
 #!/usr/bin/env python
 
+import os
 import time
 import datetime
 import sys
 sys.path.append("/home/amigos/ros/src/necst_ros3/lib")
 import opt_analy
+import ccd_old as ccd
 sys.path.append("/home/amigos/ros/src/necst_ros3/scripts")
 import v3_controller
 import v3_reader
 import signal
 
-import ccd_old as ccd
 from astropy.coordinates import SkyCoord,EarthLocation
 from astropy.time import Time
 import astropy.units as u
 #import azel_calc
 import calc_coord
+
 nanten2 = EarthLocation(lat=-22.9699511*u.deg, lon=-67.60308139*u.deg, height=4863.84*u.m)
 
 
@@ -37,7 +39,7 @@ class opt_point_controller(object):
     
     def __init__(self):
         self.con = v3_controller.controller()
-        self.red = v3_reader.reader(False)
+        self.red = v3_reader.reader(node=False)
         self.calc = calc_coord.azel_calc()
         pass
     
@@ -64,10 +66,7 @@ class opt_point_controller(object):
         """
 
         #create target_list
-        try:
-            f = open(self.pointing_list)
-        except:
-            f = open(self.pointing_list2)
+        f = open(self.pointing_list)
         line = f.readline()
         target_list = []
         
@@ -192,7 +191,9 @@ class opt_point_controller(object):
         if sort == "r_az":
             re_az = [i for i in reversed(target_list)]
             target_list = re_az
+
         f.close()
+
         return target_list
     
     def start_observation(self, sort = 'az'):
@@ -200,9 +201,6 @@ class opt_point_controller(object):
         table = self.create_table(sort = sort)
         print("#################",table)
         print("[{}]  CREATE OBJECT TABLE".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-        num = len(table)
-        
-        self.con.dome.tracking(True)
         
         date = datetime.datetime.today()
         month = str("{0:02d}".format(date.month))
@@ -212,7 +210,10 @@ class opt_point_controller(object):
         second = str("{0:02d}".format(date.second))
         data_name = "opt_"+str(date.year)+month+day+hour+minute+second#real
 
+        print("[{}]  MAKE DIRECTORY".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
+        os.mkdir("/home/amigos/data/opt/" + data_name)
         
+        self.con.dome.tracking(True)
         
         for _tbl in table:
             print("table",table)
@@ -225,7 +226,6 @@ class opt_point_controller(object):
 
             ret = self.calc.coordinate_calc(__ra, __dec, __now, 'fk5', 0, 0, 'hosei_opt.txt', 0.5, 980, 260, 0.07)
             real_el = ret[1][0]/3600.
-            #print('#L161',ret) ??
             print("[{0}]  OBJECT RA {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), ret[0][0]/3600.))
             print("[{0}]  OBJECT DEC {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), ret[1][0]/3600.))
             if real_el >= 30. and real_el < 79.5:
@@ -233,25 +233,21 @@ class opt_point_controller(object):
                 self.con.antenna.onepoint_move(_tbl[1], _tbl[2], "fk5",hosei="hosei_opt.txt",lamda = 0.5, rotation = False)#lamda = 0.5 => 500
                 print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
-                #stop moving antenna and dome tracking
                 print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-                while round(red.antenna.az(), 4) != round(red.antenna.az_cmd(), 4) or round(red.antenna.el(), 4) != round(red.antenna.el_cmd(), 4):
+                while round(self.red.antenna.az(), 4) != round(self.red.antenna.az_cmd(), 4) or round(self.red.antenna.el(), 4) != round(self.red.antenna.el_cmd(), 4):
                     time.sleep(0.1)
                     continue
 
-                """
-                now = datetime.datetime.now()
-                status = self.con.read_status()
                 ret = self.calc.coordinate_calc(__ra, __dec, __now, 'fk5', 0, 0, 'hosei_opt.txt', 2600, 5, 20, 0.07)
-                print('###ret###',ret)
+                #print('###ret###',ret)
                 try:
-                    ccd.ccd_controller().all_sky_shot(_tbl[0], _tbl[3], ret[0][0]/3600., ret[1][0]/3600., data_name, status)
+                    ccd.ccd_controller().all_sky_shot(_tbl[0], _tbl[3], ret[0][0]/3600., ret[1][0]/3600., data_name)
                 except Exception as e:
-                    print(e)
-                    self.con.move_stop()
+                    print("[{0}]  ERROR OCCURED : {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), e))
+                    self.con.dome.tracking(False)
+                    self.con.antenna.stop()
                     time.sleep(3)
                     sys.exit()
-                """
 
             else:
                 print("[{0}]  THIS OBJECT IS OUT OF RANGE(EL)".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
@@ -262,22 +258,21 @@ class opt_point_controller(object):
 
         ###plot Qlook
         ###==========
-        optdata_dir = '/home/nfs/necopt-old/ccd-shot/data/'
+        optdata_dir = '/home/amigos/data/opt/'
         try:
             print("[{}]  POINTING ANALYSIS".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
             opt_analy.opt_plot([optdata_dir+data_name], savefig=True, figname=data_name, interactive=True)
         except Exception as e:
-            print(e)
+            print("[{0}]  ERROR OCCURED : {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), e))
 
         try:
             import glob
-            date = dataname[:8]
+            date = data_name[:8]
             file_list = glob.glob('{}{}*'.format(optdata_dir, date))
-            print("[{}]  POINTING ANALYSIS".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
             opt_analy.opt_plot(file_list, savefig=True, interactive=True)     
             pass
         except Exception as e:
-            print(e)
+            print("[{0}]  ERROR OCCURED : {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), e))
         ###==========
         
         self.con.antenna.stop()
