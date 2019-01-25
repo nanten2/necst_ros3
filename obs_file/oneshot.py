@@ -3,6 +3,7 @@
 import time
 import datetime
 import os
+import shutil
 import sys
 import argparse
 
@@ -58,18 +59,16 @@ target = []
 
 
 if not filename:
-    filename = time.strftime("%H%M%S")
-dirname = "/home/amigos/data/experiment/oneshot/" + time.strftime("%Y%m%d") + "/"
+    filename = time.strftime("%Y%m%d%H%M%S")
+dirname = "/home/amigos/data/opt/oneshot/"
 
 if not os.path.exists(dirname):
     print("[{}]  MAKE DIRECTORY".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
     os.makedirs(dirname)
 
 #read star list
-try:
-    f = open("/home/amigos/ros/src/necst_ros3/lib/1st_star_list.txt")
-except:
-    f = open("/home/necst/ros/src/necst_ros3/lib/1st_star_list.txt")
+f = open("/home/amigos/ros/src/necst_ros3/lib/1st_star_list.txt")
+
 line = f.readline()
 while line:
     line = line.split()
@@ -133,23 +132,20 @@ else:
     pass
 
 print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-while round(red.antenna.az(), 1) != round(red.antenna.az_cmd(), 1) or round(red.antenna.el(), 1) != round(red.antenna.el_cmd(), 1):
+while round(red.antenna.az(), 4) != round(red.antenna.az_cmd(), 4) or round(red.antenna.el(), 4) != round(red.antenna.el_cmd(), 4):
     time.sleep(0.1)
     continue
 
 print("[{}]  GET ONESHOT".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 con.camera.oneshot(filename)
 
-
-while True:
-    if os.path.exists(dirname + filename + '.jpg') == True:
-        break
-    time.sleep(0.01)
-    continue
-
-
 con.dome.tracking(False)
 con.antenna.stop()
-time.sleep(0.1)
+
+
+while os.path.exists("/home/amigos/data/opt/"+filename+".jpg") == False:
+    time.sleep(0.1)
+    continue
+shutil.move("/home/amigos/data/opt/"+filename+".jpg", "/home/amigos/data/opt/oneshot")
 
 print("[{}]  END OBSERVATION".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))

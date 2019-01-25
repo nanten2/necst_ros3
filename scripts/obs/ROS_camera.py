@@ -1,4 +1,4 @@
-#!usr/bin/env python3
+#!/usr/bin/env python2
 
 name = "camera_controller"
 
@@ -24,14 +24,14 @@ class cam_controller(object):
         self.DLSR.set_crop(crop='1.3x')
 
         self.topic_to = rospy.Publisher(
-                name = "image",
+                name = "/camera/image",
                 data_class = Image,
                 queue_size = 100,
                 latch = True,
             )
 
         topic_from = rospy.Subscriber(
-                name = "oneshot_cmd",
+                name = "/camera/oneshot_cmd",
                 data_class = std_msgs.msg.String,
                 callback = self.callback,
                 queue_size = 1,

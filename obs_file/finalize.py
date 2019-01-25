@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 
 import time
-import os
 import sys
 import datetime
 import argparse
@@ -85,7 +84,7 @@ if snow:
         time.sleep(1)
         continue
 else:
-    while round(red.antenna.az(), 4) != 0.0 or round(red.antenna.el(), 4) != 45.0:
+    while round(red.antenna.az(), 5) != 0.0 or round(red.antenna.el(), 5) != 45.0:
         time.sleep(1)
         continue
 
