@@ -15,7 +15,6 @@ import signal
 from astropy.coordinates import SkyCoord,EarthLocation
 from astropy.time import Time
 import astropy.units as u
-#import azel_calc
 import calc_coord
 
 nanten2 = EarthLocation(lat=-22.9699511*u.deg, lon=-67.60308139*u.deg, height=4863.84*u.m)
@@ -51,7 +50,7 @@ class opt_point_controller(object):
         sys.exit()
         return
 
-    def create_table(self,sort = 'az'):
+    def create_table(self, sort ='az', hosei_opt="hosei_opt.txt"):
         """
         Returns
         -------
@@ -98,7 +97,7 @@ class opt_point_controller(object):
             dec = [dec*3600.]
             now = [now]
 
-            ret = self.calc.coordinate_calc(ra, dec, now, 'fk5', 0, 0, 'hosei_opt.txt', 2600, 5, 20, 0.07)
+            ret = self.calc.coordinate_calc(ra, dec, now, 'fk5', 0, 0, hosei_opt, 2600, 5, 20, 0.07)
             _list.append(ret[0][0]) #az arcsec
             _list.append(ret[1][0])
             if _list[4] > 3600*180:#
@@ -106,7 +105,6 @@ class opt_point_controller(object):
 
             if sort == 'az' or sort == "r_az":
                 if ret[1][0]/3600. >= 30 and ret[1][0]/3600. < 80:
-                    print("============")
                     num = len(target_list)
                     if num == 0:
                         target_list.append(_list) 
@@ -126,7 +124,6 @@ class opt_point_controller(object):
 
             elif sort == 'line_az':
                 if ret[1][0]/3600. >= 35 and ret[1][0]/3600. <= 55:
-                    print("============")
                     num = len(target_list)
                     if num == 0:
                         target_list.append(_list) 
@@ -148,7 +145,6 @@ class opt_point_controller(object):
                 if not (-10*3600. <= _list[4] <= +10*3600.):
                     pass
                 elif ret[1][0]/3600. >= 30 and ret[1][0]/3600. < 80:
-                    print("============")
                     num = len(target_list)
                     if num == 0:
                         target_list.append(_list) 
@@ -168,7 +164,6 @@ class opt_point_controller(object):
 
             else:#el_sort
                 if ret[1][0]/3600. >= 30 and ret[1][0]/3600. < 80:
-                    print("============")
                     num = len(target_list)
                     if num == 0:
                         target_list.append(_list) 
@@ -197,9 +192,10 @@ class opt_point_controller(object):
         return target_list
     
     def start_observation(self, sort = 'az'):
+        hosei_opt = "hosei_opt.txt"
+
         signal.signal(signal.SIGINT, self.handler)
-        table = self.create_table(sort = sort)
-        print("#################",table)
+        table = self.create_table(sort=sort, hosei_opt=hosei_opt)
         print("[{}]  CREATE OBJECT TABLE".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         
         date = datetime.datetime.today()
@@ -212,11 +208,12 @@ class opt_point_controller(object):
 
         print("[{}]  MAKE DIRECTORY".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         os.mkdir("/home/amigos/data/opt/" + data_name)
+
+        print("[{0}]  HOSEI FILE {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), hosei_opt))
         
         self.con.dome.tracking(True)
         
         for _tbl in table:
-            print("table",table)
             now = datetime.datetime.utcnow()
             
              #store parameters in lists to use self.calc.coordinate_calc
@@ -224,13 +221,13 @@ class opt_point_controller(object):
             __dec = [_tbl[2]*3600.]
             __now = [now]
 
-            ret = self.calc.coordinate_calc(__ra, __dec, __now, 'fk5', 0, 0, 'hosei_opt.txt', 0.5, 980, 260, 0.07)
+            ret = self.calc.coordinate_calc(__ra, __dec, __now, 'fk5', 0, 0, hosei_opt, 0.5, 980, 260, 0.07)
             real_el = ret[1][0]/3600.
             print("[{0}]  OBJECT RA {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), ret[0][0]/3600.))
             print("[{0}]  OBJECT DEC {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), ret[1][0]/3600.))
             if real_el >= 30. and real_el < 79.5:
                 print("[{}]  ANTENNA TRACKING START".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
-                self.con.antenna.onepoint_move(_tbl[1], _tbl[2], "fk5",hosei="hosei_opt.txt",lamda = 0.5, rotation = False)#lamda = 0.5 => 500
+                self.con.antenna.onepoint_move(_tbl[1], _tbl[2], "fk5",hosei=hosei_opt,lamda = 0.5, rotation = False)#lamda = 0.5 => 500
                 print("[{}]  ANTENNA MOVING".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
 
                 print("[{}]  ANTENNA TRACKING CHECK".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
@@ -238,10 +235,10 @@ class opt_point_controller(object):
                     time.sleep(0.1)
                     continue
 
-                ret = self.calc.coordinate_calc(__ra, __dec, __now, 'fk5', 0, 0, 'hosei_opt.txt', 2600, 5, 20, 0.07)
-                #print('###ret###',ret)
+                ret = self.calc.coordinate_calc(__ra, __dec, __now, 'fk5', 0, 0, hosei_opt, 2600, 5, 20, 0.07)
                 try:
                     ccd.ccd_controller().all_sky_shot(_tbl[0], _tbl[3], ret[0][0]/3600., ret[1][0]/3600., data_name)
+                    pass
                 except Exception as e:
                     print("[{0}]  ERROR OCCURED : {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), e))
                     self.con.dome.tracking(False)
