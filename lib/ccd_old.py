@@ -83,7 +83,14 @@ class ccd_controller(object):
             continue
 
         time.sleep(2.)
-        in_image = Image.open("/home/amigos/data/opt/"+name+".jpg")
+
+        ###triming
+        origin_image = Image.open("/home/amigos/data/opt/"+name+".jpg")
+        trim_image = origin_image.crop((2080.0, 1360.0, 2720.0, 1840.0))
+        trim_image.save("/home/amigos/data/opt/"+data_name+"/"+name+"_trim.jpg")
+        ###triming end
+
+        in_image = Image.open("/home/amigos/data/opt/"+data_name+"/"+name+"_trim.jpg")
         image = np.array(ImageOps.grayscale(in_image))
         
         #threshold
@@ -155,6 +162,7 @@ class ccd_controller(object):
         self.save_status(xx, yy, number, magnitude, az_star, el_star, mjd, data_name, secofday, status)
 
         shutil.move("/home/amigos/data/opt/"+name+".jpg", "/home/amigos/data/opt/"+data_name)
+        shutil.move("/home/amigos/data/opt/"+name+"_trim.jpg", "/home/amigos/data/opt/"+data_name)
 
         return
     
