@@ -59,18 +59,16 @@ target = []
 
 
 if not filename:
-    filename = time.strftime("%H%M%S")
-dirname = "/home/amigos/data/experiment/oneshot/" + time.strftime("%Y%m%d") + "/"
+    filename = time.strftime("%Y%m%d%H%M%S")
+dirname = "/home/amigos/data/opt/oneshot/"
 
 if not os.path.exists(dirname):
     print("[{}]  MAKE DIRECTORY".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
     os.makedirs(dirname)
 
 #read star list
-try:
-    f = open("/home/amigos/ros/src/necst_ros3/lib/1st_star_list.txt")
-except:
-    f = open("/home/necst/ros/src/necst_ros3/lib/1st_star_list.txt")
+f = open("/home/amigos/ros/src/necst_ros3/lib/1st_star_list.txt")
+
 line = f.readline()
 while line:
     line = line.split()
