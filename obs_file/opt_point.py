@@ -208,7 +208,7 @@ class opt_point_controller(object):
         hour = str("{0:02d}".format(date.hour))
         minute = str("{0:02d}".format(date.minute))
         second = str("{0:02d}".format(date.second))
-        data_name = "opt_"+str(date.year)+month+day+hour+minute+second#real
+        data_name = "opt_"+str(date.year)+month+day+hour+minute+second
 
         print("[{}]  MAKE DIRECTORY".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))
         os.mkdir("/home/amigos/data/opt/" + data_name)
