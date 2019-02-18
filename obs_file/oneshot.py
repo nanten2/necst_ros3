@@ -146,6 +146,7 @@ con.antenna.stop()
 while os.path.exists("/home/amigos/data/opt/"+filename+".jpg") == False:
     time.sleep(0.1)
     continue
+
 shutil.move("/home/amigos/data/opt/"+filename+".jpg", "/home/amigos/data/opt/oneshot")
 
 print("[{}]  END OBSERVATION".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S")))

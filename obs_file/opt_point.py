@@ -97,7 +97,10 @@ class opt_point_controller(object):
             dec = [dec*3600.]
             now = [now]
 
-            ret = self.calc.coordinate_calc(ra, dec, now, 'fk5', 0, 0, hosei_opt, 2600, 5, 20, 0.07)
+            press = self.red.weather.pressure()
+            out_temp = self.red.weather.out_temp()
+            out_humi = self.red.weather.out_humi()
+            ret = self.calc.coordinate_calc(ra, dec, now, 'fk5', 0, 0, hosei_opt, lamda=0.5, press=press, temp=out_temp, humi=out_humi/100)
             _list.append(ret[0][0]) #az arcsec
             _list.append(ret[1][0])
             if _list[4] > 3600*180:#
@@ -221,7 +224,10 @@ class opt_point_controller(object):
             __dec = [_tbl[2]*3600.]
             __now = [now]
 
-            ret = self.calc.coordinate_calc(__ra, __dec, __now, 'fk5', 0, 0, hosei_opt, 0.5, 980, 260, 0.07)
+            press = self.red.weather.pressure()
+            out_temp = self.red.weather.out_temp()
+            out_humi = self.red.weather.out_humi()
+            ret = self.calc.coordinate_calc(__ra, __dec, __now, 'fk5', 0, 0, hosei_opt, lamda=0.5, press=press, temp=out_temp, humi=out_humi/100)
             real_el = ret[1][0]/3600.
             print("[{0}]  OBJECT RA {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), ret[0][0]/3600.))
             print("[{0}]  OBJECT DEC {1}".format(datetime.datetime.strftime(datetime.datetime.now(), "%H:%M:%S"), ret[1][0]/3600.))
@@ -235,7 +241,11 @@ class opt_point_controller(object):
                     time.sleep(0.1)
                     continue
 
-                ret = self.calc.coordinate_calc(__ra, __dec, __now, 'fk5', 0, 0, hosei_opt, 2600, 5, 20, 0.07)
+                press = self.red.weather.pressure()
+                out_temp = self.red.weather.out_temp()
+                out_humi = self.red.weather.out_humi()
+                ret = self.calc.coordinate_calc(__ra, __dec, __now, 'fk5', 0, 0, hosei_opt, lamda=0.5, press=press, temp=out_temp, humi=out_humi/100)
+
                 try:
                     ccd.ccd_controller().all_sky_shot(_tbl[0], _tbl[3], ret[0][0]/3600., ret[1][0]/3600., data_name)
                     pass
